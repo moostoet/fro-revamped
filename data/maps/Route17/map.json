@@ -220,16 +220,6 @@
     },
     {
       "type": "hidden_item",
-      "x": 18,
-      "y": 83,
-      "elevation": 3,
-      "item": "ITEM_RARE_CANDY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE17_RARE_CANDY",
-      "quantity": 1,
-      "underfoot": false
-    },
-    {
-      "type": "hidden_item",
       "x": 10,
       "y": 53,
       "elevation": 3,

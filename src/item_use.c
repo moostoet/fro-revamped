@@ -38,6 +38,8 @@
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/field_weather.h"
+#include "event_scripts.h"
+#include "script_pokemon_util.h"
 
 static EWRAM_DATA void (*sItemUseOnFieldCB)(u8 taskId) = NULL;
 
@@ -50,6 +52,9 @@ static void CB2_CheckMail(void);
 static void ItemUseOnFieldCB_Bicycle(u8 taskId);
 static bool8 CanFish(void);
 static void ItemUseOnFieldCB_Rod(u8 taskId);
+static void Task_AccessPokemonBoxLink(u8 taskId);
+static void Task_UseSyringe(u8 taskId);
+static void Task_UseMedKit(u8 taskId);
 static void Task_PlayPokeFlute(u8 taskId);
 static void Task_DisplayPokeFluteMessage(u8 taskId);
 static void InitTMCaseFromBag(void);
@@ -135,6 +140,8 @@ static void (*const sExitCallbackByItemType[])(void) = {
     [ITEM_TYPE_BAG_MENU   - 1] = NULL,
 };
 
+#define tUsingRegisteredKeyItem  data[3]
+
 static void SetUpItemUseCallback(u8 taskId)
 {
     u8 itemType;
@@ -142,11 +149,13 @@ static void SetUpItemUseCallback(u8 taskId)
         itemType = gTasks[taskId].data[4] - 1;
     else
         itemType = ItemId_GetType(gSpecialVar_ItemId) - 1;
+
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
     {
         BerryPouch_SetExitCallback(sExitCallbackByItemType[itemType]);
         BerryPouch_StartFadeToExitCallback(taskId);
     }
+    
     else
     {
         ItemMenu_SetExitCallback(sExitCallbackByItemType[itemType]);
@@ -158,13 +167,15 @@ static void SetUpItemUseCallback(u8 taskId)
 
 static void SetUpItemUseOnFieldCallback(u8 taskId)
 {
-    if (gTasks[taskId].data[3] != 1)
+    if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
     {
         gFieldCallback = FieldCB_FadeInFromBlack;
         SetUpItemUseCallback(taskId);
     }
     else
+    {
         sItemUseOnFieldCB(taskId);
+    }
 }
 
 static void FieldCB_FadeInFromBlack(void)
@@ -435,7 +446,6 @@ void FieldUseFunc_EvoItem(u8 taskId)
     gItemUseCB = ItemUseCB_EvolutionStone;
     DoSetUpItemUseCallback(taskId);
 }
-
 void FieldUseFunc_SacredAsh(u8 taskId)
 {
     gItemUseCB = ItemUseCB_SacredAsh;
@@ -568,6 +578,119 @@ static void Task_UseRepel(u8 taskId)
         RemoveUsedItem();
         DisplayItemMessageInBag(taskId, FONT_NORMAL, gStringVar4, Task_ReturnToBagFromContextMenu);
     }
+}
+
+#define INFINITE_REPEL_VALUE 65535
+
+static void Task_UseInfiniteRepel(u8 taskId)
+{
+    if (!IsSEPlaying())
+    {
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
+        VarSet(VAR_REPEL_STEP_COUNT, INFINITE_REPEL_VALUE);
+        FlagSet(FLAG_INFINITE_REPEL);
+        if (gTasks[taskId].tUsingRegisteredKeyItem){
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ForeverRepel_Activate, Task_ItemUse_CloseMessageBoxAndReturnToField);
+        } else {
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_ForeverRepel_Activate, Task_ReturnToBagFromContextMenu);
+        }
+    }
+}
+
+void FieldUseFunc_ForeverRepel(u8 taskId)
+{
+    if (FlagGet(FLAG_INFINITE_REPEL))
+    {
+        PlaySE(SE_PC_OFF);
+        FlagClear(FLAG_INFINITE_REPEL);
+        VarSet(VAR_REPEL_STEP_COUNT, 0);
+        if (gTasks[taskId].tUsingRegisteredKeyItem) {
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ForeverRepel_Deactivate, Task_ItemUse_CloseMessageBoxAndReturnToField);
+        } else {
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_ForeverRepel_Deactivate, Task_ReturnToBagFromContextMenu);
+        }
+    }
+    else
+    {
+        if (VarGet(VAR_REPEL_STEP_COUNT) == 0)
+        {
+            PlaySE(SE_REPEL);
+            gTasks[taskId].func = Task_UseInfiniteRepel;
+        }
+        else
+        {
+            if (gTasks[taskId].tUsingRegisteredKeyItem) {
+                DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ForeverRepel_AlreadyActive, Task_ItemUse_CloseMessageBoxAndReturnToField);
+            } else {
+                DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_ForeverRepel_AlreadyActive, Task_ReturnToBagFromContextMenu);
+            }
+        }
+    }
+}
+
+void FieldUseFunc_BoxLink(u8 taskId)
+{
+    if (FlagGet(FLAG_BOX_LINK_DISABLED))
+    {
+        DisplayItemMessageInCurrentContext(taskId, gTasks[taskId].tUsingRegisteredKeyItem, FONT_NORMAL, gText_BoxLinkDisabled);
+    } else
+    {
+        sItemUseOnFieldCB = Task_AccessPokemonBoxLink;
+        SetUpItemUseOnFieldCallback(taskId);
+    }
+}
+
+static void Task_AccessPokemonBoxLink(u8 taskId)
+{
+    ScriptContext_SetupScript(EventScript_AccessPokemonBoxLink);
+    DestroyTask(taskId);
+}
+
+void FieldUseFunc_MedKit(u8 taskId)
+{
+    if (FlagGet(FLAG_MED_KIT_DISABLED))
+    {
+        DisplayItemMessageInCurrentContext(taskId, gTasks[taskId].tUsingRegisteredKeyItem, FONT_NORMAL, gText_BoxLinkDisabled);
+    }
+    else
+    {
+        PlaySE(SE_USE_ITEM);
+        gTasks[taskId].func = Task_UseMedKit;
+    }
+}
+
+static void Task_UseMedKit(u8 taskId)
+{
+    if (!IsSEPlaying())
+    {
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
+        if (gTasks[taskId].tUsingRegisteredKeyItem){
+            HealPlayerParty();
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_MedKit_Used, Task_ItemUse_CloseMessageBoxAndReturnToField);
+        } else {
+            HealPlayerParty();
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_MedKit_Used, Task_ReturnToBagFromContextMenu);
+        }
+    }
+}
+
+void FieldUseFunc_Syringe(u8 taskId)
+{
+    if (FlagGet(FLAG_SYRINGE_DISABLED))
+    {
+        DisplayItemMessageInCurrentContext(taskId, gTasks[taskId].tUsingRegisteredKeyItem, FONT_NORMAL, gText_SyringeDisabled);
+    }
+    else
+    {
+        sItemUseOnFieldCB = Task_UseSyringe;
+        SetUpItemUseOnFieldCallback(taskId);
+    }
+}
+
+static void Task_UseSyringe(u8 taskId)
+{
+    ScriptContext_SetupScript(EventScript_InflictStatusMenu);
+    DestroyTask(taskId);
 }
 
 static void RemoveUsedItem(void)

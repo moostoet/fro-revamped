@@ -1239,6 +1239,9 @@ extern const u8 EventScript_FieldPoison[];
 extern const u8 EventScript_EggHatch[];
 extern const u8 EventScript_DoFallWarp[];
 
+extern const u8 EventScript_AccessPokemonBoxLink[];
+extern const u8 EventScript_InflictStatusMenu[];
+
 // overworld
 
 extern const u8 EventScript_ResetEliteFourEnd[];

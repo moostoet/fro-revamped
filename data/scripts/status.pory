@@ -1,0 +1,39 @@
+script EventScript_InflictStatusMenu {
+    lockall
+    getpartysize
+
+    if (var(VAR_RESULT) == 0) {
+        msgbox(format("Your PARTY has no POKéMON."), MSGBOX_DEFAULT)
+        releaseall
+        end
+    }
+
+    special(ChoosePartyMon)
+    waitstate
+
+    if (var(VAR_0x8004) >= 6) {
+        releaseall
+        end
+    }
+
+    specialvar(VAR_RESULT, GetPartyMonSpecies)
+
+    if (var(VAR_RESULT) == SPECIES_EGG) {
+        releaseall
+        end
+    }
+
+    dynmultipush("Poison", STATUS1_POISON)
+    dynmultipush("Paralysis", STATUS1_PARALYSIS)
+    dynmultipush("Sleep", STATUS1_SLEEP)
+    dynmultipush("Burn", STATUS1_BURN)
+    dynmultipush("Freeze", STATUS1_FREEZE)
+    dynmultistack(0, 0, FALSE, 5, FALSE, 0, 255)
+    if (var(VAR_RESULT) == 127) {
+        releaseall
+        end
+    }
+    copyvar(VAR_0x8005, VAR_RESULT)
+    special(InflictStatus)
+    end
+}

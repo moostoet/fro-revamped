@@ -168,9 +168,16 @@ extern const u8 gText_ReturnToPC[];
 
 extern const u8 gText_OakForbidsUseOfItemHere[];
 extern const u8 gText_CantDismountBike[];
+extern const u8 gText_BoxLinkDisabled[];
+extern const u8 gText_SyringeDisabled[];
+extern const u8 gText_MedKitDisabled[];
 extern const u8 gText_CoinCase[];
 extern const u8 gText_PlayerUsedVar2[];
 extern const u8 gText_RepelEffectsLingered[];
+extern const u8 gText_ForeverRepel_Activate[];
+extern const u8 gText_MedKit_Used[];
+extern const u8 gText_ForeverRepel_Deactivate[];
+extern const u8 gText_ForeverRepel_AlreadyActive[];
 extern const u8 gText_UsedVar2WildLured[];
 extern const u8 gText_UsedVar2WildRepelled[];
 extern const u8 gText_BoxFull[];

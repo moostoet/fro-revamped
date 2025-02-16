@@ -1161,6 +1161,14 @@
 	.2byte \limit
 	.endm
 
+	@ Inflicts \status1 to the Pokémon in \slot.
+	@ If \slot is greater or equal than PARTY_SIZE, the status is inflicted on each of the Player's Pokémon.
+	.macro setstatus1 status1:req, slot:req
+	callnative Script_SetStatus1
+	.2byte \status1
+	.2byte \slot
+	.endm
+
 	@ Adds value to the player's money. If adding 'value' money would exceed MAX_MONEY, the player's money is set to MAX_MONEY.
 	@ If 'disable' is set to anything but 0 then this command does nothing.
 	.macro addmoney value:req, disable=0
@@ -1631,6 +1639,39 @@
 	stringvar \stringVarId
 	.2byte \item
 	.2byte \quantity
+	.endm
+
+
+	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req argv:vararg
+	.byte 0xd5
+	.2byte \left
+	.2byte \top
+	.byte \ignoreBPress
+	.byte \maxBeforeScroll
+	.byte \shouldSort
+	.2byte \initialSelected
+	.byte \callbacks
+	.byte (.Ldynmultichoice_\@_2 - .Ldynmultichoice_\@_1) / 4
+.Ldynmultichoice_\@_1:
+	.4byte \argv
+.Ldynmultichoice_\@_2:
+	.endm
+
+	@ Displays a multichoice box from which the user can choose a selection, and blocks script execution until a selection is made.
+	@ Lists of options are provided in argv.
+	@ If ignoreBPress is set to a non-zero value, then the user will not be allowed to back out of the multichoice with the B button.
+	.macro dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, initialSelected:req, callbacks:req argv:vararg
+	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, FALSE, \initialSelected, \callbacks, \argv
+	.endm
+
+	.macro dynmultipush name:req, id:req
+	.byte 0xd6
+	.4byte \name
+	.2byte \id
+	.endm
+
+	.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
+	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, 0
 	.endm
 
 

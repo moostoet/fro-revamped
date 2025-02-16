@@ -36,6 +36,8 @@
 #include "constants/hold_effects.h"
 #include "constants/battle_move_effects.h"
 #include "constants/union_room.h"
+#include "config/caps.h"
+#include "caps.h"
 
 #define SPECIES_TO_HOENN(name)      [SPECIES_##name - 1] = HOENN_DEX_##name
 #define SPECIES_TO_NATIONAL(name)   [SPECIES_##name - 1] = NATIONAL_DEX_##name
@@ -67,7 +69,7 @@ static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 perso
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
 static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 static u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex);
-static u8 GetNatureFromPersonality(u32 personality);
+u8 GetNatureFromPersonality(u32 personality);
 static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 IsPokemonStorageFull(void);
@@ -1357,7 +1359,7 @@ static const struct SpindaSpot sSpindaSpotGraphics[] =
 
 #include "data/pokemon/item_effects.h"
 
-static const s8 sNatureStatTable[NUM_NATURES][NUM_NATURE_STATS] =
+const s8 sNatureStatTable[NUM_NATURES][NUM_NATURE_STATS] =
 {                      // Attack  Defense  Speed  Sp.Atk  Sp.Def
     [NATURE_HARDY]   = {    0,      0,      0,      0,      0   },
     [NATURE_LONELY]  = {   +1,     -1,      0,      0,      0   },
@@ -4147,15 +4149,30 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 gSideTimers[GetBattlerSide(gActiveBattler)].mistTimer = 5;
                 retVal = FALSE;
             }
-
             // Rare Candy
             if ((itemEffect[cmdIndex] & ITEM3_LEVEL_UP)
              && GetMonData(mon, MON_DATA_LEVEL, NULL) != MAX_LEVEL)
             {
-                data = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
+    #ifdef B_RARE_CANDY_CAP
+                if (GetMonData(mon, MON_DATA_LEVEL, NULL) < GetCurrentLevelCap())
+                {
+                    data = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate]
+                           [GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
+                    SetMonData(mon, MON_DATA_EXP, &data);
+                    CalculateMonStats(mon);
+                    retVal = FALSE;
+                }
+                else
+                {
+                    
+                }
+    #else
+                data = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate]
+                       [GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
                 SetMonData(mon, MON_DATA_EXP, &data);
                 CalculateMonStats(mon);
                 retVal = FALSE;
+    #endif
             }
 
             // Cure status
@@ -5005,7 +5022,7 @@ u8 GetNature(struct Pokemon *mon)
     return GetMonData(mon, MON_DATA_PERSONALITY, NULL) % NUM_NATURES;
 }
 
-static u8 GetNatureFromPersonality(u32 personality)
+u8 GetNatureFromPersonality(u32 personality)
 {
     return personality % NUM_NATURES;
 }
@@ -5689,22 +5706,22 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
     u8 newLevel = level + 1;
     u32 exp = GetMonData(mon, MON_DATA_EXP, NULL);
 
-    if (level < MAX_LEVEL)
-    {
-        if (exp > gExperienceTables[gSpeciesInfo[species].growthRate][newLevel])
-        {
-            SetMonData(mon, MON_DATA_LEVEL, &newLevel);
-            SetMonExpWithMaxLevelCheck(mon, species, newLevel, exp);
-            return TRUE;
-        }
-        else
-            return FALSE;
-    }
-    else
+    // Prevent level increment if at MAX_LEVEL or if new level exceeds our current level cap.
+    if (level >= MAX_LEVEL || newLevel > GetCurrentLevelCap())
     {
         SetMonExpWithMaxLevelCheck(mon, species, level, exp);
         return FALSE;
     }
+
+    // Check if Pokémon has enough experience to reach the new level.
+    if (exp > gExperienceTables[gSpeciesInfo[species].growthRate][newLevel])
+    {
+        SetMonData(mon, MON_DATA_LEVEL, &newLevel);
+        SetMonExpWithMaxLevelCheck(mon, species, newLevel, exp);
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 u32 CanMonLearnTMHM(struct Pokemon *mon, u8 tm)
@@ -5924,12 +5941,12 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
 
 bool32 IsHMMove2(u16 move)
 {
-    int i = 0;
-    while (sHMMoves[i] != HM_MOVES_END)
-    {
-        if (sHMMoves[i++] == move)
-            return TRUE;
-    }
+    // int i = 0;
+    // while (sHMMoves[i] != HM_MOVES_END)
+    // {
+    //     if (sHMMoves[i++] == move)
+    //         return TRUE;
+    // }
     return FALSE;
 }
 

@@ -36,6 +36,13 @@ enum PokemonSummaryScreenPage
     PSS_PAGE_MOVE_DELETER,
 };
 
+enum PokemonSummaryScreenSkillPageMode
+{
+    PSS_SKILL_PAGE_STATS,
+    PSS_SKILL_PAGE_IVS,
+    PSS_SKILL_PAGE_MODE_COUNT
+};
+
 enum PokemonSummaryScreenState3270
 {
     PSS_STATE3270_FADEIN,
@@ -49,11 +56,20 @@ enum PokemonSummaryScreenState3270
 
 enum PokemonSummaryScreenStat
 {
+    PSS_STAT_HP,
     PSS_STAT_ATK,
     PSS_STAT_DEF,
     PSS_STAT_SPA,
     PSS_STAT_SPD,
     PSS_STAT_SPE
+};
+
+struct StatData {
+    u8 monDataStat;
+    u8 monDataStat2;
+    u8 monDataEv;
+    u8 monDataIv;
+    u8 pssStat;
 };
 
 #define TAG_PSS_UNK_64 0x64

@@ -36,6 +36,8 @@
 #include "constants/abilities.h"
 #include "constants/pokemon.h"
 #include "constants/maps.h"
+#include "config/caps.h"
+#include "caps.h"
 
 extern const u8 *const gBattleScriptsForMoveEffects[];
 
@@ -3243,7 +3245,10 @@ static void Cmd_getexp(void)
                     {
                         i = STRINGID_EMPTYSTRING4;
                     }
-
+                    {
+                        u32 monLevel = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
+                        gBattleMoveDamage = GetSoftLevelCapExpValue(monLevel, gBattleMoveDamage);
+                    }
                     // get exp getter battlerId
                     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                     {

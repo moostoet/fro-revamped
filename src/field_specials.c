@@ -41,17 +41,19 @@
 #include "constants/menu.h"
 #include "constants/event_objects.h"
 #include "constants/metatile_labels.h"
+#include "tilesets.h"
 
 static EWRAM_DATA u8 sElevatorCurrentFloorWindowId = 0;
 static EWRAM_DATA u16 sElevatorScroll = 0;
 static EWRAM_DATA u16 sElevatorCursorPos = 0;
 static EWRAM_DATA struct ListMenuItem * sListMenuItems = NULL;
-static EWRAM_DATA u16 sListMenuLastScrollPosition = 0;
 static EWRAM_DATA u8 sPCBoxToSendMon = 0;
 static EWRAM_DATA u8 sBrailleTextCursorSpriteID = 0;
 
-COMMON_DATA struct ListMenuTemplate sFieldSpecialsListMenuTemplate = {0};
-COMMON_DATA u16 sFieldSpecialsListMenuScrollBuffer = 0;
+struct ListMenuTemplate sFieldSpecialsListMenuTemplate;
+u16 sFieldSpecialsListMenuScrollBuffer;
+
+EWRAM_DATA u16 gScrollableMultichoice_ScrollOffset = 0;
 
 static void Task_AnimatePcTurnOn(u8 taskId);
 static void PcTurnOnUpdateMetatileId(bool16 flag);
@@ -283,6 +285,29 @@ static void PcTurnOnUpdateMetatileId(bool16 flickerOff)
     MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + deltaX + MAP_OFFSET, gSaveBlock1Ptr->pos.y + deltaY + MAP_OFFSET, metatileId | MAPGRID_COLLISION_MASK);
 }
 
+static bool32 IsBuildingPCTile(u32 tileId)
+{
+    return gMapHeader.mapLayout->primaryTileset == &gTileset_Building && (tileId == METATILE_Building_PCOn || tileId == METATILE_Building_PCOff);
+}
+
+static bool32 IsPlayerHousePCTile(u32 tileId)
+{
+    return gMapHeader.mapLayout->secondaryTileset == &gTileset_GenericBuilding1
+        && (tileId == METATILE_GenericBuilding1_PlayersPCOn
+            || tileId == METATILE_GenericBuilding1_PlayersPCOff);
+}
+
+static bool32 IsPlayerInFrontOfPC(void)
+{
+    s16 x, y;
+    u32 tileInFront;
+
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    tileInFront = MapGridGetMetatileIdAt(x, y);
+
+    return IsBuildingPCTile(tileInFront) || IsPlayerHousePCTile(tileInFront);
+}
+
 void AnimatePcTurnOff()
 {
     u16 metatileId = 0;
@@ -290,6 +315,8 @@ void AnimatePcTurnOff()
     s8 deltaY = 0;
     u8 direction = GetPlayerFacingDirection();
 
+    if (IsPlayerInFrontOfPC() == FALSE)
+        return;
     switch (direction)
     {
     case DIR_NORTH:
@@ -1338,9 +1365,9 @@ static void Task_CreateScriptListMenu(u8 taskId)
     u8 windowId;
     LockPlayerFieldControls();
     if (gSpecialVar_0x8004 == LISTMENU_SILPHCO_FLOORS)
-        sListMenuLastScrollPosition = sElevatorScroll;
+        gScrollableMultichoice_ScrollOffset = sElevatorScroll;
     else
-        sListMenuLastScrollPosition = 0;
+        gScrollableMultichoice_ScrollOffset = 0;
     sListMenuItems = AllocZeroed(task->data[1] * sizeof(struct ListMenuItem));
     CreateScriptListMenu();
     mwidth = 0;
@@ -1400,7 +1427,7 @@ static void ScriptListMenuMoveCursorFunction(s32 nothing, bool8 is, struct ListM
     {
         task = &gTasks[taskId];
         ListMenuGetScrollAndRow(task->data[14], &sFieldSpecialsListMenuScrollBuffer, NULL);
-        sListMenuLastScrollPosition = sFieldSpecialsListMenuScrollBuffer;
+        gScrollableMultichoice_ScrollOffset = sFieldSpecialsListMenuScrollBuffer;
     }
 }
 
@@ -1499,7 +1526,7 @@ static void Task_CreateMenuRemoveScrollIndicatorArrowPair(u8 taskId)
         template.secondY = 8 * task->data[5] + 10;
         template.fullyUpThreshold = 0;
         template.fullyDownThreshold = task->data[1] - task->data[0];
-        task->data[12] = AddScrollIndicatorArrowPair(&template, &sListMenuLastScrollPosition);
+        task->data[12] = AddScrollIndicatorArrowPair(&template, &gScrollableMultichoice_ScrollOffset);
     }
 }
 
@@ -1660,6 +1687,12 @@ void ChangePokemonNickname(void)
     gender = GetMonGender(&gPlayerParty[gSpecialVar_0x8004]);
     personality = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_PERSONALITY, NULL);
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, ChangePokemonNickname_CB);
+}
+
+void InflictStatus(void)
+{
+    u16 status = gSpecialVar_0x8005;
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_STATUS, &status);
 }
 
 static void ChangePokemonNickname_CB(void)
