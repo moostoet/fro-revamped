@@ -83,9 +83,9 @@ Cerulean_EventScript_ThiefItems::
 # 47 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	compare VAR_RESULT, YES
 	goto_if_eq Cerulean_EventScript_ThiefItems_5
-# 63 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	msgbox PokemonCenter_Text_DeclinedItems
 # 64 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_DeclinedItems
+# 65 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	release
 	end
 
@@ -97,9 +97,9 @@ Cerulean_EventScript_ThiefItems_2:
 	end
 
 Cerulean_EventScript_ThiefItems_4:
-# 67 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	msgbox PokemonCenter_Text_AfterDelivery
 # 68 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_AfterDelivery
+# 69 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	release
 	end
 
@@ -113,30 +113,32 @@ Cerulean_EventScript_ThiefItems_5:
 # 51 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	giveitem ITEM_WATER_STONE, 99
 # 52 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_SUN_STONE, 99
+	giveitem ITEM_LEAF_STONE, 99
 # 53 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_MOON_STONE, 99
+	giveitem ITEM_SUN_STONE, 99
 # 54 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_LIGHT_BALL
+	giveitem ITEM_MOON_STONE, 99
 # 55 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_HARD_STONE, 99
+	giveitem ITEM_LIGHT_BALL
 # 56 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_TWISTED_SPOON, 99
+	giveitem ITEM_HARD_STONE, 99
 # 57 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_ORAN_BERRY, 99
+	giveitem ITEM_TWISTED_SPOON, 99
 # 58 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_RAWST_BERRY, 99
+	giveitem ITEM_ORAN_BERRY, 99
 # 59 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_PECHA_BERRY, 99
+	giveitem ITEM_RAWST_BERRY, 99
 # 60 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
-	giveitem ITEM_CHESTO_BERRY, 99
+	giveitem ITEM_PECHA_BERRY, 99
 # 61 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+	giveitem ITEM_CHESTO_BERRY, 99
+# 62 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	giveitem ITEM_BIG_MUSHROOM, 99
 	goto Cerulean_EventScript_ThiefItems_4
 
 
 PokemonCenter_Text_DeliverymanIntro::
-# 72 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+# 73 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	.string "Hello there! I'm a deliveryman from\n"
 	.string "the POKéMON ITEM TRADING COMPANY.\p"
 	.string "We've received a lot of lost items\n"
@@ -148,7 +150,7 @@ PokemonCenter_Text_DeliverymanIntro::
 	.string "these items?$"
 
 PokemonCenter_Text_DeclinedItems::
-# 84 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+# 85 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	.string "No? Well, that's surprising!\p"
 	.string "These items are quite rare and\n"
 	.string "valuable, you know.\p"
@@ -156,7 +158,7 @@ PokemonCenter_Text_DeclinedItems::
 	.string "change your mind!$"
 
 PokemonCenter_Text_AfterDelivery::
-# 92 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+# 93 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	.string "Those items are quite special!\p"
 	.string "They're normally very hard to find\n"
 	.string "in the wild.\p"
@@ -164,7 +166,7 @@ PokemonCenter_Text_AfterDelivery::
 	.string "journey!$"
 
 PokemonCenter_Text_AlreadyGotItems::
-# 100 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
+# 101 "data/maps/CeruleanCity_PokemonCenter_1F/scripts.pory"
 	.string "Oh! You're the TRAINER I gave\n"
 	.string "those special items to!\p"
 	.string "I hope you're putting them to\n"

@@ -49,6 +49,7 @@ script Cerulean_EventScript_ThiefItems {
 		giveitem(ITEM_FIRE_STONE, 99)
 		giveitem(ITEM_THUNDER_STONE, 99)
 		giveitem(ITEM_WATER_STONE, 99)
+		giveitem(ITEM_LEAF_STONE, 99)
 		giveitem(ITEM_SUN_STONE, 99)
 		giveitem(ITEM_MOON_STONE, 99)
 		giveitem(ITEM_LIGHT_BALL)
