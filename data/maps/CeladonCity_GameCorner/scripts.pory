@@ -468,3 +468,128 @@ CeladonCity_GameCorner_EventScript_UnusableSlotMachine3::
 	msgbox CeladonCity_GameCorner_Text_SomeonesKeys, MSGBOX_SIGN
 	end
 `
+
+script CeladonGameCorner_GivePorygon {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_PORYGON)) {
+		msgbox(GameCorner_Text_AfterPorygon)
+		release
+		end
+	}
+
+	msgbox(GameCorner_Text_WantPorygon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(GameCorner_Text_DeclinedPorygon)
+		release
+		end 
+	} else {
+		msgbox(GameCorner_Text_HereIsPorygon)
+		setvar(VAR_TEMP_1, SPECIES_PORYGON)
+		givemon(SPECIES_PORYGON, 30)
+		if (var(VAR_RESULT) == 0) {
+			goto(GivePorygon_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GivePorygon_PC)
+		} else {
+			msgbox(GameCorner_Text_NoRoomForPorygon)
+			release
+			end
+		}
+	}	
+}
+
+script GivePorygon_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(GameCorner_Text_ReceivedPorygon)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_PORYGON)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_PORYGON)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_PORYGON)
+		release
+		end
+	}
+}
+
+script GivePorygon_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(GameCorner_Text_ReceivedPorygon)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_PORYGON)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_PORYGON)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_PORYGON)
+		release
+		end
+	}
+}
+
+text GameCorner_Text_WantPorygon {
+    "...I've lost everything...\n"
+    "All my coins... gone...\p"
+    "I was trying to win big to get\n"
+    "that PORYGON from the prize room.\p"
+    "Finally got enough coins for it,\n"
+    "but then I got greedy...\p"
+    "Now look at this digital POKéMON.\n"
+    "Can't even afford to feed it!\p"
+    "Say, kid... You look like a more\n"
+    "responsible TRAINER than me.\p"
+    "Would you take care of this\n"
+    "PORYGON for me?"
+}
+
+text GameCorner_Text_HereIsPorygon {
+    "You're doing me a real favor...\p"
+    "PORYGON is an artificial POKéMON,\n"
+    "made entirely of programming code.\p"
+    "Cost me a fortune in coins, but...\n"
+    "Maybe it'll bring you better luck."
+}
+
+text GameCorner_Text_ReceivedPorygon {
+    "{PLAYER} received PORYGON\n"
+    "from the regretful gambler!"
+}
+
+text GameCorner_Text_NoRoomForPorygon {
+    "Huh? Your party's full?\p"
+    "Look, I can't keep it much longer...\n"
+    "Please make room and come back.\p"
+    "Just... don't let me near those\n"
+    "slot machines again..."
+}
+
+text GameCorner_Text_DeclinedPorygon {
+    "You won't take it?\p"
+    "Guess I'll try my luck one more\n"
+    "time then...\p"
+    "Just one more coin... that's all\n"
+    "I need..."
+}
+
+text GameCorner_Text_AfterPorygon {
+    "Thanks for taking PORYGON...\p"
+    "I should probably stay away from\n"
+    "the GAME CORNER for a while...\p"
+    "Maybe I'll try the BIKE SHOP\n"
+    "instead..."
+}

@@ -73,107 +73,107 @@ PokemonTower_2F_EventScript_Rival::
 # 37 "data/maps/PokemonTower_2F/scripts.pory"
 	msgbox PokemonTower_2F_Text_RivalPostBattle
 # 38 "data/maps/PokemonTower_2F/scripts.pory"
-	closemessage
+	setflag FLAG_RIVAL_TOWER
 # 39 "data/maps/PokemonTower_2F/scripts.pory"
-	playbgm MUS_RIVAL_EXIT, 0
+	closemessage
 # 40 "data/maps/PokemonTower_2F/scripts.pory"
-	call_if_eq VAR_TEMP_1, 0, PokemonTower_2F_EventScript_RivalExitRight
+	playbgm MUS_RIVAL_EXIT, 0
 # 41 "data/maps/PokemonTower_2F/scripts.pory"
-	call_if_eq VAR_TEMP_1, 1, PokemonTower_2F_EventScript_RivalExitDown
+	call_if_eq VAR_TEMP_1, 0, PokemonTower_2F_EventScript_RivalExitRight
 # 42 "data/maps/PokemonTower_2F/scripts.pory"
-	playse SE_EXIT
+	call_if_eq VAR_TEMP_1, 1, PokemonTower_2F_EventScript_RivalExitDown
 # 43 "data/maps/PokemonTower_2F/scripts.pory"
-	delay 25
+	playse SE_EXIT
 # 44 "data/maps/PokemonTower_2F/scripts.pory"
-	fadedefaultbgm
+	delay 25
 # 45 "data/maps/PokemonTower_2F/scripts.pory"
-	removeobject LOCALID_RIVAL
+	fadedefaultbgm
 # 46 "data/maps/PokemonTower_2F/scripts.pory"
-	setvar VAR_MAP_SCENE_POKEMON_TOWER_2F, 1
+	removeobject LOCALID_RIVAL
 # 47 "data/maps/PokemonTower_2F/scripts.pory"
-	releaseall
+	setvar VAR_MAP_SCENE_POKEMON_TOWER_2F, 1
 # 48 "data/maps/PokemonTower_2F/scripts.pory"
-	end
+	releaseall
 # 49 "data/maps/PokemonTower_2F/scripts.pory"
-
+	end
 # 50 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalFacePlayerRight::
+
 # 51 "data/maps/PokemonTower_2F/scripts.pory"
-	applymovement LOCALID_RIVAL, Common_Movement_WalkInPlaceFasterRight
+PokemonTower_2F_EventScript_RivalFacePlayerRight::
 # 52 "data/maps/PokemonTower_2F/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	applymovement LOCALID_RIVAL, Common_Movement_WalkInPlaceFasterRight
 # 53 "data/maps/PokemonTower_2F/scripts.pory"
-	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 # 54 "data/maps/PokemonTower_2F/scripts.pory"
-	return
+	waitmovement 0
 # 55 "data/maps/PokemonTower_2F/scripts.pory"
-
+	return
 # 56 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalFacePlayerDown::
+
 # 57 "data/maps/PokemonTower_2F/scripts.pory"
-	applymovement LOCALID_RIVAL, Common_Movement_WalkInPlaceFasterDown
+PokemonTower_2F_EventScript_RivalFacePlayerDown::
 # 58 "data/maps/PokemonTower_2F/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_RIVAL, Common_Movement_WalkInPlaceFasterDown
 # 59 "data/maps/PokemonTower_2F/scripts.pory"
-	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 # 60 "data/maps/PokemonTower_2F/scripts.pory"
-	return
+	waitmovement 0
 # 61 "data/maps/PokemonTower_2F/scripts.pory"
-
+	return
 # 62 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalSquirtle::
+
 # 63 "data/maps/PokemonTower_2F/scripts.pory"
-	trainerbattle_no_intro TRAINER_RIVAL_POKEMON_TOWER_SQUIRTLE, PokemonTower_2F_Text_RivalDefeat
+PokemonTower_2F_EventScript_RivalSquirtle::
 # 64 "data/maps/PokemonTower_2F/scripts.pory"
-	return
+	trainerbattle_no_intro TRAINER_RIVAL_POKEMON_TOWER_SQUIRTLE, PokemonTower_2F_Text_RivalDefeat
 # 65 "data/maps/PokemonTower_2F/scripts.pory"
-
+	return
 # 66 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalBulbasaur::
+
 # 67 "data/maps/PokemonTower_2F/scripts.pory"
-	trainerbattle_no_intro TRAINER_RIVAL_POKEMON_TOWER_BULBASAUR, PokemonTower_2F_Text_RivalDefeat
+PokemonTower_2F_EventScript_RivalBulbasaur::
 # 68 "data/maps/PokemonTower_2F/scripts.pory"
-	return
+	trainerbattle_no_intro TRAINER_RIVAL_POKEMON_TOWER_BULBASAUR, PokemonTower_2F_Text_RivalDefeat
 # 69 "data/maps/PokemonTower_2F/scripts.pory"
-
+	return
 # 70 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalCharmander::
+
 # 71 "data/maps/PokemonTower_2F/scripts.pory"
-	trainerbattle_no_intro TRAINER_RIVAL_POKEMON_TOWER_CHARMANDER, PokemonTower_2F_Text_RivalDefeat
+PokemonTower_2F_EventScript_RivalCharmander::
 # 72 "data/maps/PokemonTower_2F/scripts.pory"
-	return
+	trainerbattle_no_intro TRAINER_RIVAL_POKEMON_TOWER_CHARMANDER, PokemonTower_2F_Text_RivalDefeat
 # 73 "data/maps/PokemonTower_2F/scripts.pory"
-
+	return
 # 74 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalExitRight::
+
 # 75 "data/maps/PokemonTower_2F/scripts.pory"
-	applymovement LOCALID_RIVAL, PokemonTower_2F_Movement_RivalExitRight
+PokemonTower_2F_EventScript_RivalExitRight::
 # 76 "data/maps/PokemonTower_2F/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_RIVAL, PokemonTower_2F_Movement_RivalExitRight
 # 77 "data/maps/PokemonTower_2F/scripts.pory"
-	return
-# 78 "data/maps/PokemonTower_2F/scripts.pory"
-
-# 79 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_EventScript_RivalExitDown::
-# 80 "data/maps/PokemonTower_2F/scripts.pory"
-	applymovement LOCALID_RIVAL, PokemonTower_2F_Movement_RivalExitDown
-# 81 "data/maps/PokemonTower_2F/scripts.pory"
 	waitmovement 0
-# 82 "data/maps/PokemonTower_2F/scripts.pory"
+# 78 "data/maps/PokemonTower_2F/scripts.pory"
 	return
-# 83 "data/maps/PokemonTower_2F/scripts.pory"
+# 79 "data/maps/PokemonTower_2F/scripts.pory"
 
+# 80 "data/maps/PokemonTower_2F/scripts.pory"
+PokemonTower_2F_EventScript_RivalExitDown::
+# 81 "data/maps/PokemonTower_2F/scripts.pory"
+	applymovement LOCALID_RIVAL, PokemonTower_2F_Movement_RivalExitDown
+# 82 "data/maps/PokemonTower_2F/scripts.pory"
+	waitmovement 0
+# 83 "data/maps/PokemonTower_2F/scripts.pory"
+	return
 # 84 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_Movement_RivalExitRight::
+
 # 85 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_down
+PokemonTower_2F_Movement_RivalExitRight::
 # 86 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_right
+	walk_down
 # 87 "data/maps/PokemonTower_2F/scripts.pory"
 	walk_right
 # 88 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_down
+	walk_right
 # 89 "data/maps/PokemonTower_2F/scripts.pory"
 	walk_down
 # 90 "data/maps/PokemonTower_2F/scripts.pory"
@@ -181,19 +181,19 @@ PokemonTower_2F_Movement_RivalExitRight::
 # 91 "data/maps/PokemonTower_2F/scripts.pory"
 	walk_down
 # 92 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_in_place_faster_right
+	walk_down
 # 93 "data/maps/PokemonTower_2F/scripts.pory"
-	step_end
+	walk_in_place_faster_right
 # 94 "data/maps/PokemonTower_2F/scripts.pory"
-
+	step_end
 # 95 "data/maps/PokemonTower_2F/scripts.pory"
-PokemonTower_2F_Movement_RivalExitDown::
+
 # 96 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_right
+PokemonTower_2F_Movement_RivalExitDown::
 # 97 "data/maps/PokemonTower_2F/scripts.pory"
 	walk_right
 # 98 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_down
+	walk_right
 # 99 "data/maps/PokemonTower_2F/scripts.pory"
 	walk_down
 # 100 "data/maps/PokemonTower_2F/scripts.pory"
@@ -203,6 +203,8 @@ PokemonTower_2F_Movement_RivalExitDown::
 # 102 "data/maps/PokemonTower_2F/scripts.pory"
 	walk_down
 # 103 "data/maps/PokemonTower_2F/scripts.pory"
-	walk_in_place_faster_right
+	walk_down
 # 104 "data/maps/PokemonTower_2F/scripts.pory"
+	walk_in_place_faster_right
+# 105 "data/maps/PokemonTower_2F/scripts.pory"
 	step_end

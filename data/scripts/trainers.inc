@@ -1738,6 +1738,11 @@ Route20_EventScript_BarryRematch::
 	msgbox Route20_Text_BarryPostBattle, MSGBOX_AUTOCLOSE
 	end
 
+Route20_EventScript_MissyMay::
+	trainerbattle_single TRAINER_MISSY_MAY, Route20_Text_MissyMayIntro, Route20_Text_MissyMayDefeat
+	msgbox Route20_Text_MissyMayPostBattle, MSGBOX_AUTOCLOSE
+	end
+
 Route20_EventScript_Dean::
 	trainerbattle_single TRAINER_SWIMMER_MALE_DEAN, Route20_Text_DeanIntro, Route20_Text_DeanDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle

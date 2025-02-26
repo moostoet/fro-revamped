@@ -10,3 +10,220 @@ Route2_EventScript_DiglettsCaveSign::
 	msgbox Route2_Text_DiglettsCave, MSGBOX_SIGN
 	end
 `
+
+script Route2_Worker_GiveTreecko {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_TREECKO)) {
+		msgbox(Route2_Text_AfterTreecko)
+		release
+		end
+	}
+
+	msgbox(Route2_Text_WantTreecko, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		msgbox(Route2_Text_HereIsTreecko, MSGBOX_DEFAULT)
+		setvar(VAR_TEMP_1, SPECIES_TREECKO)
+		givemon(SPECIES_TREECKO, 5)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveTreecko_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveTreecko_PC)
+		} else {
+			msgbox(Route2_Text_NoRoomForTreecko, MSGBOX_DEFAULT)
+		}
+	} else {
+		msgbox(Route2_Text_DeclinedTreecko, MSGBOX_DEFAULT)
+	}
+	release
+	end
+}
+
+script Route2_Worker_GiveTorchic {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_TORCHIC)) {
+		msgbox(Route2_Text_AfterTorchic)
+		release
+		end
+	}
+
+	msgbox(Route2_Text_WantTorchic, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		msgbox(Route2_Text_HereIsTorchic, MSGBOX_DEFAULT)
+		setvar(VAR_TEMP_1, SPECIES_TORCHIC)
+		givemon(SPECIES_TORCHIC, 5)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveTorchic_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveTorchic_PC)
+		} else {
+			msgbox(Route2_Text_NoRoomForTorchic, MSGBOX_DEFAULT)
+		}
+	} else {
+		msgbox(Route2_Text_DeclinedTorchic, MSGBOX_DEFAULT)
+	}
+	release
+	end
+}
+
+script GiveTorchic_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route2_Text_ReceivedTorchic)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TORCHIC)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_TORCHIC)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_TORCHIC)
+		release
+		end
+	}
+}
+
+script GiveTorchic_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route2_Text_ReceivedTorchic)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TORCHIC)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_TORCHIC)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_TREECKO)
+		release
+		end
+	}
+}
+
+script GiveTreecko_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route2_Text_ReceivedTreecko)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TREECKO)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_TREECKO)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_TREECKO)
+		release
+		end
+	}
+}
+
+script GiveTreecko_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route2_Text_ReceivedTreecko)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TREECKO)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_TREECKO)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_TREECKO)
+		release
+		end
+	}
+}
+
+text Route2_Text_WantTreecko {
+    "Hi there! I'm a POKéMON researcher\n"
+    "from the HOENN region.\p"
+    "I brought along this TREECKO, but\n"
+    "I think it needs a good TRAINER.\p"
+    "Would you like to take care of\n"
+    "this TREECKO?"
+}
+
+text Route2_Text_HereIsTreecko {
+    "Wonderful! TREECKO is a GRASS-type\n"
+    "POKéMON from HOENN.\p"
+    "Please take good care of it!"
+}
+
+text Route2_Text_ReceivedTreecko {
+    "{PLAYER} received TREECKO\n"
+    "from the POKéMON researcher!"
+}
+
+text Route2_Text_NoRoomForTreecko {
+    "Oh! You don't have any room in\n"
+    "your party for TREECKO.\p"
+    "Please come back when you have\n"
+    "made room in your party."
+}
+
+text Route2_Text_DeclinedTreecko {
+    "Oh, that's too bad.\p"
+    "If you change your mind, I'll be\n"
+    "here waiting."
+}
+
+text Route2_Text_AfterTreecko {
+    "TREECKO is a very loyal POKéMON.\n"
+    "I'm sure you two will be great\l"
+    "partners!"
+}
+
+text Route2_Text_WantTorchic {
+    "Hello! I'm another researcher\n"
+    "visiting from HOENN.\p"
+    "This TORCHIC here needs a TRAINER\n"
+    "who can help it grow strong.\p"
+    "Would you like to take TORCHIC\n"
+    "with you on your journey?"
+}
+
+text Route2_Text_HereIsTorchic {
+    "Excellent choice! TORCHIC is a\n"
+    "FIRE-type POKéMON from HOENN.\p"
+    "It will surely become a powerful\n"
+    "ally!"
+}
+
+text Route2_Text_ReceivedTorchic {
+    "{PLAYER} received TORCHIC\n"
+    "from the POKéMON researcher!"
+}
+
+text Route2_Text_NoRoomForTorchic {
+    "Oh my! Your party seems to be full.\p"
+    "Please make some room and come back\n"
+    "for TORCHIC."
+}
+
+text Route2_Text_DeclinedTorchic {
+    "I see... Well, if you change your\n"
+    "mind, you know where to find me."
+}
+
+text Route2_Text_AfterTorchic {
+    "TORCHIC may be small, but it has\n"
+    "a burning fighting spirit!\p"
+    "Raise it well!"
+}

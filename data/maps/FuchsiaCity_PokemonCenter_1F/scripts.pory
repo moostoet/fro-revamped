@@ -27,3 +27,26 @@ FuchsiaCity_PokemonCenter_1F_EventScript_Youngster::
 	msgbox FuchsiaCity_PokemonCenter_1F_Text_VisitSafariZoneForPokedex, MSGBOX_NPC
 	end
 `
+script Fuchsia_GiveThiefItems {
+	lock
+	faceplayer 
+	if (flag(FLAG_RECEIVED_ITEMS_FUCHSIA)) {
+		msgbox(PokemonCenter_Text_AlreadyGotItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_RECEIVED_ITEMS_FUCHSIA)
+		giveitem(ITEM_SPELL_TAG, 99)
+		giveitem(ITEM_DRAGON_FANG, 99)
+		giveitem(ITEM_MAGNET, 99)
+	} else {
+		msgbox(PokemonCenter_Text_DeclinedItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_AfterDelivery)
+	release
+	end
+}

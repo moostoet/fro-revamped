@@ -37,3 +37,19 @@ PokemonTower_1F_EventScript_WorkerF::
 	msgbox PokemonTower_1F_Text_ErectedInMemoryOfDeadMons, MSGBOX_NPC
 	end
 `
+script PokemonTower_ChannelerBlockingStairs {
+	lock
+	faceplayer
+
+	msgbox(PokemonTower_Text_ChannelerBlockingStairs, MSGBOX_NPC)
+}
+
+text PokemonTower_Text_ChannelerBlockingStairs {
+    "...Beyond here, unimaginable danger\n"
+    "lurks in the darkness.\p"
+    "Restless spirits... invisible to\n"
+    "mortal eyes... drift in wait.\p"
+    "Without the proper means to unmask\n"
+    "these tortured souls, proceeding\l"
+    "would be most unwise..."
+}

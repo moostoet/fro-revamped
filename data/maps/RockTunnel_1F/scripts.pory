@@ -46,3 +46,210 @@ RockTunnel_1F_EventScript_Dana::
 	msgbox RockTunnel_1F_Text_DanaPostBattle, MSGBOX_AUTOCLOSE
 	end
 `
+
+script RockTunnel_GiveCharmander {
+	lock
+	faceplayer 
+
+	if (flag(FLAG_RECEIVED_CHARMANDER)) {
+		msgbox(RockTunnel_Text_AfterCharmander)
+		release
+		end
+	}
+
+	msgbox(RockTunnel_Text_WantCharmander, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(RockTunnel_Text_DeclinedCharmander)
+		release
+		end
+	} else {
+		msgbox(RockTunnel_Text_HereIsCharmander)
+		setvar(VAR_TEMP_1, SPECIES_CHARMANDER)
+		givemon(SPECIES_CHARMANDER, 15)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveCharmander_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveCharmander_PC)
+		} else {
+			msgbox(RockTunnel_Text_NoRoomForCharmander)
+		}
+	}
+	release
+	end
+}
+
+script GiveCharmander_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(RockTunnel_Text_ReceivedCharmander)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_CHARMANDER)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_CHARMANDER)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_CHARMANDER)
+		release
+		end
+	}
+}
+
+script GiveCharmander_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(RockTunnel_Text_ReceivedCharmander)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_CHARMANDER)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_CHARMANDER)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_CHARMANDER)
+		release
+		end
+	}
+}
+
+text RockTunnel_Text_WantCharmander {
+    "Eek! This tunnel is so dark and\n"
+    "scary, even with my CHARMANDER's\l"
+    "flame lighting the way...\p"
+    "I thought having a FIRE POKéMON\n"
+    "would help me be braver, but I\l"
+    "just can't handle cave exploring!\p"
+    "Say... you look like a much more\n"
+    "capable TRAINER than me.\p"
+    "Would you like to take care of my\n"
+    "CHARMANDER? Its flame would help\l"
+    "guide you through here!"
+}
+
+text RockTunnel_Text_HereIsCharmander {
+    "Oh thank you! CHARMANDER will be\n"
+    "much happier going on adventures\l"
+    "with a brave TRAINER like you!\p"
+    "Its tail flame burns so bright,\n"
+    "it's perfect for dark caves!"
+}
+
+text RockTunnel_Text_ReceivedCharmander {
+    "{PLAYER} received CHARMANDER\n"
+    "from the scared picnicker!"
+}
+
+text RockTunnel_Text_NoRoomForCharmander {
+    "Oh no... you don't have room in\n"
+    "your party right now.\p"
+    "Please come back if you make room!\p"
+    "...but hurry back soon, okay?\n"
+    "It's scary in here..."
+}
+
+text RockTunnel_Text_DeclinedCharmander {
+    "Oh... I understand.\p"
+    "I guess we'll try to find our way\n"
+    "out of here together then..."
+}
+
+text RockTunnel_Text_AfterCharmander {
+    "I think I'll stick to having\n"
+    "picnics in CERULEAN CITY\l"
+    "from now on!\p"
+    "Take good care of CHARMANDER!"
+}
+
+script RockTunnel_Hiker_LearnRockSlide {
+	if (flag(FLAG_TUTOR_ROCK_SLIDE)) {
+		msgbox(RockTunnel_Text_AfterRockSlide)
+		release
+		end
+	}
+
+	msgbox(RockTunnel_Text_WantLearnRockSlide, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(RockTunnel_Text_DeclinedRockSlide)
+		release
+		end
+	} else {
+		msgbox(RockTunnel_Text_WhichMonRockSlide)
+		setvar(VAR_0x8005, MOVETUTOR_ROCK_SLIDE)
+		call(EventScript_ChooseMoveTutorMon)
+		if(var(VAR_RESULT) == FALSE) {
+			msgbox(RockTunnel_Text_DeclinedRockSlide)
+			release
+			end
+		} else {
+			setflag(FLAG_TUTOR_ROCK_SLIDE)
+			msgbox(RockTunnel_Text_RockSlideLearned)
+		}
+	}
+
+	release
+	end
+}
+
+text RockTunnel_Text_WantLearnRockSlide {
+    "Wa ha ha! Nothing beats training\n"
+    "in a place full of rocks!\p"
+    "I've been teaching my POKéMON how\n"
+    "to use the rocks around here to\l"
+    "their advantage!\p"
+    "Hey, you look like a TRAINER with\n"
+    "some potential! Want me to teach\l"
+    "one of your POKéMON ROCK SLIDE?"
+}
+
+text RockTunnel_Text_WhichMonRockSlide {
+    "All right! This move is perfect\n"
+    "for tough battles!\p"
+    "Which POKéMON should learn\n"
+    "ROCK SLIDE?"
+}
+
+text RockTunnel_Text_TeachRockSlide {
+    "Wa ha ha! Watch carefully now!\p"
+    "It's all about using the momentum\n"
+    "of falling rocks to crush your\l"
+    "opponents!"
+}
+
+text RockTunnel_Text_RockSlideLearned {
+    "There you have it! Your POKéMON\n"
+    "now knows ROCK SLIDE!\p"
+    "It's a powerful move that might\n"
+    "even make your opponent flinch!\p"
+    "Perfect for taking down those\n"
+    "pesky FLYING-types!"
+}
+
+text RockTunnel_Text_DeclinedRockSlide {
+    "No? Well, if you change your mind,\n"
+    "I'll be right here training!\p"
+    "Nothing beats the sound of rocks\n"
+    "crashing down! Wa ha ha!"
+}
+
+text RockTunnel_Text_AfterRockSlide {
+    "ROCK SLIDE is a move that really\n"
+    "shows the raw power of ROCK-type\l"
+    "POKéMON!\p"
+    "Use it well, and watch those rocks\n"
+    "tumble down! Wa ha ha!"
+}
+
+text RockTunnel_Text_CantLearnRockSlide {
+    "Hm... Looks like this POKéMON\n"
+    "can't learn ROCK SLIDE.\p"
+    "Choose a different one!"
+}
+

@@ -17,3 +17,99 @@ Route10_EventScript_PowerPlantSign::
 	msgbox Route10_Text_PowerPlant, MSGBOX_SIGN
 	end
 `
+script Route10_Give_SootheBell {
+	lock
+	faceplayer 
+
+	if (flag(FLAG_RECEIVED_SOOTHE_BELL)) {
+		msgbox(Route10_Text_AfterSootheBell)
+		release
+		end
+	}
+
+	msgbox(Route10_Text_WantSootheBell, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(Route10_Text_DeclinedSootheBell)
+		release
+		end
+	} else {
+		checkitemspace(ITEM_SOOTHE_BELL)
+		if (var(VAR_RESULT) == FALSE) {
+			msgbox(Route10_Text_BagIsFull)
+			release
+			end
+		}
+
+		msgbox(Route10_Text_HereIsSootheBell)
+		giveitem(ITEM_SOOTHE_BELL)
+		setflag(FLAG_RECEIVED_SOOTHE_BELL)
+		release
+		end
+	}
+}
+
+text Route10_Text_WantSootheBell {
+    "Oh my, what an adorable TRAINER!\p"
+    "I'm a POKéMON breeder, and I just\n"
+    "love seeing the bonds between\l"
+    "TRAINERS and their POKéMON!\p"
+    "I have this extra SOOTHE BELL that\n"
+    "helps POKéMON grow friendlier.\p"
+    "Would you like to have it? It would\n"
+    "look simply darling on your POKéMON!"
+}
+
+text Route10_Text_HereIsSootheBell {
+    "Wonderful! The SOOTHE BELL's gentle\n"
+    "chiming will help your POKéMON grow\l"
+    "closer to you when they carry it.\p"
+    "A happy POKéMON is a strong POKéMON,\n"
+    "that's what I always say!"
+}
+
+text Route10_Text_BagIsFull {
+    "Oh dear, your BAG appears to be\n"
+    "completely full!\p"
+    "Please make some room and come back\n"
+    "for this lovely SOOTHE BELL."
+}
+
+text Route10_Text_DeclinedSootheBell {
+    "Oh? Are you sure?\p"
+    "Well, if you change your mind about\n"
+    "making your POKéMON extra happy,\l"
+    "do come see me again!"
+}
+
+text Route10_Text_AfterSootheBell {
+    "Remember, a POKéMON holding the\n"
+    "SOOTHE BELL will become friendlier\l"
+    "much more quickly!\p"
+    "Some POKéMON even evolve when\n"
+    "they're very friendly with their\l"
+    "TRAINER. Isn't that precious?"
+}
+
+script Route10_PowerPlant_Block {
+	lock
+	faceplayer
+	msgbox(Route10_Text_PowerPlantBlocked)
+	release
+	end
+}
+
+text Route10_Text_PowerPlantBlocked {
+    "I apologize, but the POWER PLANT\n"
+    "is currently off-limits!\p"
+    "We're dealing with a major power\n"
+    "surge that's affecting the whole\l"
+    "KANTO region's electrical grid.\p"
+    "Wild ELECTRIC-type POKéMON have\n"
+    "been drawn to the facility in\l"
+    "unprecedented numbers.\p"
+    "It's far too dangerous for any\n"
+    "TRAINER to enter right now.\p"
+    "Please come back another time\n"
+    "when we have the situation under\l"
+    "control!"
+}

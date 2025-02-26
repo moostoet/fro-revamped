@@ -484,7 +484,7 @@ PalletTown_ProfessorOaksLab_EventScript_EndRivalBattle::
 	removeobject LOCALID_RIVAL
 	playse SE_EXIT
 	fadedefaultbgm
-	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 4
+	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 10
 	setflag FLAG_BEAT_RIVAL_IN_OAKS_LAB
 	releaseall
 	end
@@ -664,6 +664,7 @@ PalletTown_ProfessorOaksLab_EventScript_ReceiveDexScene::
 	call EventScript_RestorePrevTextColor
 	setflag FLAG_SYS_POKEDEX_GET
 	special SetUnlockedPokedexFlags
+	special EnableNationalPokedex
 	setvar VAR_MAP_SCENE_POKEMON_CENTER_TEALA, 1
 	msgbox PalletTown_ProfessorOaksLab_Text_OakCatchMonsForDataTakeThese
 	giveitem_msg PalletTown_ProfessorOaksLab_Text_ReceivedFivePokeBalls, ITEM_POKE_BALL, 5
@@ -1079,8 +1080,8 @@ PalletTown_ProfessorOaksLab_EventScript_BulbasaurBall::
 	lock
 	faceplayer
 	setvar PLAYER_STARTER_NUM, 0
-	setvar PLAYER_STARTER_SPECIES, SPECIES_BULBASAUR
-	setvar RIVAL_STARTER_SPECIES, SPECIES_CHARMANDER
+	setvar PLAYER_STARTER_SPECIES, SPECIES_MAGBY
+	setvar RIVAL_STARTER_SPECIES, SPECIES_ELEKID
 	setvar RIVAL_STARTER_ID, LOCALID_CHARMANDER_BALL
 	goto_if_ge VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3, PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2, PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice
@@ -1222,8 +1223,8 @@ PalletTown_ProfessorOaksLab_EventScript_SquirtleBall::
 	lock
 	faceplayer
 	setvar PLAYER_STARTER_NUM, 1
-	setvar PLAYER_STARTER_SPECIES, SPECIES_SQUIRTLE
-	setvar RIVAL_STARTER_SPECIES, SPECIES_BULBASAUR
+	setvar PLAYER_STARTER_SPECIES, SPECIES_SMOOCHUM
+	setvar RIVAL_STARTER_SPECIES, SPECIES_MAGBY
 	setvar RIVAL_STARTER_ID, LOCALID_BULBASAUR_BALL
 	goto_if_ge VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3, PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2, PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice
@@ -1235,8 +1236,8 @@ PalletTown_ProfessorOaksLab_EventScript_CharmanderBall::
 	lock
 	faceplayer
 	setvar PLAYER_STARTER_NUM, 2
-	setvar PLAYER_STARTER_SPECIES, SPECIES_CHARMANDER
-	setvar RIVAL_STARTER_SPECIES, SPECIES_SQUIRTLE
+	setvar PLAYER_STARTER_SPECIES, SPECIES_ELEKID
+	setvar RIVAL_STARTER_SPECIES, SPECIES_SMOOCHUM
 	setvar RIVAL_STARTER_ID, LOCALID_SQUIRTLE_BALL
 	goto_if_ge VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3, PalletTown_ProfessorOaksLab_EventScript_LastPokeBall
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2, PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice
@@ -1309,23 +1310,100 @@ PalletTown_ProfessorOaksLab_EventScript_RightSignAlt::
 	releaseall
 	end
 `
-script PalletTown_ProfessorOaksLab_EventScript_Aide_GiveItems {
-	lock
-	faceplayer
+
+script OaksLab_Aide_GiveItems_Left {
+	lockall
+	applymovement(1, moves(emote_exclamation_mark))
+	waitmovement(1)
+	applymovement(1, moves(delay_16))
+	waitmovement(1)
+	applymovement(1, moves(
+		face_right_fast
+		walk_right * 2
+		walk_up
+	))
+	waitmovement(1)
+	goto(OaksLab_Aide_GiveItems)
+	closemessage
+	releaseall
+	end
+}
+
+script OaksLab_Aide_GiveItems_Center {
+	lockall
+	applymovement(1, moves(emote_exclamation_mark))
+	waitmovement(1)
+	applymovement(1, moves(delay_16))
+	waitmovement(1)
+	applymovement(1, moves(
+		face_right_fast
+		walk_right * 3
+		walk_up
+	))
+	waitmovement(1)
+	goto(OaksLab_Aide_GiveItems)
+	closemessage
+	releaseall
+	end
+}
+
+script OaksLab_Aide_GiveItems_Right {
+	lockall
+	applymovement(1, moves(emote_exclamation_mark))
+	waitmovement(1)
+	applymovement(1, moves(delay_16))
+	waitmovement(1)
+	applymovement(1, moves(
+		face_right_fast
+		walk_right * 4
+		walk_up
+	))
+	waitmovement(1)
+	goto(OaksLab_Aide_GiveItems)
+	closemessage
+	releaseall
+	end
+}
+
+script OaksLab_Aide_GiveItems {
+	msgbox(PalletTown_ProfessorOaksLab_Text_QoLAide)
 	giveitem(ITEM_FOREVER_REPEL)
 	giveitem(ITEM_BOX_LINK)
 	giveitem(ITEM_MED_KIT)
 	giveitem(ITEM_SYRINGE)
 	giveitem(ITEM_RARE_CANDY)
-	release
+	msgbox(PalletTown_ProfessorOaksLab_Text_GiveQoLItems)
+	setvar(VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 4)
+	releaseall
 	end
 }
 
-script PalletTown_ProfessorOaksLab_EventScript_Aide_DisableBox {
+text PalletTown_ProfessorOaksLab_Text_QoLAide {
+    "Hello there, {PLAYER}!\p"
+    "I'm OAK's assistant in charge\n"
+    "of field equipment testing.\p"
+    "I've got some special supplies that'll\n"
+    "make your journey much smoother!"
+}
+
+text PalletTown_ProfessorOaksLab_Text_BagFull {
+    "Oh! It looks like your Bag is full.\p"
+    "Please make some room and come back\n"
+    "to receive these helpful items."
+}
+
+text PalletTown_ProfessorOaksLab_Text_GiveQoLItems {
+    "These items are part of our new\n"
+    "TRAINER COMFORT INITIATIVE!\p"
+    "They'll help you focus on the joy of\n"
+    "catching and training POKéMON without\l"
+    "some of the more tedious aspects."
+}
+
+script OaksAide {
 	lock
-	faceplayer
-	setflag(FLAG_BOX_LINK_DISABLED)
-	msgbox(format("BOX LINK is now disabled."))
-	release 
+	faceplayer 
+	msgbox(PalletTown_ProfessorOaksLab_Text_GiveQoLItems)
+	release
 	end
 }

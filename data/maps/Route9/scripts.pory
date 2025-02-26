@@ -6,3 +6,124 @@ Route9_EventScript_RouteSign::
 	msgbox Route9_Text_RouteSign, MSGBOX_SIGN
 	end
 `
+
+script Route9_Give_Bulbasaur {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_BULBASAUR)) {
+		msgbox(Route9_Text_AfterBulbasaur)
+		release
+		end
+	}
+
+	msgbox(Route9_Text_WantBulbasaur, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(Route9_Text_DeclinedBulbasaur)
+		release
+		end
+	} else {
+		msgbox(Route9_Text_HereIsBulbasaur)
+		setvar(VAR_TEMP_1, SPECIES_BULBASAUR)
+		givemon(SPECIES_BULBASAUR, 10)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveBulbasaur_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveBulbasaur_PC)
+		} else {
+			msgbox(Route9_Text_NoRoomForBulbasaur)
+		}
+	}
+	release
+	end
+}
+
+script GiveBulbasaur_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route9_Text_ReceivedBulbasaur)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_BULBASAUR)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_BULBASAUR)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_BULBASAUR)
+		release
+		end
+	}
+}
+
+script GiveBulbasaur_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route9_Text_ReceivedBulbasaur)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_BULBASAUR)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_BULBASAUR)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_BULBASAUR)
+		release
+		end
+	}
+}
+
+text Route9_Text_WantBulbasaur {
+    "Hey there, TRAINER!\p"
+    "I'm training to enter the POKéMON\n"
+    "LEAGUE, and I've learned that the\l"
+    "best TRAINERS raise all kinds of\l"
+    "different POKéMON.\p"
+    "I have this BULBASAUR that I raised\n"
+    "from an EGG, but I want to focus on\l"
+    "training my current team.\p"
+    "You look like a promising TRAINER.\n"
+    "Would you like to raise BULBASAUR?"
+}
+
+text Route9_Text_HereIsBulbasaur {
+    "That's the spirit! A strong TRAINER\n"
+    "knows a good opportunity!\p"
+    "BULBASAUR is perfect for both\n"
+    "battles and competitions.\p"
+    "I can tell you'll raise it well!"
+}
+
+text Route9_Text_ReceivedBulbasaur {
+    "{PLAYER} received BULBASAUR\n"
+    "from the COOLTRAINER!"
+}
+
+text Route9_Text_NoRoomForBulbasaur {
+    "Oh! A prepared TRAINER always has\n"
+    "space for new POKéMON!\p"
+    "Come back after you've made room\n"
+    "in your party."
+}
+
+text Route9_Text_DeclinedBulbasaur {
+    "Really? That's surprising...\p"
+    "Well, a TRAINER needs to trust\n"
+    "their instincts.\p"
+    "The offer stands if you change\n"
+    "your mind!"
+}
+
+text Route9_Text_AfterBulbasaur {
+    "BULBASAUR's LEECH SEED is perfect\n"
+    "for wearing down tough opponents!\p"
+    "I'm sure you'll do great at the\n"
+    "POKéMON LEAGUE with it!\p"
+    "Maybe we'll face each other there!"
+}

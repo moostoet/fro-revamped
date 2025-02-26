@@ -730,3 +730,180 @@ CeruleanCity_EventScript_GymSign::
 	releaseall
 # 366 "data/maps/CeruleanCity/scripts.pory"
 	end
+
+Cerulean_GiveTotodile::
+# 369 "data/maps/CeruleanCity/scripts.pory"
+	lock
+# 370 "data/maps/CeruleanCity/scripts.pory"
+	faceplayer
+# 371 "data/maps/CeruleanCity/scripts.pory"
+	goto_if_set FLAG_RECEIVED_TOTODILE, Cerulean_GiveTotodile_2
+# 377 "data/maps/CeruleanCity/scripts.pory"
+	msgbox CeruleanCity_Text_WantTotodile, MSGBOX_YESNO
+# 378 "data/maps/CeruleanCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq Cerulean_GiveTotodile_5
+# 383 "data/maps/CeruleanCity/scripts.pory"
+	msgbox CeruleanCity_Text_HereIsTotodile
+# 384 "data/maps/CeruleanCity/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_TOTODILE
+# 385 "data/maps/CeruleanCity/scripts.pory"
+	givemon SPECIES_TOTODILE, 15
+# 386 "data/maps/CeruleanCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Cerulean_GiveTotodile_8
+# 388 "data/maps/CeruleanCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Cerulean_GiveTotodile_9
+# 391 "data/maps/CeruleanCity/scripts.pory"
+	msgbox CeruleanCity_Text_NoRoomForTotodile
+Cerulean_GiveTotodile_4:
+# 394 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+Cerulean_GiveTotodile_2:
+# 372 "data/maps/CeruleanCity/scripts.pory"
+	msgbox CeruleanCity_Text_AfterTotodile
+# 373 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+Cerulean_GiveTotodile_5:
+# 379 "data/maps/CeruleanCity/scripts.pory"
+	msgbox CeruleanCity_Text_DeclinedTotodile
+# 380 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+Cerulean_GiveTotodile_8:
+# 387 "data/maps/CeruleanCity/scripts.pory"
+	goto GiveTotodile_Party
+	goto Cerulean_GiveTotodile_4
+
+Cerulean_GiveTotodile_9:
+# 389 "data/maps/CeruleanCity/scripts.pory"
+	goto GiveTotodile_PC
+	goto Cerulean_GiveTotodile_4
+
+
+GiveTotodile_Party::
+# 399 "data/maps/CeruleanCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 400 "data/maps/CeruleanCity/scripts.pory"
+	message CeruleanCity_Text_ReceivedTotodile
+# 401 "data/maps/CeruleanCity/scripts.pory"
+	waitmessage
+# 402 "data/maps/CeruleanCity/scripts.pory"
+	waitfanfare
+# 404 "data/maps/CeruleanCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_TOTODILE
+# 405 "data/maps/CeruleanCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 406 "data/maps/CeruleanCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveTotodile_Party_1
+# 411 "data/maps/CeruleanCity/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 412 "data/maps/CeruleanCity/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 413 "data/maps/CeruleanCity/scripts.pory"
+	setflag FLAG_RECEIVED_TOTODILE
+# 414 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+GiveTotodile_Party_1:
+# 407 "data/maps/CeruleanCity/scripts.pory"
+	setflag FLAG_RECEIVED_TOTODILE
+# 408 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+
+GiveTotodile_PC::
+# 420 "data/maps/CeruleanCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 421 "data/maps/CeruleanCity/scripts.pory"
+	message CeruleanCity_Text_ReceivedTotodile
+# 422 "data/maps/CeruleanCity/scripts.pory"
+	waitmessage
+# 423 "data/maps/CeruleanCity/scripts.pory"
+	waitfanfare
+# 425 "data/maps/CeruleanCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_TOTODILE
+# 426 "data/maps/CeruleanCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 427 "data/maps/CeruleanCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveTotodile_PC_1
+# 432 "data/maps/CeruleanCity/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 433 "data/maps/CeruleanCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 434 "data/maps/CeruleanCity/scripts.pory"
+	setflag FLAG_RECEIVED_TOTODILE
+# 435 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+GiveTotodile_PC_1:
+# 428 "data/maps/CeruleanCity/scripts.pory"
+	setflag FLAG_RECEIVED_TOTODILE
+# 429 "data/maps/CeruleanCity/scripts.pory"
+	release
+	end
+
+
+CeruleanCity_Text_WantTotodile::
+# 440 "data/maps/CeruleanCity/scripts.pory"
+	.string "Hohoho! You there, young TRAINER!\p"
+	.string "I was once a famous fisherman, you\n"
+	.string "know. Caught all sorts of POKéMON\l"
+	.string "in my day!\p"
+	.string "But these old bones aren't what\n"
+	.string "they used to be...\p"
+	.string "This TOTODILE here was my last\n"
+	.string "great catch - all the way from\l"
+	.string "the waters of JOHTO!\p"
+	.string "But it's too energetic for me now.\n"
+	.string "Always wanting to play and splash...\p"
+	.string "Say, would you like to take care\n"
+	.string "of this feisty little one?$"
+
+CeruleanCity_Text_HereIsTotodile::
+# 456 "data/maps/CeruleanCity/scripts.pory"
+	.string "Hohoho! Excellent!\n"
+	.string "TOTODILE loves the water, just\l"
+	.string "like I used to!\p"
+	.string "It may look like it's always\n"
+	.string "playing, but don't be fooled -\l"
+	.string "it's quite the capable fighter!$"
+
+CeruleanCity_Text_ReceivedTotodile::
+# 465 "data/maps/CeruleanCity/scripts.pory"
+	.string "{PLAYER} received TOTODILE\n"
+	.string "from the old fisherman!$"
+
+CeruleanCity_Text_NoRoomForTotodile::
+# 470 "data/maps/CeruleanCity/scripts.pory"
+	.string "Hohoho! Seems your POKéMON team\n"
+	.string "is already full!\p"
+	.string "Come back when you have room for\n"
+	.string "this energetic little swimmer!$"
+
+CeruleanCity_Text_DeclinedTotodile::
+# 477 "data/maps/CeruleanCity/scripts.pory"
+	.string "Oh? That's too bad...\p"
+	.string "I suppose I'll have to find someone\n"
+	.string "else who can keep up with its\l"
+	.string "boundless energy...$"
+
+CeruleanCity_Text_AfterTotodile::
+# 484 "data/maps/CeruleanCity/scripts.pory"
+	.string "Watching you and TOTODILE reminds\n"
+	.string "me of my younger days...\p"
+	.string "Nothing beats the companionship of\n"
+	.string "a water-loving POKéMON!\p"
+	.string "Just look at how happy it is\n"
+	.string "near CERULEAN's clear waters!$"

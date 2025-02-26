@@ -245,9 +245,9 @@ SilphCo_7F_EventScript_LaprasGuy::
 # 123 "data/maps/SilphCo_7F/scripts.pory"
 	msgbox SilphCo_7F_Text_HaveMonForSavingUs
 # 124 "data/maps/SilphCo_7F/scripts.pory"
-	setvar VAR_TEMP_1, SPECIES_LAPRAS
+	setvar VAR_TEMP_1, SPECIES_CASTFORM
 # 125 "data/maps/SilphCo_7F/scripts.pory"
-	givemon SPECIES_LAPRAS, 25
+	givemon SPECIES_CASTFORM, 45
 # 126 "data/maps/SilphCo_7F/scripts.pory"
 	goto_if_eq VAR_RESULT, 0, SilphCo_7F_EventScript_ReceiveLaprasParty
 # 127 "data/maps/SilphCo_7F/scripts.pory"
@@ -273,7 +273,7 @@ SilphCo_7F_EventScript_ReceiveLaprasParty::
 # 137 "data/maps/SilphCo_7F/scripts.pory"
 	waitfanfare
 # 138 "data/maps/SilphCo_7F/scripts.pory"
-	bufferspeciesname STR_VAR_1, SPECIES_LAPRAS
+	bufferspeciesname STR_VAR_1, SPECIES_CASTFORM
 # 139 "data/maps/SilphCo_7F/scripts.pory"
 	msgbox Text_GiveNicknameToThisMon, MSGBOX_YESNO
 # 140 "data/maps/SilphCo_7F/scripts.pory"
@@ -301,7 +301,7 @@ SilphCo_7F_EventScript_ReceiveLaprasPC::
 # 151 "data/maps/SilphCo_7F/scripts.pory"
 	waitfanfare
 # 152 "data/maps/SilphCo_7F/scripts.pory"
-	bufferspeciesname STR_VAR_1, SPECIES_LAPRAS
+	bufferspeciesname STR_VAR_1, SPECIES_CASTFORM
 # 153 "data/maps/SilphCo_7F/scripts.pory"
 	msgbox Text_GiveNicknameToThisMon, MSGBOX_YESNO
 # 154 "data/maps/SilphCo_7F/scripts.pory"

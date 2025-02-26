@@ -936,3 +936,180 @@ CeladonCity_GameCorner_EventScript_UnusableSlotMachine3::
 	msgbox CeladonCity_GameCorner_Text_SomeonesKeys, MSGBOX_SIGN
 # 469 "data/maps/CeladonCity_GameCorner/scripts.pory"
 	end
+
+CeladonGameCorner_GivePorygon::
+# 473 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	lock
+# 474 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	faceplayer
+# 475 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	goto_if_set FLAG_RECEIVED_PORYGON, CeladonGameCorner_GivePorygon_2
+# 481 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox GameCorner_Text_WantPorygon, MSGBOX_YESNO
+# 482 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq CeladonGameCorner_GivePorygon_4
+# 487 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox GameCorner_Text_HereIsPorygon
+# 488 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_PORYGON
+# 489 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	givemon SPECIES_PORYGON, 30
+# 490 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq CeladonGameCorner_GivePorygon_7
+# 492 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq CeladonGameCorner_GivePorygon_8
+# 495 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox GameCorner_Text_NoRoomForPorygon
+# 496 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+CeladonGameCorner_GivePorygon_2:
+# 476 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox GameCorner_Text_AfterPorygon
+# 477 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+CeladonGameCorner_GivePorygon_4:
+# 483 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox GameCorner_Text_DeclinedPorygon
+# 484 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+CeladonGameCorner_GivePorygon_7:
+# 491 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	goto GivePorygon_Party
+	return
+
+CeladonGameCorner_GivePorygon_8:
+# 493 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	goto GivePorygon_PC
+	return
+
+
+GivePorygon_Party::
+# 503 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 504 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	message GameCorner_Text_ReceivedPorygon
+# 505 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	waitmessage
+# 506 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	waitfanfare
+# 508 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_PORYGON
+# 509 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 510 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GivePorygon_Party_1
+# 515 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 516 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 517 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	setflag FLAG_RECEIVED_PORYGON
+# 518 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+GivePorygon_Party_1:
+# 511 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	setflag FLAG_RECEIVED_PORYGON
+# 512 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+
+GivePorygon_PC::
+# 524 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 525 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	message GameCorner_Text_ReceivedPorygon
+# 526 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	waitmessage
+# 527 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	waitfanfare
+# 529 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_PORYGON
+# 530 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 531 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GivePorygon_PC_1
+# 537 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 538 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	call EventScript_TransferredToPC
+# 539 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	setflag FLAG_RECEIVED_PORYGON
+# 540 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+GivePorygon_PC_1:
+# 532 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	call EventScript_TransferredToPC
+# 533 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	setflag FLAG_RECEIVED_PORYGON
+# 534 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	release
+	end
+
+
+GameCorner_Text_WantPorygon::
+# 545 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	.string "...I've lost everything...\n"
+	.string "All my coins... gone...\p"
+	.string "I was trying to win big to get\n"
+	.string "that PORYGON from the prize room.\p"
+	.string "Finally got enough coins for it,\n"
+	.string "but then I got greedy...\p"
+	.string "Now look at this digital POKéMON.\n"
+	.string "Can't even afford to feed it!\p"
+	.string "Say, kid... You look like a more\n"
+	.string "responsible TRAINER than me.\p"
+	.string "Would you take care of this\n"
+	.string "PORYGON for me?$"
+
+GameCorner_Text_HereIsPorygon::
+# 560 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	.string "You're doing me a real favor...\p"
+	.string "PORYGON is an artificial POKéMON,\n"
+	.string "made entirely of programming code.\p"
+	.string "Cost me a fortune in coins, but...\n"
+	.string "Maybe it'll bring you better luck.$"
+
+GameCorner_Text_ReceivedPorygon::
+# 568 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	.string "{PLAYER} received PORYGON\n"
+	.string "from the regretful gambler!$"
+
+GameCorner_Text_NoRoomForPorygon::
+# 573 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	.string "Huh? Your party's full?\p"
+	.string "Look, I can't keep it much longer...\n"
+	.string "Please make room and come back.\p"
+	.string "Just... don't let me near those\n"
+	.string "slot machines again...$"
+
+GameCorner_Text_DeclinedPorygon::
+# 581 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	.string "You won't take it?\p"
+	.string "Guess I'll try my luck one more\n"
+	.string "time then...\p"
+	.string "Just one more coin... that's all\n"
+	.string "I need...$"
+
+GameCorner_Text_AfterPorygon::
+# 589 "data/maps/CeladonCity_GameCorner/scripts.pory"
+	.string "Thanks for taking PORYGON...\p"
+	.string "I should probably stay away from\n"
+	.string "the GAME CORNER for a while...\p"
+	.string "Maybe I'll try the BIKE SHOP\n"
+	.string "instead...$"

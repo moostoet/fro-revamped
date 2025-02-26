@@ -365,3 +365,127 @@ CeruleanCity_EventScript_GymSign::
 	releaseall
 	end
 `
+script Cerulean_GiveTotodile {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_TOTODILE)) {
+		msgbox(CeruleanCity_Text_AfterTotodile)
+		release
+		end
+	}
+
+	msgbox(CeruleanCity_Text_WantTotodile, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(CeruleanCity_Text_DeclinedTotodile)
+		release
+		end
+	} else {
+		msgbox(CeruleanCity_Text_HereIsTotodile)
+		setvar(VAR_TEMP_1, SPECIES_TOTODILE)
+		givemon(SPECIES_TOTODILE, 15)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveTotodile_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveTotodile_PC)
+		} else {
+			msgbox(CeruleanCity_Text_NoRoomForTotodile)
+		}
+	}
+	release
+	end
+}
+
+script GiveTotodile_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(CeruleanCity_Text_ReceivedTotodile)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TOTODILE)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT)	== NO) {
+		setflag(FLAG_RECEIVED_TOTODILE)
+		release 
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_TOTODILE)
+		release
+		end
+	}
+}
+
+script GiveTotodile_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(CeruleanCity_Text_ReceivedTotodile)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TOTODILE)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_TOTODILE)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_TOTODILE)
+		release
+		end
+	}
+}
+
+text CeruleanCity_Text_WantTotodile {
+    "Hohoho! You there, young TRAINER!\p"
+    "I was once a famous fisherman, you\n"
+    "know. Caught all sorts of POKéMON\l"
+    "in my day!\p"
+    "But these old bones aren't what\n"
+    "they used to be...\p"
+    "This TOTODILE here was my last\n"
+    "great catch - all the way from\l"
+    "the waters of JOHTO!\p"
+    "But it's too energetic for me now.\n"
+    "Always wanting to play and splash...\p"
+    "Say, would you like to take care\n"
+    "of this feisty little one?"
+}
+
+text CeruleanCity_Text_HereIsTotodile {
+    "Hohoho! Excellent!\n"
+    "TOTODILE loves the water, just\l"
+    "like I used to!\p"
+    "It may look like it's always\n"
+    "playing, but don't be fooled -\l"
+    "it's quite the capable fighter!"
+}
+
+text CeruleanCity_Text_ReceivedTotodile {
+    "{PLAYER} received TOTODILE\n"
+    "from the old fisherman!"
+}
+
+text CeruleanCity_Text_NoRoomForTotodile {
+    "Hohoho! Seems your POKéMON team\n"
+    "is already full!\p"
+    "Come back when you have room for\n"
+    "this energetic little swimmer!"
+}
+
+text CeruleanCity_Text_DeclinedTotodile {
+    "Oh? That's too bad...\p"
+    "I suppose I'll have to find someone\n"
+    "else who can keep up with its\l"
+    "boundless energy..."
+}
+
+text CeruleanCity_Text_AfterTotodile {
+    "Watching you and TOTODILE reminds\n"
+    "me of my younger days...\p"
+    "Nothing beats the companionship of\n"
+    "a water-loving POKéMON!\p"
+    "Just look at how happy it is\n"
+    "near CERULEAN's clear waters!"
+}

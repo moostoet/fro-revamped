@@ -54,3 +54,45 @@ VermilionCity_PokemonCenter_1F_EventScript_Youngster::
 	msgbox VermilionCity_PokemonCenter_1F_Text_AllMonWeakToSpecificTypes, MSGBOX_NPC
 # 28 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
 	end
+
+Vermilion_EventScript_ThiefItems::
+# 32 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	lock
+# 33 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	faceplayer
+# 34 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	goto_if_set FLAG_RECEIVED_ITEMS_VERMILION, Vermilion_EventScript_ThiefItems_2
+# 39 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO
+# 40 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	compare VAR_RESULT, YES
+	goto_if_eq Vermilion_EventScript_ThiefItems_5
+# 45 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_DeclinedItems
+# 46 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	release
+	end
+
+Vermilion_EventScript_ThiefItems_2:
+# 35 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_AlreadyGotItems
+# 36 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	release
+	end
+
+Vermilion_EventScript_ThiefItems_4:
+# 49 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_AfterDelivery
+# 50 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	release
+	end
+
+Vermilion_EventScript_ThiefItems_5:
+# 41 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	setflag FLAG_RECEIVED_ITEMS_VERMILION
+# 42 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	giveitem ITEM_SOFT_SAND, 99
+# 43 "data/maps/VermilionCity_PokemonCenter_1F/scripts.pory"
+	giveitem ITEM_POISON_BARB, 99
+	goto Vermilion_EventScript_ThiefItems_4
+

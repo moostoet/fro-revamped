@@ -178,10 +178,14 @@ gPikachuIntro_Text_Page2::
     .string "Be brave and keep pushing on.$"
 
 gPikachuIntro_Text_Page3::
-    .string "Through your adventure, we hope\n"
-    .string "that you will interact with all sorts\n"
-    .string "of people and achieve personal growth.\n"
-    .string "That is our biggest objective.\n"
+    .string "Welcome to FireRed Omega Revamped,\n"
+    .string "made by Viridian! This is an\n"
+    .string "overhauled version of FireRed Omega\n"
+    .string "by Drayano.\n"
+    .string "\n"
+    .string "Enjoy quality-of-life improvements\n" 
+    .string "and bugfixes that make this hack\n"
+    .string "nicer to play than the original.\n"
     .string "\n"
     .string "Press the A Button, and let your\n"
     .string "adventure begin!$"

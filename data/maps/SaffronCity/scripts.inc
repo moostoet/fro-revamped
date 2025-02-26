@@ -252,3 +252,212 @@ SaffronCity_EventScript_TrainerFanClubSign::
 	msgbox SaffronCity_Text_TrainerFanClubSign, MSGBOX_SIGN
 # 127 "data/maps/SaffronCity/scripts.pory"
 	end
+
+Saffron_GiveTyrogue::
+# 131 "data/maps/SaffronCity/scripts.pory"
+	lock
+# 132 "data/maps/SaffronCity/scripts.pory"
+	faceplayer
+# 133 "data/maps/SaffronCity/scripts.pory"
+	goto_if_set FLAG_RECEIVED_TYROGUE, Saffron_GiveTyrogue_2
+# 143 "data/maps/SaffronCity/scripts.pory"
+	msgbox SaffronCity_Text_BlackBeltTyrogue, MSGBOX_YESNO
+# 144 "data/maps/SaffronCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq Saffron_GiveTyrogue_4
+# 153 "data/maps/SaffronCity/scripts.pory"
+	msgbox SaffronCity_Text_HereIsTyrogue
+# 154 "data/maps/SaffronCity/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_TYROGUE
+# 155 "data/maps/SaffronCity/scripts.pory"
+	givemon SPECIES_TYROGUE, 30
+# 156 "data/maps/SaffronCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Saffron_GiveTyrogue_7
+# 158 "data/maps/SaffronCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Saffron_GiveTyrogue_8
+# 161 "data/maps/SaffronCity/scripts.pory"
+	msgbox SaffronCity_Text_NoRoomForTyrogue
+# 162 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 165 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 166 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+Saffron_GiveTyrogue_2:
+# 134 "data/maps/SaffronCity/scripts.pory"
+	msgbox SaffronCity_Text_AfterTyrogue
+# 135 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 138 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 139 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+Saffron_GiveTyrogue_4:
+# 145 "data/maps/SaffronCity/scripts.pory"
+	msgbox SaffronCity_Text_DeclinedTyrogue
+# 146 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 149 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 150 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+Saffron_GiveTyrogue_7:
+# 157 "data/maps/SaffronCity/scripts.pory"
+	goto GiveTyrogue_Party
+	return
+
+Saffron_GiveTyrogue_8:
+# 159 "data/maps/SaffronCity/scripts.pory"
+	goto GiveTyrogue_PC
+	return
+
+
+GiveTyrogue_Party::
+# 173 "data/maps/SaffronCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 174 "data/maps/SaffronCity/scripts.pory"
+	message SaffronCity_Text_ReceivedTyrogue
+# 175 "data/maps/SaffronCity/scripts.pory"
+	waitmessage
+# 176 "data/maps/SaffronCity/scripts.pory"
+	waitfanfare
+# 178 "data/maps/SaffronCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_TYROGUE
+# 179 "data/maps/SaffronCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 180 "data/maps/SaffronCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveTyrogue_Party_1
+# 189 "data/maps/SaffronCity/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 190 "data/maps/SaffronCity/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 191 "data/maps/SaffronCity/scripts.pory"
+	setflag FLAG_RECEIVED_TYROGUE
+# 192 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 195 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 196 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+GiveTyrogue_Party_1:
+# 181 "data/maps/SaffronCity/scripts.pory"
+	setflag FLAG_RECEIVED_TYROGUE
+# 182 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 185 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 186 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+
+GiveTyrogue_PC::
+# 202 "data/maps/SaffronCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 203 "data/maps/SaffronCity/scripts.pory"
+	message SaffronCity_Text_ReceivedTyrogue
+# 204 "data/maps/SaffronCity/scripts.pory"
+	waitmessage
+# 205 "data/maps/SaffronCity/scripts.pory"
+	waitfanfare
+# 207 "data/maps/SaffronCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_TYROGUE
+# 208 "data/maps/SaffronCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 209 "data/maps/SaffronCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveTyrogue_PC_1
+# 219 "data/maps/SaffronCity/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 220 "data/maps/SaffronCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 221 "data/maps/SaffronCity/scripts.pory"
+	setflag FLAG_RECEIVED_TYROGUE
+# 222 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 225 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 226 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+GiveTyrogue_PC_1:
+# 210 "data/maps/SaffronCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 211 "data/maps/SaffronCity/scripts.pory"
+	setflag FLAG_RECEIVED_TYROGUE
+# 212 "data/maps/SaffronCity/scripts.pory"
+	applymovement 16, Saffron_GiveTyrogue_Movement_0
+# 215 "data/maps/SaffronCity/scripts.pory"
+	waitmovement 16
+# 216 "data/maps/SaffronCity/scripts.pory"
+	release
+	end
+
+
+# 135 "data/maps/SaffronCity/scripts.pory"
+Saffron_GiveTyrogue_Movement_0:
+# 136 "data/maps/SaffronCity/scripts.pory"
+	face_up
+	step_end
+
+SaffronCity_Text_BlackBeltTyrogue::
+# 231 "data/maps/SaffronCity/scripts.pory"
+	.string "..."
+	.string "\p"
+	.string "HMPH! Seven straight days I have\n"
+	.string "stood here, facing this wall...\p"
+	.string "Training my mind, honing my spirit,\n"
+	.string "waiting to be accepted into the\l"
+	.string "FIGHTING DOJO as a student...\p"
+	.string "But perhaps... this TYROGUE I\n"
+	.string "caught needs a different path.\p"
+	.string "Its fighting spirit is strong, but\n"
+	.string "it requires a TRAINER who will\l"
+	.string "journey with it, not stand still.\p"
+	.string "You there! Would you take this\n"
+	.string "TYROGUE with you on your quest?$"
+
+SaffronCity_Text_HereIsTyrogue::
+# 248 "data/maps/SaffronCity/scripts.pory"
+	.string "EXCELLENT!\p"
+	.string "TYROGUE can evolve into three\n"
+	.string "different FIGHTING-type POKéMON\l"
+	.string "depending on how you train it!\p"
+	.string "Show it the way of the warrior!$"
+
+SaffronCity_Text_ReceivedTyrogue::
+# 256 "data/maps/SaffronCity/scripts.pory"
+	.string "{PLAYER} received TYROGUE\n"
+	.string "from the BLACK BELT!$"
+
+SaffronCity_Text_NoRoomForTyrogue::
+# 261 "data/maps/SaffronCity/scripts.pory"
+	.string "WHAT? Your team is full!\p"
+	.string "Return when you have made space.\n"
+	.string "I shall continue my meditation...$"
+
+SaffronCity_Text_DeclinedTyrogue::
+# 267 "data/maps/SaffronCity/scripts.pory"
+	.string "I see...\p"
+	.string "Then we shall both continue our\n"
+	.string "training in our own ways...$"
+
+SaffronCity_Text_AfterTyrogue::
+# 273 "data/maps/SaffronCity/scripts.pory"
+	.string "I shall remain here, training...\p"
+	.string "One day, the DOJO will recognize\n"
+	.string "my dedication!\p"
+	.string "But TYROGUE has found its path\n"
+	.string "with you. That brings me peace.$"

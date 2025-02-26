@@ -6,3 +6,124 @@ UndergroundPath_SouthEntrance_EventScript_Woman::
 	msgbox UndergroundPath_SouthEntrance_Text_PeopleLoseThingsInTheDarkness, MSGBOX_NPC
 	end
 `
+
+script UndergroundPath_SouthEntrance_GiveChikorita {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_CHIKORITA)) {
+		msgbox(UndergroundPath_South_Text_AfterChikorita)
+		release
+		end
+	}
+
+	msgbox(UndergroundPath_South_Text_WantChikorita, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(UndergroundPath_South_Text_DeclinedChikorita)
+		release
+		end
+	} else {
+		msgbox(UndergroundPath_South_Text_HereIsChikorita)
+		setvar(VAR_TEMP_1, SPECIES_CHIKORITA)
+		givemon(SPECIES_CHIKORITA, 15)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveChikorita_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveChikorita_PC)
+		} else {
+			msgbox(UndergroundPath_South_Text_NoRoomForChikorita)
+		}
+	}
+	release
+	end
+}
+
+script GiveChikorita_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(UndergroundPath_South_Text_ReceivedChikorita)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_CHIKORITA)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_CHIKORITA)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_CHIKORITA)
+		release
+		end
+	}
+}
+
+script GiveChikorita_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(UndergroundPath_South_Text_ReceivedChikorita)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_CHIKORITA)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_CHIKORITA)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_CHIKORITA)
+		release
+		end
+	}
+}
+
+text UndergroundPath_South_Text_WantChikorita {
+    "Hey there, young TRAINER!\n"
+    "I just got back from hiking in\l"
+    "the JOHTO region.\p"
+    "While I was there, I received this\n"
+    "CHIKORITA from their PROF. ELM.\p"
+    "But you know what? I'm more of a\n"
+    "ROCK-type TRAINER myself.\p"
+    "Would you like to take this\n"
+    "CHIKORITA with you instead?"
+}
+
+text UndergroundPath_South_Text_HereIsChikorita {
+    "That's the spirit! CHIKORITA is a\n"
+    "GRASS-type POKéMON from JOHTO.\p"
+    "It's got a sweet nature and the\n"
+    "most adorable leaf on its head!\p"
+    "You two will make great hiking\n"
+    "buddies!"
+}
+
+text UndergroundPath_South_Text_ReceivedChikorita {
+    "{PLAYER} received CHIKORITA\n"
+    "from the HIKER!"
+}
+
+text UndergroundPath_South_Text_NoRoomForChikorita {
+    "Whoa there! Looks like your team\n"
+    "is packed full!\p"
+    "Make some room in your party and\n"
+    "come back for CHIKORITA."
+}
+
+text UndergroundPath_South_Text_DeclinedChikorita {
+    "No? That's a shame...\p"
+    "Well, if you change your mind,\n"
+    "I'll be taking a break here\l"
+    "from all my hiking!"
+}
+
+text UndergroundPath_South_Text_AfterChikorita {
+    "You know, CHIKORITA might not be\n"
+    "tough like my ROCK POKéMON...\p"
+    "But it's got a determination that\n"
+    "could move mountains!\p"
+    "Perfect for any TRAINER's journey!"
+}

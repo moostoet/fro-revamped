@@ -31,15 +31,15 @@ ViridianCity_Text_GrandpaHasntHadCoffeeYet::
     .string "He hasn't had his coffee yet.$"
 
 ViridianCity_Text_GoShoppingInPewterOccasionally::
-    .string "I go shopping in PEWTER CITY\n"
+    .string "I go shop  ping in PEWTER CITY\n"
     .string "occasionally.\p"
     .string "I have to take the winding trail in\n"
     .string "VIRIDIAN FOREST when I go.$"
 
 ViridianCity_Text_ThisIsPrivateProperty::
-    .string "I absolutely forbid you from\n"
-    .string "going through here!\p"
-    .string "This is private property!$"
+    .string "Oh dear, I can't let you pass\n"
+    .string "to Route 2 right now!\p"
+    .string "There are dangerous POKéMON ahead!$"
 
 ViridianCity_Text_ShowYouHowToCatchMons::
     .string "Well, now, I've had my coffee, and\n"

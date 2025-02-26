@@ -534,32 +534,32 @@
 #define FLAG_BOX_LINK_DISABLED   0x200
 #define FLAG_MED_KIT_DISABLED    0x201
 #define FLAG_SYRINGE_DISABLED    0x202
-#define FLAG_0x203               0x203
-#define FLAG_0x204               0x204
-#define FLAG_0x205               0x205
-#define FLAG_0x206               0x206
-#define FLAG_0x207               0x207
-#define FLAG_0x208               0x208
-#define FLAG_0x209               0x209
-#define FLAG_0x20A               0x20A
-#define FLAG_0x20B               0x20B
-#define FLAG_0x20C               0x20C
-#define FLAG_0x20D               0x20D
-#define FLAG_0x20E               0x20E
-#define FLAG_0x20F               0x20F
-#define FLAG_0x210               0x210
-#define FLAG_0x211               0x211
-#define FLAG_0x212               0x212
-#define FLAG_0x213               0x213
-#define FLAG_0x214               0x214
-#define FLAG_0x215               0x215
-#define FLAG_0x216               0x216
-#define FLAG_0x217               0x217
-#define FLAG_0x218               0x218
-#define FLAG_0x219               0x219
-#define FLAG_0x21A               0x21A
-#define FLAG_0x21B               0x21B
-#define FLAG_0x21C               0x21C
+#define FLAG_RECEIVED_TREECKO    0x203
+#define FLAG_RECEIVED_TORCHIC    0x204 
+#define FLAG_RECEIVED_TOGEPI_EGG 0x205 
+#define FLAG_RECEIVED_MUDKIP     0x206 
+#define FLAG_HIDE_PEWTER_SUN_STONE  0x207
+#define FLAG_HIDE_R4_LUCKYEGG    0x208
+#define FLAG_RECEIVED_ITEMS_CERULEAN 0x209
+#define FLAG_RECEIVED_CYNDAQUIL  0x20A
+#define FLAG_RECEIVED_CHIKORITA  0x20B 
+#define FLAG_RECEIVED_SQUIRTLE   0x20C
+#define FLAG_HIDE_VERM_THUNDERSTONE 0x20D
+#define FLAG_RECEIVED_BULBASAUR  0x20E
+#define FLAG_RECEIVED_SOOTHE_BELL 0x20F 
+#define FLAG_RECEIVED_CHARMANDER 0x210
+#define FLAG_TAUGHT_ROCK_SLIDE   0x211
+#define FLAG_RECEIVED_ITEMS_VERMILION 0x212
+#define FLAG_ROCKET_SHOP         0x213
+#define FLAG_RIVAL_TOWER         0x214
+#define FLAG_RECEIVED_LAPRAS     0x215
+#define FLAG_RECEIVED_TOTODILE   0x216
+#define FLAG_RECEIVED_PORYGON    0x217
+#define FLAG_RECEIVED_TYROGUE    0x218
+#define FLAG_RECEIVED_ITEMS_CELADON 0x219 
+#define FLAG_RECEIVED_ITEMS_FUCHSIA 0x21A
+#define FLAG_RECEIVED_ITEMS_CINNABAR 0x21B
+#define FLAG_RECEIVED_ITEMS_INDIGO 0x21C
 #define FLAG_0x21D               0x21D
 #define FLAG_0x21E               0x21E
 #define FLAG_0x21F               0x21F
@@ -1222,7 +1222,7 @@
 #define FLAG_HIDDEN_ITEM_SSANNE_EXTERIOR_LAVA_COOKIE                       (FLAG_HIDDEN_ITEMS_START + 190)
 
 // Unused hidden item flags
-#define FLAG_UNUSED_0x4A7               0x4A7 // Unused Flag
+#define FLAG_HIDDEN_LUM                 (FLAG_HIDDEN_ITEMS_START + 191) // Unused Flag
 #define FLAG_UNUSED_0x4A8               0x4A8 // Unused Flag
 #define FLAG_UNUSED_0x4A9               0x4A9 // Unused Flag
 #define FLAG_UNUSED_0x4AA               0x4AA // Unused Flag

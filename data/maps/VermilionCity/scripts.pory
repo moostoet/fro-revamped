@@ -268,3 +268,126 @@ VermilionCity_EventScript_HarborSign::
 	msgbox VermilionCity_Text_VermilionHarbor, MSGBOX_SIGN
 	end
 `
+script Vermilion_GiveSquirtle {
+	lock
+	faceplayer 
+
+	if (flag(FLAG_RECEIVED_SQUIRTLE)) {
+		msgbox(VermilionCity_Text_AfterSquirtle)
+		release
+		end
+	}
+
+	msgbox(VermilionCity_Text_WantSquirtle, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(VermilionCity_Text_DeclinedSquirtle)
+		release
+		end
+	} else {
+		msgbox(VermilionCity_Text_HereIsSquirtle)
+		setvar(VAR_TEMP_1, SPECIES_SQUIRTLE)
+		givemon(SPECIES_SQUIRTLE, 15)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveSquirtle_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveSquirtle_PC)
+		} else {
+			msgbox(VermilionCity_Text_NoRoomForSquirtle)
+		}
+	}
+}
+
+script GiveSquirtle_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(VermilionCity_Text_ReceivedSquirtle)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_SQUIRTLE)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_SQUIRTLE)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_SQUIRTLE)
+		release
+		end
+	}
+}
+
+script GiveSquirtle_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(VermilionCity_Text_ReceivedSquirtle)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_SQUIRTLE)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_SQUIRTLE)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_SQUIRTLE)
+		release
+		end
+	}
+}
+
+script Verm_ThunderStone {
+	finditem(ITEM_THUNDER_STONE)
+	end
+}
+
+text VermilionCity_Text_WantSquirtle {
+    "Ah, bonjour! I'm a chef waiting to\n"
+    "start my new job on the S.S. AQUA.\p"
+    "The S.S. ANNE was magnificent, but\n"
+    "it has already departed...\p"
+    "While I wait, I've been training this\n"
+    "SQUIRTLE to help in the kitchen.\p"
+    "But the ship won't arrive for quite\n"
+    "some time, and SQUIRTLE seems more\l"
+    "interested in battling than cooking!\p"
+    "Would you like to take this SQUIRTLE\n"
+    "with you on your journey instead?"
+}
+
+text VermilionCity_Text_HereIsSquirtle {
+    "Magnifique! SQUIRTLE will make a\n"
+    "wonderful partner for you!\p"
+    "It may not have become a chef, but\n"
+    "I'm sure it will become strong!"
+}
+
+text VermilionCity_Text_ReceivedSquirtle {
+    "{PLAYER} received SQUIRTLE\n"
+    "from the chef!"
+}
+
+text VermilionCity_Text_NoRoomForSquirtle {
+    "Oh non! Your party appears to be\n"
+    "full at the moment.\p"
+    "Please make some room and return\n"
+    "for SQUIRTLE."
+}
+
+text VermilionCity_Text_DeclinedSquirtle {
+    "Non? That is too bad...\p"
+    "I will keep trying to teach it\n"
+    "the culinary arts then!"
+}
+
+text VermilionCity_Text_AfterSquirtle {
+    "The S.S. AQUA will be magnificent\n"
+    "when it finally arrives!\p"
+    "But I'm happy SQUIRTLE found its\n"
+    "true calling as your POKéMON!"
+}
+

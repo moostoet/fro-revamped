@@ -35,3 +35,71 @@ CeruleanCity_PokemonCenter_1F_EventScript_Lass::
 	msgbox CeruleanCity_PokemonCenter_1F_Text_TryTradingUpstairs, MSGBOX_NPC
 	end
 `
+script Cerulean_EventScript_ThiefItems {
+	lock
+	faceplayer 
+	if (flag(FLAG_RECEIVED_ITEMS_CERULEAN)) {
+		msgbox(PokemonCenter_Text_AlreadyGotItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_RECEIVED_ITEMS_CERULEAN)
+		giveitem(ITEM_FIRE_STONE, 99)
+		giveitem(ITEM_THUNDER_STONE, 99)
+		giveitem(ITEM_WATER_STONE, 99)
+		giveitem(ITEM_SUN_STONE, 99)
+		giveitem(ITEM_MOON_STONE, 99)
+		giveitem(ITEM_LIGHT_BALL)
+		giveitem(ITEM_HARD_STONE, 99)
+		giveitem(ITEM_TWISTED_SPOON, 99)
+		giveitem(ITEM_ORAN_BERRY, 99)
+		giveitem(ITEM_RAWST_BERRY, 99)
+		giveitem(ITEM_PECHA_BERRY, 99)
+		giveitem(ITEM_CHESTO_BERRY, 99)
+		giveitem(ITEM_BIG_MUSHROOM, 99)
+	} else {
+		msgbox(PokemonCenter_Text_DeclinedItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_AfterDelivery)
+	release
+	end
+}
+
+text PokemonCenter_Text_DeliverymanIntro {
+    "Hello there! I'm a deliveryman from\n"
+    "the POKéMON ITEM TRADING COMPANY.\p"
+    "We've received a lot of lost items\n"
+    "from wild POKéMON recently.\p"
+    "Rather than return them, we've been\n"
+    "asked to distribute them to worthy\l"
+    "TRAINERS.\p"
+    "Would you like to receive some of\n"
+    "these items?"
+}
+
+text PokemonCenter_Text_DeclinedItems {
+    "No? Well, that's surprising!\p"
+    "These items are quite rare and\n"
+    "valuable, you know.\p"
+    "Feel free to come back if you\n"
+    "change your mind!"
+}
+
+text PokemonCenter_Text_AfterDelivery {
+    "Those items are quite special!\p"
+    "They're normally very hard to find\n"
+    "in the wild.\p"
+    "I hope they help you on your\n"
+    "journey!"
+}
+
+text PokemonCenter_Text_AlreadyGotItems {
+    "Oh! You're the TRAINER I gave\n"
+    "those special items to!\p"
+    "I hope you're putting them to\n"
+    "good use!"
+}

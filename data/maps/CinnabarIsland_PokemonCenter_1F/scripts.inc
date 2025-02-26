@@ -284,3 +284,43 @@ CinnabarIsland_PokemonCenter_1F_Movement_PlayerExitWest::
 	walk_down
 # 143 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
 	step_end
+
+Cinnabar_GiveThiefItems::
+# 147 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	lock
+# 148 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	faceplayer
+# 149 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	goto_if_set FLAG_RECEIVED_ITEMS_CINNABAR, Cinnabar_GiveThiefItems_2
+# 154 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO
+# 155 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	compare VAR_RESULT, YES
+	goto_if_eq Cinnabar_GiveThiefItems_5
+# 159 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_DeclinedItems
+# 160 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	release
+	end
+
+Cinnabar_GiveThiefItems_2:
+# 150 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_AlreadyGotItems
+# 151 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	release
+	end
+
+Cinnabar_GiveThiefItems_4:
+# 163 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_AfterDelivery
+# 164 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	release
+	end
+
+Cinnabar_GiveThiefItems_5:
+# 156 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	setflag FLAG_RECEIVED_ITEMS_CINNABAR
+# 157 "data/maps/CinnabarIsland_PokemonCenter_1F/scripts.pory"
+	giveitem ITEM_NEVER_MELT_ICE, 99
+	goto Cinnabar_GiveThiefItems_4
+

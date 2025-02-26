@@ -74,3 +74,23 @@ PokemonTower_1F_EventScript_WorkerF::
 	msgbox PokemonTower_1F_Text_ErectedInMemoryOfDeadMons, MSGBOX_NPC
 # 38 "data/maps/PokemonTower_1F/scripts.pory"
 	end
+
+PokemonTower_ChannelerBlockingStairs::
+# 41 "data/maps/PokemonTower_1F/scripts.pory"
+	lock
+# 42 "data/maps/PokemonTower_1F/scripts.pory"
+	faceplayer
+# 44 "data/maps/PokemonTower_1F/scripts.pory"
+	msgbox PokemonTower_Text_ChannelerBlockingStairs, MSGBOX_NPC
+	return
+
+
+PokemonTower_Text_ChannelerBlockingStairs::
+# 47 "data/maps/PokemonTower_1F/scripts.pory"
+	.string "...Beyond here, unimaginable danger\n"
+	.string "lurks in the darkness.\p"
+	.string "Restless spirits... invisible to\n"
+	.string "mortal eyes... drift in wait.\p"
+	.string "Without the proper means to unmask\n"
+	.string "these tortured souls, proceeding\l"
+	.string "would be most unwise...$"

@@ -650,7 +650,7 @@ void FieldUseFunc_MedKit(u8 taskId)
 {
     if (FlagGet(FLAG_MED_KIT_DISABLED))
     {
-        DisplayItemMessageInCurrentContext(taskId, gTasks[taskId].tUsingRegisteredKeyItem, FONT_NORMAL, gText_BoxLinkDisabled);
+        DisplayItemMessageInCurrentContext(taskId, gTasks[taskId].tUsingRegisteredKeyItem, FONT_NORMAL, gText_MedKitDisabled);
     }
     else
     {

@@ -121,7 +121,7 @@ SaffronCity_Dojo_EventScript_GiveHitmon::
 # 61 "data/maps/SaffronCity_Dojo/scripts.pory"
 	hidemonpic
 # 62 "data/maps/SaffronCity_Dojo/scripts.pory"
-	givemon VAR_TEMP_1, 25
+	givemon VAR_TEMP_1, 30, ITEM_BLACK_BELT
 # 63 "data/maps/SaffronCity_Dojo/scripts.pory"
 	goto_if_eq VAR_RESULT, 0, SaffronCity_Dojo_EventScript_ReceivedHitmonParty
 # 64 "data/maps/SaffronCity_Dojo/scripts.pory"

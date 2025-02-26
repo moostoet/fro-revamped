@@ -32,3 +32,133 @@ FuchsiaCity_House2_EventScript_NoRoomForGoodRod::
 	release
 	end
 `
+script Fuchsia_GiveLapras {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_LAPRAS)) {
+		msgbox(FuchsiaCity_Text_AfterLapras)
+		release
+		end
+	}
+
+	msgbox(FuchsiaCity_Text_WantLapras, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(FuchsiaCity_Text_DeclinedLapras)
+		release
+		end 
+	} else {
+		msgbox(FuchsiaCity_Text_HereIsLapras)
+		setvar(VAR_TEMP_1, SPECIES_LAPRAS)
+		givemon(SPECIES_LAPRAS, 40)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveLapras_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveLapras_PC)
+		} else {
+			msgbox(FuchsiaCity_Text_NoRoomForLapras)
+		}
+	}
+	release
+	end
+}
+
+script GiveLapras_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(FuchsiaCity_Text_ReceivedLapras)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_LAPRAS)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_LAPRAS)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_LAPRAS)
+		release
+		end
+	}
+}
+
+script GiveLapras_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(FuchsiaCity_Text_ReceivedLapras)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_LAPRAS)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_LAPRAS)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_LAPRAS)
+		release
+		end
+	}
+}
+
+text FuchsiaCity_Text_WantLapras {
+    "Ah, young TRAINER! I was just\n"
+    "visiting the SAFARI ZONE...\p"
+    "It reminded me of my younger days,\n"
+    "exploring the seas on my LAPRAS.\p"
+    "But I'm much too old for such\n"
+    "adventures now, and LAPRAS...\l"
+    "Well, it needs more excitement\l"
+    "than our afternoon pond visits.\p"
+    "You seem like a capable TRAINER.\n"
+    "Would you take care of LAPRAS?"
+}
+
+text FuchsiaCity_Text_HereIsLapras {
+    "Splendid! Simply splendid!\p"
+    "LAPRAS is a gentle soul, but also\n"
+    "quite powerful in battle.\p"
+    "It can ferry you across any body\n"
+    "of water with grace and style.\p"
+    "Much better than those common\n"
+    "fishing boats, I must say!"
+}
+
+text FuchsiaCity_Text_ReceivedLapras {
+    "{PLAYER} received LAPRAS\n"
+    "from the gentleman!"
+}
+
+text FuchsiaCity_Text_NoRoomForLapras {
+    "Oh dear, it seems you have a full\n"
+    "party at the moment.\p"
+    "Please do return once you've made\n"
+    "proper arrangements."
+}
+
+text FuchsiaCity_Text_DeclinedLapras {
+    "Oh my... How disappointing.\p"
+    "I suppose LAPRAS and I shall\n"
+    "continue our quiet retirement."
+}
+
+text FuchsiaCity_Text_AfterLapras {
+    "Ah, seeing young TRAINERS reminds\n"
+    "me of my glory days!\p"
+    "LAPRAS and I once explored every\n"
+    "corner of KANTO's seas...\p"
+    "I do hope you'll create such\n"
+    "wonderful memories together!"
+}
+
+text FuchsiaCity_Text_LaprasCheckup {
+    "How is LAPRAS doing?\p"
+    "I trust you're having grand\n"
+    "adventures together!\p"
+    "Do stop by the SAFARI ZONE\n"
+    "sometime. The waters there are\l"
+    "simply marvelous for swimming!"
+}

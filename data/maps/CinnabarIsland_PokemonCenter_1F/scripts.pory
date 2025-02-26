@@ -142,3 +142,25 @@ CinnabarIsland_PokemonCenter_1F_Movement_PlayerExitWest::
 	walk_down
 	step_end
 `
+
+script Cinnabar_GiveThiefItems {
+	lock
+	faceplayer 
+	if (flag(FLAG_RECEIVED_ITEMS_CINNABAR)) {
+		msgbox(PokemonCenter_Text_AlreadyGotItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_RECEIVED_ITEMS_CINNABAR)
+		giveitem(ITEM_NEVER_MELT_ICE, 99)
+	} else {
+		msgbox(PokemonCenter_Text_DeclinedItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_AfterDelivery)
+	release
+	end
+}

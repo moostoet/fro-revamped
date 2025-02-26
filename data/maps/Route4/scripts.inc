@@ -34,3 +34,9 @@ Route4_EventScript_RouteSign::
 	msgbox Route4_Text_RouteSign, MSGBOX_SIGN
 # 18 "data/maps/Route4/scripts.pory"
 	end
+
+Route4_LuckyEgg::
+# 21 "data/maps/Route4/scripts.pory"
+	finditem ITEM_LUCKY_EGG
+	end
+

@@ -9,27 +9,8 @@ ViridianCity_MapScripts::
 
 ViridianCity_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_VIRIDIAN_CITY
-	call_if_eq VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 0, ViridianCity_EventScript_SetOldManBlockingRoad
-	call_if_eq VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 1, ViridianCity_EventScript_SetOldManStandingByRoad
-	call_if_ge VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2, ViridianCity_EventScript_SetOldManNormal
 	call_if_eq VAR_MAP_SCENE_VIRIDIAN_CITY_GYM_DOOR, 0, ViridianCity_EventScript_TryUnlockGym
 	end
-
-ViridianCity_EventScript_SetOldManNormal::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_OLD_MAN_1
-	return
-
-ViridianCity_EventScript_SetOldManStandingByRoad::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_OLD_MAN_1
-	setobjectxyperm LOCALID_TUTORIAL_MAN, 21, 8
-	setobjectmovementtype LOCALID_TUTORIAL_MAN, MOVEMENT_TYPE_LOOK_AROUND
-	return
-
-ViridianCity_EventScript_SetOldManBlockingRoad::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_OLD_MAN_LYING_DOWN
-	setobjectxyperm LOCALID_TUTORIAL_MAN, 21, 11
-	setobjectmovementtype LOCALID_TUTORIAL_MAN, MOVEMENT_TYPE_FACE_DOWN
-	return
 
 ViridianCity_EventScript_TryUnlockGym::
 	goto_if_unset FLAG_BADGE02_GET, EventScript_Return
@@ -99,37 +80,6 @@ ViridianCity_EventScript_OldManGymLeaderReturned::
 	release
 	end
 
-ViridianCity_EventScript_TutorialOldMan::
-	lock
-	faceplayer
-	goto_if_set FLAG_BADGE01_GET, ViridianCity_EventScript_AskIfTeachyTVHelpful
-	goto_if_ge VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2, ViridianCity_EventScript_TutorialCompleted
-	goto_if_eq VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 1, ViridianCity_EventScript_TutorialStart
-	goto_if_eq VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 0, ViridianCity_EventScript_TutorialNotReady
-	end
-
-ViridianCity_EventScript_AskIfTeachyTVHelpful::
-	msgbox ViridianCity_Text_HowsTeachyTVHelping, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, ViridianCity_EventScript_TeachyTVNotHelpful
-	msgbox ViridianCity_Text_MyGrandsonOnTheShow
-	release
-	end
-
-ViridianCity_EventScript_TeachyTVNotHelpful::
-	msgbox ViridianCity_Text_TooBusyForTeachyTV
-	release
-	end
-
-ViridianCity_EventScript_TutorialCompleted::
-	msgbox ViridianCity_Text_WeakenMonsFirstToCatch
-	release
-	end
-
-ViridianCity_EventScript_TutorialStart::
-	call ViridianCity_EventScript_DoTutorialBattle
-	release
-	end
-
 @ Unused
 ViridianCity_EventScript_WatchToLearnBasics::
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
@@ -173,16 +123,7 @@ ViridianCity_EventScript_YoungsterDeclineExplanation::
 ViridianCity_EventScript_Woman::
 	lock
 	faceplayer
-	goto_if_eq VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 0, ViridianCity_EventScript_WomanRoadBlocked
 	msgbox ViridianCity_Text_GoShoppingInPewterOccasionally
-	release
-	end
-
-ViridianCity_EventScript_WomanRoadBlocked::
-	msgbox ViridianCity_Text_GrandpaHasntHadCoffeeYet
-	closemessage
-	applymovement LOCALID_WOMAN, Common_Movement_FaceOriginalDirection
-	waitmovement 0
 	release
 	end
 
@@ -241,3 +182,80 @@ ViridianCity_EventScript_DoTutorialBattle::
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
 	return
 `
+script Viridian_GiveOldRod {
+	lock
+	faceplayer
+
+	if (flag(FLAG_GOT_OLD_ROD)) {
+		msgbox(ViridianCity_Text_AfterOldRod)
+		release
+		end
+	}
+
+	msgbox(ViridianCity_Text_OldFishermanIntro, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(ViridianCity_Text_DeclinedOldRod)
+		release
+		end
+	} else {
+		msgbox(ViridianCity_Text_GiveOldRod)
+		giveitem(ITEM_OLD_ROD)
+		setflag(FLAG_GOT_OLD_ROD)
+		msgbox(ViridianCity_Text_ExplainOldRod)
+	}
+	release
+	end
+}
+
+text ViridianCity_Text_OldFishermanIntro {
+    "Ah, to be young again...\p"
+    "I've spent decades fishing in these\n"
+    "waters with my trusty OLD ROD.\p"
+    "Say... you look like someone who\n"
+    "might enjoy fishing!\p"
+    "Would you like to learn the art\n"
+    "of POKéMON fishing?"
+}
+
+text ViridianCity_Text_GiveOldRod {
+    "Ho ho! That's the spirit!\p"
+    "This OLD ROD has served me well,\n"
+    "but these days I prefer to just\l"
+    "watch the water flow by.\p"
+    "It may not catch anything fancy,\n"
+    "but it's perfect for beginners!"
+}
+
+text ViridianCity_Text_ReceivedOldRod {
+    "{PLAYER} received the OLD ROD\n"
+    "from the fisherman!"
+}
+
+text ViridianCity_Text_ExplainOldRod {
+    "Face any body of water and press\n"
+    "the A Button to start fishing.\p"
+    "If something bites, press the\n"
+    "A Button quickly to reel it in!\p"
+    "Be patient - that's the key to\n"
+    "fishing, young one!"
+}
+
+text ViridianCity_Text_DeclinedOldRod {
+    "Oh... Well, the peaceful life of\n"
+    "fishing isn't for everyone.\p"
+    "Come back if you change your mind."
+}
+
+text ViridianCity_Text_AfterOldRod {
+    "Have you caught anything yet?\p"
+    "The gentle ripples of the water...\n"
+    "The quiet anticipation...\p"
+    "Fishing is good for the soul,\n"
+    "wouldn't you agree?"
+}
+
+text ViridianCity_Text_NoRoomForOldRod {
+    "Oh my! Your BAG seems to be full.\p"
+    "Make some room and come back for\n"
+    "this trusty OLD ROD."
+}

@@ -24,6 +24,17 @@ Route20_Text_TiffanyIntro::
     .string "I love floating with the fishes\n"
     .string "here among the waves.$"
 
+Route20_Text_MissyMayIntro::
+    .string "I train daily in SEAFOAM's chilly\n"
+    .string "waters to toughen up my POKéMON!$"
+
+Route20_Text_MissyMayDefeat::
+    .string "Brrrr! Too strong!$"
+
+Route20_Text_MissyMayPostBattle::
+    .string "The currents inside the caves are\n"
+    .string "perfect for endurance training.$"
+
 Route20_Text_TiffanyDefeat::
     .string "Yowch!$"
 

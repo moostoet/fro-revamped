@@ -27,3 +27,26 @@ VermilionCity_PokemonCenter_1F_EventScript_Youngster::
 	msgbox VermilionCity_PokemonCenter_1F_Text_AllMonWeakToSpecificTypes, MSGBOX_NPC
 	end
 `
+
+script Vermilion_EventScript_ThiefItems {
+	lock
+	faceplayer 
+	if (flag(FLAG_RECEIVED_ITEMS_VERMILION)) {
+		msgbox(PokemonCenter_Text_AlreadyGotItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_RECEIVED_ITEMS_VERMILION)
+		giveitem(ITEM_SOFT_SAND, 99)
+		giveitem(ITEM_POISON_BARB, 99)
+	} else {
+		msgbox(PokemonCenter_Text_DeclinedItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_AfterDelivery)
+	release
+	end
+}

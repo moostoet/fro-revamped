@@ -847,3 +847,90 @@ PewterCity_Movement_WalkInPlaceLeft::
 	walk_in_place_left
 	step_end
 `
+
+script Beauty_GiveTogepiEgg {
+	lock
+	faceplayer 
+	if (flag(FLAG_RECEIVED_TOGEPI_EGG)) {
+		msgbox(PewterCity_Text_AfterEgg)
+		release
+		end
+	}
+
+	msgbox(PewterCity_Text_WantMysteryEgg, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		getpartysize
+		if (var(VAR_RESULT) == PARTY_SIZE) {
+			msgbox(PewterCity_Text_NoRoomForEgg)
+		} else {
+			setflag(FLAG_RECEIVED_TOGEPI_EGG)
+			msgbox(PewterCity_Text_HereIsEgg)
+			goto(GiveEgg)
+		}
+	} else {
+		msgbox(PewterCity_Text_DeclinedEgg)
+	}
+
+	release
+	end
+}
+
+script GiveEgg {
+	giveegg(SPECIES_TOGEPI)
+
+	playfanfare(MUS_LEVEL_UP)
+	message(PewterCity_Text_ReceivedEgg)
+	waitmessage
+	waitfanfare
+
+	release
+	end
+}
+
+script PewterCity_Item_SunStone {
+	finditem(ITEM_SUN_STONE)
+	end
+}
+
+text PewterCity_Text_WantMysteryEgg {
+    "Oh my! You look like such a caring\n"
+    "TRAINER!\p"
+    "I found this mysterious EGG while\n"
+    "traveling, but I'm not really cut\l"
+    "out for raising baby POKéMON.\p"
+    "Would you like to take care of\n"
+    "this EGG for me?"
+}
+
+text PewterCity_Text_HereIsEgg {
+    "How wonderful! I just know this\n"
+    "EGG will hatch into something\l"
+    "special with your care.\p"
+    "Keep it with you in your party,\n"
+    "and eventually it will hatch!"
+}
+
+text PewterCity_Text_ReceivedEgg {
+    "{PLAYER} received the mysterious\n"
+    "EGG from the BEAUTY!"
+}
+
+text PewterCity_Text_NoRoomForEgg {
+    "Oh dear... Your party seems to be\n"
+    "completely full right now.\p"
+    "Please make some room and come\n"
+    "back for this precious EGG."
+}
+
+text PewterCity_Text_DeclinedEgg {
+    "Oh... That's quite disappointing.\p"
+    "I really hoped to find someone who\n"
+    "could raise this EGG properly..."
+}
+
+text PewterCity_Text_AfterEgg {
+    "I wonder what kind of adorable\n"
+    "POKéMON will hatch from that EGG?\p"
+    "Please take good care of it!\n"
+    "Keep it safe and warm!"
+}

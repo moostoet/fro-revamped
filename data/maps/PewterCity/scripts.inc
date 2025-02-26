@@ -1694,3 +1694,114 @@ PewterCity_Movement_WalkInPlaceLeft::
 	walk_in_place_left
 # 848 "data/maps/PewterCity/scripts.pory"
 	step_end
+
+Beauty_GiveTogepiEgg::
+# 852 "data/maps/PewterCity/scripts.pory"
+	lock
+# 853 "data/maps/PewterCity/scripts.pory"
+	faceplayer
+# 854 "data/maps/PewterCity/scripts.pory"
+	goto_if_set FLAG_RECEIVED_TOGEPI_EGG, Beauty_GiveTogepiEgg_2
+# 860 "data/maps/PewterCity/scripts.pory"
+	msgbox PewterCity_Text_WantMysteryEgg, MSGBOX_YESNO
+# 861 "data/maps/PewterCity/scripts.pory"
+	compare VAR_RESULT, YES
+	goto_if_eq Beauty_GiveTogepiEgg_5
+# 871 "data/maps/PewterCity/scripts.pory"
+	msgbox PewterCity_Text_DeclinedEgg
+Beauty_GiveTogepiEgg_4:
+# 874 "data/maps/PewterCity/scripts.pory"
+	release
+	end
+
+Beauty_GiveTogepiEgg_2:
+# 855 "data/maps/PewterCity/scripts.pory"
+	msgbox PewterCity_Text_AfterEgg
+# 856 "data/maps/PewterCity/scripts.pory"
+	release
+	end
+
+Beauty_GiveTogepiEgg_5:
+# 862 "data/maps/PewterCity/scripts.pory"
+	getpartysize
+# 863 "data/maps/PewterCity/scripts.pory"
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq Beauty_GiveTogepiEgg_8
+# 866 "data/maps/PewterCity/scripts.pory"
+	setflag FLAG_RECEIVED_TOGEPI_EGG
+# 867 "data/maps/PewterCity/scripts.pory"
+	msgbox PewterCity_Text_HereIsEgg
+# 868 "data/maps/PewterCity/scripts.pory"
+	goto GiveEgg
+	goto Beauty_GiveTogepiEgg_4
+
+Beauty_GiveTogepiEgg_8:
+# 864 "data/maps/PewterCity/scripts.pory"
+	msgbox PewterCity_Text_NoRoomForEgg
+	goto Beauty_GiveTogepiEgg_4
+
+
+GiveEgg::
+# 879 "data/maps/PewterCity/scripts.pory"
+	giveegg SPECIES_TOGEPI
+# 881 "data/maps/PewterCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 882 "data/maps/PewterCity/scripts.pory"
+	message PewterCity_Text_ReceivedEgg
+# 883 "data/maps/PewterCity/scripts.pory"
+	waitmessage
+# 884 "data/maps/PewterCity/scripts.pory"
+	waitfanfare
+# 886 "data/maps/PewterCity/scripts.pory"
+	release
+	end
+
+
+PewterCity_Item_SunStone::
+# 891 "data/maps/PewterCity/scripts.pory"
+	finditem ITEM_SUN_STONE
+	end
+
+
+PewterCity_Text_WantMysteryEgg::
+# 895 "data/maps/PewterCity/scripts.pory"
+	.string "Oh my! You look like such a caring\n"
+	.string "TRAINER!\p"
+	.string "I found this mysterious EGG while\n"
+	.string "traveling, but I'm not really cut\l"
+	.string "out for raising baby POKéMON.\p"
+	.string "Would you like to take care of\n"
+	.string "this EGG for me?$"
+
+PewterCity_Text_HereIsEgg::
+# 905 "data/maps/PewterCity/scripts.pory"
+	.string "How wonderful! I just know this\n"
+	.string "EGG will hatch into something\l"
+	.string "special with your care.\p"
+	.string "Keep it with you in your party,\n"
+	.string "and eventually it will hatch!$"
+
+PewterCity_Text_ReceivedEgg::
+# 913 "data/maps/PewterCity/scripts.pory"
+	.string "{PLAYER} received the mysterious\n"
+	.string "EGG from the BEAUTY!$"
+
+PewterCity_Text_NoRoomForEgg::
+# 918 "data/maps/PewterCity/scripts.pory"
+	.string "Oh dear... Your party seems to be\n"
+	.string "completely full right now.\p"
+	.string "Please make some room and come\n"
+	.string "back for this precious EGG.$"
+
+PewterCity_Text_DeclinedEgg::
+# 925 "data/maps/PewterCity/scripts.pory"
+	.string "Oh... That's quite disappointing.\p"
+	.string "I really hoped to find someone who\n"
+	.string "could raise this EGG properly...$"
+
+PewterCity_Text_AfterEgg::
+# 931 "data/maps/PewterCity/scripts.pory"
+	.string "I wonder what kind of adorable\n"
+	.string "POKéMON will hatch from that EGG?\p"
+	.string "Please take good care of it!\n"
+	.string "Keep it safe and warm!$"

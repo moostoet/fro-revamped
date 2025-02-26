@@ -13,7 +13,7 @@
   "show_map_name": true,
   "floor_number": 0,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": 0,
   "object_events": [
     {
       "type": "object",
@@ -151,7 +151,9 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "sign",
@@ -190,7 +192,7 @@
       "x": 13,
       "y": 11,
       "elevation": 3,
-      "item": "ITEM_REVIVE",
+      "item": "ITEM_THICK_CLUB",
       "flag": "FLAG_HIDDEN_ITEM_SAFARI_ZONE_WEST_REVIVE",
       "quantity": 1,
       "underfoot": false

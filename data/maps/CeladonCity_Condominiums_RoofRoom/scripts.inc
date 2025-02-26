@@ -27,7 +27,7 @@ CeladonCity_Condominiums_RoofRoom_EventScript_EeveeBall::
 # 14 "data/maps/CeladonCity_Condominiums_RoofRoom/scripts.pory"
 	setvar VAR_TEMP_1, SPECIES_EEVEE
 # 15 "data/maps/CeladonCity_Condominiums_RoofRoom/scripts.pory"
-	givemon SPECIES_EEVEE, 25
+	givemon SPECIES_EEVEE, 30
 # 16 "data/maps/CeladonCity_Condominiums_RoofRoom/scripts.pory"
 	goto_if_eq VAR_RESULT, 0, CeladonCity_Condominiums_RoofRoom_EventScript_GetEeveeParty
 # 17 "data/maps/CeladonCity_Condominiums_RoofRoom/scripts.pory"

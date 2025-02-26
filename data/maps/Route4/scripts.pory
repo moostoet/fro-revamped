@@ -17,3 +17,7 @@ Route4_EventScript_RouteSign::
 	msgbox Route4_Text_RouteSign, MSGBOX_SIGN
 	end
 `
+script Route4_LuckyEgg {
+	finditem(ITEM_LUCKY_EGG)
+	end
+}

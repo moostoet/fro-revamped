@@ -2,22 +2,26 @@ SilphCo_7F_Text_HaveMonForSavingUs::
     .string "Oh! Hi! You're not a ROCKET!\n"
     .string "You came to save us?\l"
     .string "Why, thank you!\p"
-    .string "I want you to have this POKéMON\n"
+    .string "I was studying weather patterns\n"
+    .string "when TEAM ROCKET attacked...\p"
+    .string "Please, take this special POKéMON\n"
     .string "for saving us.$"
 
 SilphCo_7F_Text_ObtainedLaprasFromEmployee::
-    .string "{PLAYER} obtained a LAPRAS from\n"
+    .string "{PLAYER} obtained a CASTFORM from\n"
     .string "the SILPH employee!$"
 
 SilphCo_7F_Text_ExplainLapras::
-    .string "It's a LAPRAS.\n"
-    .string "It's a very intelligent POKéMON.\p"
-    .string "We kept it in our lab, but it will\n"
-    .string "be much better off with you.\p"
+    .string "It's a CASTFORM.\n"
+    .string "A remarkable artificial POKéMON!\p"
+    .string "We created it here at SILPH CO.\n"
+    .string "to help predict the weather.\p"
+    .string "Its body changes form based on\n"
+    .string "the current weather conditions!\p"
     .string "I think you will be a good TRAINER\n"
-    .string "for LAPRAS!\p"
-    .string "It's a good swimmer.\n"
-    .string "It'll give you a lift across water!$"
+    .string "for CASTFORM!\p"
+    .string "Please take good care of it.\n"
+    .string "It's quite a unique POKéMON!$"
 
 SilphCo_7F_Text_RocketBossWentToBoardroom::
     .string "TEAM ROCKET's BOSS went to the\n"

@@ -45,3 +45,119 @@ PewterCity_PokemonCenter_1F_EventScript_GBAKid2::
 	msgbox PewterCity_PokemonCenter_1F_Text_TradingPikachuWithKid, MSGBOX_NPC
 	end
 `
+
+script PewterPokemonCenter_Scientist_GiveMudkip {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_MUDKIP)) {
+		msgbox(PewterPokemonCenter_Text_AfterMudkip)
+		release
+		end
+	}
+
+	msgbox(PewterPokemonCenter_Text_WantMudkip, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(PewterPokemonCenter_Text_DeclinedMudkip)
+		release
+		end
+	} else {
+		msgbox(PewterPokemonCenter_Text_HereIsMudkip)
+		setvar(VAR_TEMP_1, SPECIES_MUDKIP)
+		givemon(SPECIES_MUDKIP, 10)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveMudkip_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveMudkip_PC)
+		} else {
+			msgbox(PewterPokemonCenter_Text_NoRoomForMudkip)
+		}
+	}
+}
+
+script GiveMudkip_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(PewterPokemonCenter_Text_ReceivedMudkip)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_MUDKIP)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_MUDKIP)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_MUDKIP)
+		release
+		end
+	}
+}
+
+script GiveMudkip_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(PewterPokemonCenter_Text_ReceivedMudkip)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_MUDKIP)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_MUDKIP)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_MUDKIP)
+		release
+		end
+	}
+}
+
+text Text_GiveNickNameToThisMon {
+    "Give this POKéMON a nickname?"
+}
+
+text PewterPokemonCenter_Text_WantMudkip {
+    "Ah, a young TRAINER!\p"
+    "I'm conducting research on WATER-type\n"
+    "POKéMON from different regions.\p"
+    "This MUDKIP from HOENN has been\n"
+    "helping with my studies, but...\p"
+    "I think it would rather go on\n"
+    "adventures with a TRAINER.\p"
+    "Would you like to take MUDKIP\n"
+    "with you?"
+}
+
+text PewterPokemonCenter_Text_HereIsMudkip {
+    "Splendid! MUDKIP is a WATER-type\n"
+    "POKéMON from the HOENN region.\p"
+    "It's very reliable and friendly.\n"
+    "You'll make a great team!"
+}
+
+text PewterPokemonCenter_Text_ReceivedMudkip {
+    "{PLAYER} received MUDKIP\n"
+    "from the SCIENTIST!"
+}
+
+text PewterPokemonCenter_Text_NoRoomForMudkip {
+    "Hmm... It seems your party is full.\p"
+    "Please make room for MUDKIP and\n"
+    "come see me again."
+}
+
+text PewterPokemonCenter_Text_DeclinedMudkip {
+    "Oh? That's unfortunate...\p"
+    "If you reconsider, I'll be here\n"
+    "continuing my research."
+}
+
+text PewterPokemonCenter_Text_AfterMudkip {
+    "MUDKIP is both tough and cute!\p"
+    "It's perfect for both battles and\n"
+    "contests. Take good care of it!"
+}

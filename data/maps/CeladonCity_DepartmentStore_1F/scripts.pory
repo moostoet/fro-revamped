@@ -14,3 +14,101 @@ CeladonCity_DepartmentStore_1F_EventScript_FloorSign::
 	msgbox CeladonCity_DepartmentStore_1F_Text_ServiceCounter, MSGBOX_SIGN
 	end
 `
+script Celadon_SellTMs_Cheap {
+	lock
+	faceplayer
+
+	msgbox(CeladonCity_Text_RocketTMSeller, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_ROCKET_SHOP)
+		message(CeladonCity_Text_WhichTMWant)
+		waitmessage
+
+		pokemart(GruntItems)
+		msgbox(CeladonCity_Text_AfterBuying)
+		clearflag(FLAG_ROCKET_SHOP)
+		release
+		end
+	} else {
+		msgbox(CeladonCity_Text_NoThanks)
+		release
+		end
+	}
+}
+
+mart GruntItems {
+	ITEM_TM13
+	ITEM_TM23
+	ITEM_TM24
+	ITEM_TM30
+	ITEM_TM35
+}
+
+text CeladonCity_Text_RocketTMSeller {
+    "Psst! Hey kid, over here...\p"
+    "Look, I swiped these TMs from the\n"
+    "GAME CORNER's prize exchange.\p"
+    "But the boss would kill me if he\n"
+    "found out I took 'em!\p"
+    "I'll sell them to you cheap.\n"
+    "Way better than grinding coins!\p"
+    "What do you say? Interested?"
+}
+
+text CeladonCity_Text_WhichTMWant {
+    "Which TM you want?\n"
+    "All top quality, I promise!"
+}
+
+text CeladonCity_Text_NotEnoughMoney {
+    "Hey, what gives? You're short!\p"
+    "Come back when you've got the cash.\n"
+    "I can't go any lower than that!"
+}
+
+text CeladonCity_Text_ComeAgain {
+    "Sweet! Here's your TM.\n"
+    "Don't tell anyone where you got it!\p"
+    "Come back if you want the others.\n"
+    "I'll be here... probably."
+}
+
+text CeladonCity_Text_NoThanks {
+    "Tch... your loss, kid.\p"
+    "But keep quiet about this, got it?\n"
+    "I was never here!"
+}
+
+text CeladonCity_Text_AfterBuying {
+    "These TMs are the real deal!\n"
+    "Straight from the GAME CORNER!\p"
+    "Need another? I've still got\n"
+    "plenty... for the right price!"
+}
+
+script Celadon_GiveThiefItems {
+	lock
+	faceplayer 
+	if (flag(FLAG_RECEIVED_ITEMS_CELADON)) {
+		msgbox(PokemonCenter_Text_AlreadyGotItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_DeliverymanIntro, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_RECEIVED_ITEMS_CELADON)
+		giveitem(ITEM_ASPEAR_BERRY, 99)
+		giveitem(ITEM_METAL_COAT, 99)
+		giveitem(ITEM_PERSIM_BERRY, 99)
+		giveitem(ITEM_SITRUS_BERRY, 99)
+		giveitem(ITEM_SHARP_BEAK, 99)
+		giveitem(ITEM_SILVER_POWDER, 99)
+	} else {
+		msgbox(PokemonCenter_Text_DeclinedItems)
+		release
+		end
+	}
+	msgbox(PokemonCenter_Text_AfterDelivery)
+	release
+	end
+}

@@ -99,3 +99,124 @@ Route24_Movement_WalkDown::
 	walk_down
 	step_end
 `
+
+script Route24_Give_Cyndaquil {
+	lock 
+	faceplayer
+	if (flag(FLAG_RECEIVED_CYNDAQUIL)) {
+		msgbox(Route24_Text_AfterCyndaquil)
+		release
+		end 
+	}
+
+	msgbox(Route24_Text_WantCyndaquil, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(Route24_Text_DeclinedCyndaquil)
+		release
+		end
+	} else {
+		msgbox(Route24_Text_HereIsCyndaquil)
+		setvar(VAR_TEMP_1, SPECIES_CYNDAQUIL)
+		givemon(SPECIES_CYNDAQUIL, 15)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveCyndaquil_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveCyndaquil_PC)
+		} else {
+			msgbox(Route24_Text_NoRoomForCyndaquil)
+			release
+			end
+		}
+	}
+}
+
+script GiveCyndaquil_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route24_Text_ReceivedCyndaquil)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_CYNDAQUIL)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_CYNDAQUIL)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_CYNDAQUIL)
+		release
+		end
+	}
+}
+
+script GiveCyndaquil_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(Route24_Text_ReceivedCyndaquil)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_CYNDAQUIL)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_CYNDAQUIL)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_CYNDAQUIL)
+		release
+		end
+	}
+}
+
+text Route24_Text_WantCyndaquil {
+    "Ah, a young TRAINER!\p"
+    "I recently returned from visiting\n"
+    "my dear friend, PROF. ELM in JOHTO.\p"
+    "He gave me this charming CYNDAQUIL\n"
+    "to deliver to a promising TRAINER.\p"
+    "Something about you tells me you\n"
+    "might be just who I'm looking for!\p"
+    "Would you like to take this\n"
+    "CYNDAQUIL with you?"
+}
+
+text Route24_Text_HereIsCyndaquil {
+    "Wonderful choice, my young friend!\p"
+    "CYNDAQUIL is a FIRE-type POKéMON\n"
+    "native to the JOHTO region.\p"
+    "When it's nervous, the flames on\n"
+    "its back burn more intensely.\p"
+    "Do take good care of it!"
+}
+
+text Route24_Text_ReceivedCyndaquil {
+    "{PLAYER} received CYNDAQUIL\n"
+    "from the gentleman!"
+}
+
+text Route24_Text_NoRoomForCyndaquil {
+    "Oh dear, it appears your party\n"
+    "is already full.\p"
+    "Please make some room and return\n"
+    "to receive this darling CYNDAQUIL."
+}
+
+text Route24_Text_DeclinedCyndaquil {
+    "Oh my... How disappointing.\p"
+    "Should you change your mind,\n"
+    "I shall remain here for a while."
+}
+
+text Route24_Text_AfterCyndaquil {
+    "Ah, seeing young TRAINERS and\n"
+    "POKéMON together...\p"
+    "It reminds me of my own youth\n"
+    "in JOHTO!\p"
+    "CYNDAQUIL will surely warm up\n"
+    "to you in no time at all!"
+}

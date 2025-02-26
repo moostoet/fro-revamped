@@ -126,3 +126,154 @@ SaffronCity_EventScript_TrainerFanClubSign::
 	msgbox SaffronCity_Text_TrainerFanClubSign, MSGBOX_SIGN
 	end
 `
+
+script Saffron_GiveTyrogue {
+	lock
+	faceplayer
+	if (flag(FLAG_RECEIVED_TYROGUE)) {
+		msgbox(SaffronCity_Text_AfterTyrogue)
+		applymovement(16, moves(
+			face_up
+		))
+		waitmovement(16)
+		release
+		end
+	}
+
+	msgbox(SaffronCity_Text_BlackBeltTyrogue, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(SaffronCity_Text_DeclinedTyrogue)
+		applymovement(16, moves(
+			face_up
+		))
+		waitmovement(16)
+		release
+		end
+	} else {
+		msgbox(SaffronCity_Text_HereIsTyrogue)
+		setvar(VAR_TEMP_1, SPECIES_TYROGUE)
+		givemon(SPECIES_TYROGUE, 30)
+		if (var(VAR_RESULT) == 0) {
+			goto(GiveTyrogue_Party)
+		} elif (var(VAR_RESULT) == 1) {
+			goto(GiveTyrogue_PC)
+		} else {
+			msgbox(SaffronCity_Text_NoRoomForTyrogue)
+			applymovement(16, moves(
+			face_up
+			))
+			waitmovement(16)
+			release
+			end
+		}
+	}
+}
+
+script GiveTyrogue_Party {
+	playfanfare(MUS_LEVEL_UP)
+	message(SaffronCity_Text_ReceivedTyrogue)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TYROGUE)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		setflag(FLAG_RECEIVED_TYROGUE)
+		applymovement(16, moves(
+			face_up
+		))
+		waitmovement(16)
+		release
+		end
+	} else {
+		call(EventScript_GetGiftMonPartySlot)
+		call(EventScript_ChangePokemonNickname)
+		setflag(FLAG_RECEIVED_TYROGUE)
+		applymovement(16, moves(
+			face_up
+		))
+		waitmovement(16)
+		release
+		end
+	}
+}
+
+script GiveTyrogue_PC {
+	playfanfare(MUS_LEVEL_UP)
+	message(SaffronCity_Text_ReceivedTyrogue)
+	waitmessage
+	waitfanfare
+
+	bufferspeciesname(STR_VAR_1, SPECIES_TYROGUE)
+	msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_TYROGUE)
+		applymovement(16, moves(
+			face_up
+		))
+		waitmovement(16)
+		release
+		end
+	} else {
+		call(EventScript_NameReceivedBoxMon)
+		call(EventScript_TransferredToPC)
+		setflag(FLAG_RECEIVED_TYROGUE)
+		applymovement(16, moves(
+			face_up
+		))
+		waitmovement(16)
+		release
+		end
+	}
+}
+
+text SaffronCity_Text_BlackBeltTyrogue {
+    "..."
+    "\p"
+    "HMPH! Seven straight days I have\n"
+    "stood here, facing this wall...\p"
+    "Training my mind, honing my spirit,\n"
+    "waiting to be accepted into the\l"
+    "FIGHTING DOJO as a student...\p"
+    "But perhaps... this TYROGUE I\n"
+    "caught needs a different path.\p"
+    "Its fighting spirit is strong, but\n"
+    "it requires a TRAINER who will\l"
+    "journey with it, not stand still.\p"
+    "You there! Would you take this\n"
+    "TYROGUE with you on your quest?"
+}
+
+text SaffronCity_Text_HereIsTyrogue {
+    "EXCELLENT!\p"
+    "TYROGUE can evolve into three\n"
+    "different FIGHTING-type POKéMON\l"
+    "depending on how you train it!\p"
+    "Show it the way of the warrior!"
+}
+
+text SaffronCity_Text_ReceivedTyrogue {
+    "{PLAYER} received TYROGUE\n"
+    "from the BLACK BELT!"
+}
+
+text SaffronCity_Text_NoRoomForTyrogue {
+    "WHAT? Your team is full!\p"
+    "Return when you have made space.\n"
+    "I shall continue my meditation..."
+}
+
+text SaffronCity_Text_DeclinedTyrogue {
+    "I see...\p"
+    "Then we shall both continue our\n"
+    "training in our own ways..."
+}
+
+text SaffronCity_Text_AfterTyrogue {
+    "I shall remain here, training...\p"
+    "One day, the DOJO will recognize\n"
+    "my dedication!\p"
+    "But TYROGUE has found its path\n"
+    "with you. That brings me peace."
+}

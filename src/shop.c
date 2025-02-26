@@ -29,6 +29,7 @@
 #include "constants/items.h"
 #include "constants/game_stat.h"
 #include "constants/field_weather.h"
+#include "event_data.h"
 
 #define tItemCount data[1]
 #define tItemId data[5]
@@ -327,7 +328,11 @@ static void Task_ReturnToShopMenu(u8 taskId)
     if (IsWeatherNotFadingIn() != TRUE)
         return;
 
-    DisplayItemMessageOnField(taskId, GetMartFontId(), gText_AnythingElseICanHelp, ShowShopMenuAfterExitingBuyOrSellMenu);
+    if (FlagGet(FLAG_ROCKET_SHOP)) {
+        DisplayItemMessageOnField(taskId, GetMartFontId(), gText_RocketNeedAnotherTM, ShowShopMenuAfterExitingBuyOrSellMenu);
+    } else {
+        DisplayItemMessageOnField(taskId, GetMartFontId(), gText_AnythingElseICanHelp, ShowShopMenuAfterExitingBuyOrSellMenu);
+    }
 }
 
 static void ShowShopMenuAfterExitingBuyOrSellMenu(u8 taskId)
@@ -894,12 +899,20 @@ static void Task_BuyMenu(u8 taskId)
             sShopData.itemPrice = ItemId_GetPrice(itemId);
             if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData.itemPrice))
             {
-                BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
+                if (FlagGet(FLAG_ROCKET_SHOP)) {
+                    BuyMenuDisplayMessage(taskId, gText_RocketNotEnoughMoney, BuyMenuReturnToItemList);
+                } else {
+                    BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
+                }
             }
             else
             {
                 CopyItemName(itemId, gStringVar1);
-                BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany, Task_BuyHowManyDialogueInit);
+                if (FlagGet(FLAG_ROCKET_SHOP)) {
+                    BuyMenuDisplayMessage(taskId, gText_RocketWhichTMHowMany, Task_BuyHowManyDialogueInit);
+                } else {
+                    BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany, Task_BuyHowManyDialogueInit);
+                }
             }
             break;
         }
@@ -955,7 +968,11 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
             CopyItemName(tItemId, gStringVar1);
             ConvertIntToDecimalStringN(gStringVar2, tItemCount, STR_CONV_MODE_LEFT_ALIGN, 2);
             ConvertIntToDecimalStringN(gStringVar3, sShopData.itemPrice, STR_CONV_MODE_LEFT_ALIGN, 8);
-            BuyMenuDisplayMessage(taskId, gText_Var1AndYouWantedVar2, CreateBuyMenuConfirmPurchaseWindow);
+            if (FlagGet(FLAG_ROCKET_SHOP)) {
+                BuyMenuDisplayMessage(taskId, gText_RocketConfirmTMPurchase, CreateBuyMenuConfirmPurchaseWindow);
+            } else {
+                BuyMenuDisplayMessage(taskId, gText_Var1AndYouWantedVar2, CreateBuyMenuConfirmPurchaseWindow);
+            }
         }
         else if (JOY_NEW(B_BUTTON))
         {
@@ -982,7 +999,11 @@ static void BuyMenuTryMakePurchase(u8 taskId)
     PutWindowTilemap(4);
     if (AddBagItem(tItemId, tItemCount) == TRUE)
     {
-        BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
+        if (FlagGet(FLAG_ROCKET_SHOP)) {
+            BuyMenuDisplayMessage(taskId, gText_RocketTMHandover, BuyMenuSubtractMoney);
+        } else {
+            BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
+        }
         DebugFunc_PrintPurchaseDetails(taskId);
         RecordItemTransaction(tItemId, tItemCount, QL_EVENT_BOUGHT_ITEM - QL_EVENT_USED_POKEMART);
     }

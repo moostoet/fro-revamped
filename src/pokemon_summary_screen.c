@@ -34,6 +34,7 @@
 #include "mon_markings.h"
 #include "pokemon_storage_system.h"
 #include "constants/sound.h"
+#include "party_menu.h"
 
 // needs conflicting header to match (curIndex is s8 in the function, but has to be defined as u8 here)
 extern s16 SeekToNextMonInBox(struct BoxPokemon * boxMons, u8 curIndex, u8 maxIndex, u8 flags);
@@ -173,7 +174,7 @@ struct PokemonSummaryScreenData
         u8 ALIGNED(4) genderSymbolStrBuf[3];
         u8 ALIGNED(4) levelStrBuf[7];
         u8 ALIGNED(4) curHpStrBuf[20];
-        u8 ALIGNED(4) statValueStrBufs[5][30];
+        u8 ALIGNED(4) statValueStrBufs[NUM_STATS][30];
 
         u8 ALIGNED(4) moveCurPpStrBufs[5][11];
         u8 ALIGNED(4) moveMaxPpStrBufs[5][11];
@@ -184,7 +185,7 @@ struct PokemonSummaryScreenData
         u8 ALIGNED(4) expPointsStrBuf[9];
         u8 ALIGNED(4) expToNextLevelStrBuf[9];
 
-        u8 ALIGNED(4) abilityNameStrBuf[13];
+        u8 ALIGNED(4) abilityNameStrBuf[ABILITY_NAME_LENGTH + 1];
         u8 ALIGNED(4) abilityDescStrBuf[52];
     } summary;
 
@@ -1034,6 +1035,7 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
     sMonSummaryScreen->skillsPageBgNum = 2;
     sMonSummaryScreen->infoAndMovesPageBgNum = 1;
     sMonSummaryScreen->flippingPages = FALSE;
+    sMonSummaryScreen->skillsPageMode = 0;
 
     sMonSummaryScreen->unk3228 = 0;
     sMonSummaryScreen->unk322C = 1;
@@ -2237,32 +2239,26 @@ static void SetStatXPos(u8 stat, u16 xpos)
     }
 }
 
+
 static void ApplyNatureColor(u8 *str, u8 stat)
 {
-    // Define the color codes.
     const u8 blue[] = _("{COLOR 7}");
     const u8 red[]  = _("{COLOR 1}");
     const u8 none[] = _("");
 
-    // Get the Pokémon’s personality and nature.
     u32 personality = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY);
     u8 nature = GetNatureFromPersonality(personality);
 
-    // Save the original string.
     u8 tmp[20];
     StringCopy(tmp, str);
 
-    // Look up the nature’s effect on this stat.
-    // If the value is positive, the stat is boosted (red)
-    // If negative, it’s lowered (blue); zero means no change.
-    if (sNatureStatTable[nature][stat] > 0)
+    if (sNatureStatTable[nature][stat - 1] > 0)
         StringCopy(str, red);
-    else if (sNatureStatTable[nature][stat] < 0)
+    else if (sNatureStatTable[nature][stat - 1] < 0)
         StringCopy(str, blue);
     else
         StringCopy(str, none);
 
-    // Append the original string contents after the color code.
     StringAppend(str, tmp);
 }
 
@@ -2292,29 +2288,16 @@ static void BufferStatString(u8 stat)
         ApplyNatureColor(dst, stat);
 }
 
-static const u8 sText_JudgeNoGood[] = _("No good");
-static const u8 sText_JudgeDecent[] = _("Decent");
-static const u8 sText_JudgePrettyGood[] = _("Pretty good");
-static const u8 sText_JudgeVeryGood[] = _("Very good");
-static const u8 sText_JudgeFantastic[] = _("Fantastic");
-static const u8 sText_JudgeBest[] = _("Best");
-
 static void BufferIVString(u8 stat)
 {
-    // Get the IV value for this stat.
     u16 statValue = GetMonData(&sMonSummaryScreen->currentMon, sStatData[stat].monDataIv);
-    
-    // Get the string buffer for this stat.
     u8 *dst = sMonSummaryScreen->summary.statValueStrBufs[sStatData[stat].pssStat];
-    
-    // Convert the numerical IV value to its textual representation.
-    // (Assuming ConvertIntToDecimalStringN is available; you could also use sprintf.)
+
+    // Convert the IV value into a string. For IVs a width of 2 is enough.
     ConvertIntToDecimalStringN(dst, statValue, STR_CONV_MODE_LEFT_ALIGN, 2);
     
-    // Set the X coordinate for the stat value so it renders correctly.
     SetStatXPos(stat, GetNumberRightAlign63(dst));
     
-    // Optionally, if this isn't the HP stat, apply a nature-based color.
     if (stat != STAT_HP)
         ApplyNatureColor(dst, stat);
 }
@@ -2666,7 +2649,7 @@ static void PrintMovesPage(void)
             PokeSum_PrintMoveName(4);
         else
             AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL,
-                                         3, GetMoveNamePrinterYpos(4),
+                                         0, GetMoveNamePrinterYpos(4),
                                          sPrintMoveTextColors[0], TEXT_SKIP_DRAW, gFameCheckerText_Cancel);
     }
 }
@@ -3911,7 +3894,7 @@ static u8 PokeSum_CanForgetSelectedMove(void)
 
     move = GetMonMoveBySlotId(&sMonSummaryScreen->currentMon, sMoveSelectionCursorPos);
 
-    if (sMonSummaryScreen->mode != PSS_MODE_FORGET_MOVE)
+    if (IsMoveHm(move) == TRUE && sMonSummaryScreen->mode != PSS_MODE_FORGET_MOVE)
         return FALSE;
 
     return TRUE;

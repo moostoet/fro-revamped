@@ -207,11 +207,11 @@ CinnabarIsland_EventScript_BillScene::
 # 104 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_HeyIfItIsntPlayer
 # 105 "data/maps/CinnabarIsland/scripts.pory"
-	msgbox CinnabarIsland_Text_ComeWithMeToOneIsland, MSGBOX_YESNO
+	msgbox CinnabarIsland_Text_ComeWithMeToOneIsland
 # 106 "data/maps/CinnabarIsland/scripts.pory"
-	goto_if_eq VAR_RESULT, YES, CinnabarIsland_EventScript_AgreeSailToOneIsland
+	closemessage
 # 107 "data/maps/CinnabarIsland/scripts.pory"
-	goto_if_eq VAR_RESULT, NO, CinnabarIsland_EventScript_DeclineSailToOneIsland
+	goto CinnabarIsland_EventScript_DeclineSailToOneIsland
 # 108 "data/maps/CinnabarIsland/scripts.pory"
 	end
 # 109 "data/maps/CinnabarIsland/scripts.pory"
@@ -277,39 +277,39 @@ CinnabarIsland_EventScript_AgreeSailToOneIsland::
 # 139 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_DeclineSailToOneIsland::
 # 140 "data/maps/CinnabarIsland/scripts.pory"
-	msgbox CinnabarIsland_Text_IllBeWaitingInPokeCenter
-# 141 "data/maps/CinnabarIsland/scripts.pory"
-	closemessage
-# 142 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_unset FLAG_TEMP_2, CinnabarIsland_EventScript_BillExitToPokeCenter
-# 143 "data/maps/CinnabarIsland/scripts.pory"
+# 141 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_set FLAG_TEMP_2, CinnabarIsland_EventScript_BillReturnToPokeCenter
-# 144 "data/maps/CinnabarIsland/scripts.pory"
+# 142 "data/maps/CinnabarIsland/scripts.pory"
 	removeobject LOCALID_BILL
-# 145 "data/maps/CinnabarIsland/scripts.pory"
+# 143 "data/maps/CinnabarIsland/scripts.pory"
 	setvar VAR_MAP_SCENE_CINNABAR_ISLAND, 2
-# 146 "data/maps/CinnabarIsland/scripts.pory"
+# 144 "data/maps/CinnabarIsland/scripts.pory"
 	clearflag FLAG_HIDE_CINNABAR_POKECENTER_BILL
-# 147 "data/maps/CinnabarIsland/scripts.pory"
+# 145 "data/maps/CinnabarIsland/scripts.pory"
 	releaseall
-# 148 "data/maps/CinnabarIsland/scripts.pory"
+# 146 "data/maps/CinnabarIsland/scripts.pory"
 	end
-# 149 "data/maps/CinnabarIsland/scripts.pory"
+# 147 "data/maps/CinnabarIsland/scripts.pory"
 
-# 150 "data/maps/CinnabarIsland/scripts.pory"
+# 148 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_BillExitToPokeCenter::
-# 151 "data/maps/CinnabarIsland/scripts.pory"
+# 149 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_BillExitToPokeCenter
-# 152 "data/maps/CinnabarIsland/scripts.pory"
+# 150 "data/maps/CinnabarIsland/scripts.pory"
 	waitmovement 0
-# 153 "data/maps/CinnabarIsland/scripts.pory"
+# 151 "data/maps/CinnabarIsland/scripts.pory"
 	return
-# 154 "data/maps/CinnabarIsland/scripts.pory"
+# 152 "data/maps/CinnabarIsland/scripts.pory"
 
-# 155 "data/maps/CinnabarIsland/scripts.pory"
+# 153 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillExitToPokeCenter::
-# 156 "data/maps/CinnabarIsland/scripts.pory"
+# 154 "data/maps/CinnabarIsland/scripts.pory"
 	walk_right
+# 155 "data/maps/CinnabarIsland/scripts.pory"
+	walk_down
+# 156 "data/maps/CinnabarIsland/scripts.pory"
+	walk_down
 # 157 "data/maps/CinnabarIsland/scripts.pory"
 	walk_down
 # 158 "data/maps/CinnabarIsland/scripts.pory"
@@ -319,243 +319,243 @@ CinnabarIsland_Movement_BillExitToPokeCenter::
 # 160 "data/maps/CinnabarIsland/scripts.pory"
 	walk_down
 # 161 "data/maps/CinnabarIsland/scripts.pory"
-	walk_down
+	step_end
 # 162 "data/maps/CinnabarIsland/scripts.pory"
-	walk_down
+
 # 163 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 164 "data/maps/CinnabarIsland/scripts.pory"
-
-# 165 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_BillReturnToPokeCenter::
-# 166 "data/maps/CinnabarIsland/scripts.pory"
+# 164 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, CinnabarIsland_Movement_PlayerWatchBillExit
-# 167 "data/maps/CinnabarIsland/scripts.pory"
+# 165 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_BillApproachDoor
-# 168 "data/maps/CinnabarIsland/scripts.pory"
+# 166 "data/maps/CinnabarIsland/scripts.pory"
 	waitmovement 0
-# 169 "data/maps/CinnabarIsland/scripts.pory"
+# 167 "data/maps/CinnabarIsland/scripts.pory"
 	opendoor 14, 11
-# 170 "data/maps/CinnabarIsland/scripts.pory"
+# 168 "data/maps/CinnabarIsland/scripts.pory"
 	waitdooranim
-# 171 "data/maps/CinnabarIsland/scripts.pory"
+# 169 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_BillReEnterPokeCenter
-# 172 "data/maps/CinnabarIsland/scripts.pory"
+# 170 "data/maps/CinnabarIsland/scripts.pory"
 	waitmovement 0
-# 173 "data/maps/CinnabarIsland/scripts.pory"
+# 171 "data/maps/CinnabarIsland/scripts.pory"
 	closedoor 14, 11
-# 174 "data/maps/CinnabarIsland/scripts.pory"
+# 172 "data/maps/CinnabarIsland/scripts.pory"
 	waitdooranim
+# 173 "data/maps/CinnabarIsland/scripts.pory"
+	return
+# 174 "data/maps/CinnabarIsland/scripts.pory"
+
 # 175 "data/maps/CinnabarIsland/scripts.pory"
-	return
-# 176 "data/maps/CinnabarIsland/scripts.pory"
-
-# 177 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_PlayerWatchBillExit::
-# 178 "data/maps/CinnabarIsland/scripts.pory"
+# 176 "data/maps/CinnabarIsland/scripts.pory"
 	walk_left
-# 179 "data/maps/CinnabarIsland/scripts.pory"
+# 177 "data/maps/CinnabarIsland/scripts.pory"
 	walk_in_place_faster_right
+# 178 "data/maps/CinnabarIsland/scripts.pory"
+	step_end
+# 179 "data/maps/CinnabarIsland/scripts.pory"
+
 # 180 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 181 "data/maps/CinnabarIsland/scripts.pory"
-
-# 182 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillApproachDoor::
+# 181 "data/maps/CinnabarIsland/scripts.pory"
+	delay_16
+# 182 "data/maps/CinnabarIsland/scripts.pory"
+	walk_left
 # 183 "data/maps/CinnabarIsland/scripts.pory"
-	delay_16
-# 184 "data/maps/CinnabarIsland/scripts.pory"
-	walk_left
-# 185 "data/maps/CinnabarIsland/scripts.pory"
 	walk_in_place_faster_up
+# 184 "data/maps/CinnabarIsland/scripts.pory"
+	step_end
+# 185 "data/maps/CinnabarIsland/scripts.pory"
+
 # 186 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 187 "data/maps/CinnabarIsland/scripts.pory"
-
-# 188 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillReEnterPokeCenter::
+# 187 "data/maps/CinnabarIsland/scripts.pory"
+	walk_up
+# 188 "data/maps/CinnabarIsland/scripts.pory"
+	delay_4
 # 189 "data/maps/CinnabarIsland/scripts.pory"
-	walk_up
+	set_invisible
 # 190 "data/maps/CinnabarIsland/scripts.pory"
-	delay_4
+	step_end
 # 191 "data/maps/CinnabarIsland/scripts.pory"
-	set_invisible
+
 # 192 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 193 "data/maps/CinnabarIsland/scripts.pory"
-
-# 194 "data/maps/CinnabarIsland/scripts.pory"
 @ Can be triggered outside, or after talking to Bill in the poke center
-# 195 "data/maps/CinnabarIsland/scripts.pory"
+# 193 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_SailToOneIsland::
-# 196 "data/maps/CinnabarIsland/scripts.pory"
+# 194 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_set FLAG_TEMP_2, CinnabarIsland_EventScript_ApproachShore
-# 197 "data/maps/CinnabarIsland/scripts.pory"
+# 195 "data/maps/CinnabarIsland/scripts.pory"
 	addobject LOCALID_SEAGALLOP
-# 198 "data/maps/CinnabarIsland/scripts.pory"
+# 196 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_unset FLAG_TEMP_2, CinnabarIsland_EventScript_BoatArrive
-# 199 "data/maps/CinnabarIsland/scripts.pory"
+# 197 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_set FLAG_TEMP_2, CinnabarIsland_EventScript_BoatArriveExitedPokeCenter
-# 200 "data/maps/CinnabarIsland/scripts.pory"
+# 198 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_MyPalsBoatArrived
-# 201 "data/maps/CinnabarIsland/scripts.pory"
+# 199 "data/maps/CinnabarIsland/scripts.pory"
 	closemessage
-# 202 "data/maps/CinnabarIsland/scripts.pory"
+# 200 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_unset FLAG_TEMP_2, CinnabarIsland_EventScript_BoardBoat
-# 203 "data/maps/CinnabarIsland/scripts.pory"
+# 201 "data/maps/CinnabarIsland/scripts.pory"
 	call_if_set FLAG_TEMP_2, CinnabarIsland_EventScript_BoardBoatExitedPokeCenter
-# 204 "data/maps/CinnabarIsland/scripts.pory"
+# 202 "data/maps/CinnabarIsland/scripts.pory"
 	setvar VAR_MAP_SCENE_CINNABAR_ISLAND, 2
-# 205 "data/maps/CinnabarIsland/scripts.pory"
+# 203 "data/maps/CinnabarIsland/scripts.pory"
 	removeobject LOCALID_BILL
-# 206 "data/maps/CinnabarIsland/scripts.pory"
+# 204 "data/maps/CinnabarIsland/scripts.pory"
 	delay 40
-# 207 "data/maps/CinnabarIsland/scripts.pory"
+# 205 "data/maps/CinnabarIsland/scripts.pory"
 	setflag FLAG_HIDE_CINNABAR_SEAGALLOP
-# 208 "data/maps/CinnabarIsland/scripts.pory"
+# 206 "data/maps/CinnabarIsland/scripts.pory"
 	setvar VAR_MAP_SCENE_ONE_ISLAND_HARBOR, 1
-# 209 "data/maps/CinnabarIsland/scripts.pory"
+# 207 "data/maps/CinnabarIsland/scripts.pory"
 	setvar VAR_0x8004, SEAGALLOP_CINNABAR_ISLAND
-# 210 "data/maps/CinnabarIsland/scripts.pory"
+# 208 "data/maps/CinnabarIsland/scripts.pory"
 	setvar VAR_0x8006, SEAGALLOP_ONE_ISLAND
-# 211 "data/maps/CinnabarIsland/scripts.pory"
+# 209 "data/maps/CinnabarIsland/scripts.pory"
 	goto EventScript_SetSail
-# 212 "data/maps/CinnabarIsland/scripts.pory"
+# 210 "data/maps/CinnabarIsland/scripts.pory"
 	end
-# 213 "data/maps/CinnabarIsland/scripts.pory"
+# 211 "data/maps/CinnabarIsland/scripts.pory"
 
-# 214 "data/maps/CinnabarIsland/scripts.pory"
+# 212 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_ApproachShore::
-# 215 "data/maps/CinnabarIsland/scripts.pory"
+# 213 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_ApproachShore
-# 216 "data/maps/CinnabarIsland/scripts.pory"
+# 214 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, CinnabarIsland_Movement_ApproachShore
+# 215 "data/maps/CinnabarIsland/scripts.pory"
+	waitmovement 0
+# 216 "data/maps/CinnabarIsland/scripts.pory"
+	return
 # 217 "data/maps/CinnabarIsland/scripts.pory"
-	waitmovement 0
+
 # 218 "data/maps/CinnabarIsland/scripts.pory"
-	return
-# 219 "data/maps/CinnabarIsland/scripts.pory"
-
-# 220 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_BoatArrive::
-# 221 "data/maps/CinnabarIsland/scripts.pory"
+# 219 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_BillFaceBoat
+# 220 "data/maps/CinnabarIsland/scripts.pory"
+	applymovement LOCALID_SEAGALLOP, CinnabarIsland_Movement_BoatArrive
+# 221 "data/maps/CinnabarIsland/scripts.pory"
+	waitmovement 0
 # 222 "data/maps/CinnabarIsland/scripts.pory"
-	applymovement LOCALID_SEAGALLOP, CinnabarIsland_Movement_BoatArrive
+	return
 # 223 "data/maps/CinnabarIsland/scripts.pory"
-	waitmovement 0
+
 # 224 "data/maps/CinnabarIsland/scripts.pory"
-	return
-# 225 "data/maps/CinnabarIsland/scripts.pory"
-
-# 226 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_BoatArriveExitedPokeCenter::
-# 227 "data/maps/CinnabarIsland/scripts.pory"
+# 225 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_SEAGALLOP, CinnabarIsland_Movement_BoatArrive
+# 226 "data/maps/CinnabarIsland/scripts.pory"
+	waitmovement 0
+# 227 "data/maps/CinnabarIsland/scripts.pory"
+	return
 # 228 "data/maps/CinnabarIsland/scripts.pory"
-	waitmovement 0
+
 # 229 "data/maps/CinnabarIsland/scripts.pory"
-	return
-# 230 "data/maps/CinnabarIsland/scripts.pory"
-
-# 231 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_BoardBoat::
-# 232 "data/maps/CinnabarIsland/scripts.pory"
+# 230 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_BillBoardBoat
-# 233 "data/maps/CinnabarIsland/scripts.pory"
+# 231 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, CinnabarIsland_Movement_PlayerBoardBoat
+# 232 "data/maps/CinnabarIsland/scripts.pory"
+	waitmovement 0
+# 233 "data/maps/CinnabarIsland/scripts.pory"
+	return
 # 234 "data/maps/CinnabarIsland/scripts.pory"
-	waitmovement 0
+
 # 235 "data/maps/CinnabarIsland/scripts.pory"
-	return
-# 236 "data/maps/CinnabarIsland/scripts.pory"
-
-# 237 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_BoardBoatExitedPokeCenter::
-# 238 "data/maps/CinnabarIsland/scripts.pory"
+# 236 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement LOCALID_BILL, CinnabarIsland_Movement_BillBoardBoatFromShore
-# 239 "data/maps/CinnabarIsland/scripts.pory"
+# 237 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, CinnabarIsland_Movement_PlayerBoardBoatFromShore
-# 240 "data/maps/CinnabarIsland/scripts.pory"
+# 238 "data/maps/CinnabarIsland/scripts.pory"
 	waitmovement 0
-# 241 "data/maps/CinnabarIsland/scripts.pory"
+# 239 "data/maps/CinnabarIsland/scripts.pory"
 	return
-# 242 "data/maps/CinnabarIsland/scripts.pory"
+# 240 "data/maps/CinnabarIsland/scripts.pory"
 
-# 243 "data/maps/CinnabarIsland/scripts.pory"
+# 241 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BoatArrive::
+# 242 "data/maps/CinnabarIsland/scripts.pory"
+	delay_16
+# 243 "data/maps/CinnabarIsland/scripts.pory"
+	delay_16
 # 244 "data/maps/CinnabarIsland/scripts.pory"
-	delay_16
+	walk_fast_left
 # 245 "data/maps/CinnabarIsland/scripts.pory"
-	delay_16
+	walk_fast_left
 # 246 "data/maps/CinnabarIsland/scripts.pory"
-	walk_fast_left
-# 247 "data/maps/CinnabarIsland/scripts.pory"
-	walk_fast_left
-# 248 "data/maps/CinnabarIsland/scripts.pory"
 	walk_left
+# 247 "data/maps/CinnabarIsland/scripts.pory"
+	walk_slower_left
+# 248 "data/maps/CinnabarIsland/scripts.pory"
+	walk_slower_left
 # 249 "data/maps/CinnabarIsland/scripts.pory"
-	walk_slower_left
+	step_end
 # 250 "data/maps/CinnabarIsland/scripts.pory"
-	walk_slower_left
+
 # 251 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 252 "data/maps/CinnabarIsland/scripts.pory"
-
-# 253 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillBoardBoat::
+# 252 "data/maps/CinnabarIsland/scripts.pory"
+	walk_right
+# 253 "data/maps/CinnabarIsland/scripts.pory"
+	walk_down
 # 254 "data/maps/CinnabarIsland/scripts.pory"
-	walk_right
+	walk_down
 # 255 "data/maps/CinnabarIsland/scripts.pory"
-	walk_down
-# 256 "data/maps/CinnabarIsland/scripts.pory"
-	walk_down
-# 257 "data/maps/CinnabarIsland/scripts.pory"
 	walk_right
-# 258 "data/maps/CinnabarIsland/scripts.pory"
+# 256 "data/maps/CinnabarIsland/scripts.pory"
 	delay_4
-# 259 "data/maps/CinnabarIsland/scripts.pory"
+# 257 "data/maps/CinnabarIsland/scripts.pory"
 	set_invisible
+# 258 "data/maps/CinnabarIsland/scripts.pory"
+	step_end
+# 259 "data/maps/CinnabarIsland/scripts.pory"
+
 # 260 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 261 "data/maps/CinnabarIsland/scripts.pory"
-
-# 262 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillApproachPlayer1::
-# 263 "data/maps/CinnabarIsland/scripts.pory"
+# 261 "data/maps/CinnabarIsland/scripts.pory"
 	walk_up
-# 264 "data/maps/CinnabarIsland/scripts.pory"
+# 262 "data/maps/CinnabarIsland/scripts.pory"
 	step_end
-# 265 "data/maps/CinnabarIsland/scripts.pory"
+# 263 "data/maps/CinnabarIsland/scripts.pory"
 
-# 266 "data/maps/CinnabarIsland/scripts.pory"
+# 264 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillApproachPlayer2::
+# 265 "data/maps/CinnabarIsland/scripts.pory"
+	walk_left
+# 266 "data/maps/CinnabarIsland/scripts.pory"
+	walk_left
 # 267 "data/maps/CinnabarIsland/scripts.pory"
 	walk_left
 # 268 "data/maps/CinnabarIsland/scripts.pory"
-	walk_left
+	step_end
 # 269 "data/maps/CinnabarIsland/scripts.pory"
-	walk_left
+
 # 270 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 271 "data/maps/CinnabarIsland/scripts.pory"
-
-# 272 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillFaceBoat::
+# 271 "data/maps/CinnabarIsland/scripts.pory"
+	delay_16
+# 272 "data/maps/CinnabarIsland/scripts.pory"
+	delay_16
 # 273 "data/maps/CinnabarIsland/scripts.pory"
-	delay_16
-# 274 "data/maps/CinnabarIsland/scripts.pory"
-	delay_16
-# 275 "data/maps/CinnabarIsland/scripts.pory"
 	delay_8
-# 276 "data/maps/CinnabarIsland/scripts.pory"
+# 274 "data/maps/CinnabarIsland/scripts.pory"
 	walk_in_place_faster_right
-# 277 "data/maps/CinnabarIsland/scripts.pory"
+# 275 "data/maps/CinnabarIsland/scripts.pory"
 	step_end
-# 278 "data/maps/CinnabarIsland/scripts.pory"
+# 276 "data/maps/CinnabarIsland/scripts.pory"
 
-# 279 "data/maps/CinnabarIsland/scripts.pory"
+# 277 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_ApproachShore::
+# 278 "data/maps/CinnabarIsland/scripts.pory"
+	walk_right
+# 279 "data/maps/CinnabarIsland/scripts.pory"
+	walk_right
 # 280 "data/maps/CinnabarIsland/scripts.pory"
 	walk_right
 # 281 "data/maps/CinnabarIsland/scripts.pory"
@@ -565,148 +565,144 @@ CinnabarIsland_Movement_ApproachShore::
 # 283 "data/maps/CinnabarIsland/scripts.pory"
 	walk_right
 # 284 "data/maps/CinnabarIsland/scripts.pory"
-	walk_right
+	step_end
 # 285 "data/maps/CinnabarIsland/scripts.pory"
-	walk_right
+
 # 286 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 287 "data/maps/CinnabarIsland/scripts.pory"
-
-# 288 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_BillBoardBoatFromShore::
-# 289 "data/maps/CinnabarIsland/scripts.pory"
+# 287 "data/maps/CinnabarIsland/scripts.pory"
 	walk_right
-# 290 "data/maps/CinnabarIsland/scripts.pory"
+# 288 "data/maps/CinnabarIsland/scripts.pory"
 	delay_4
-# 291 "data/maps/CinnabarIsland/scripts.pory"
+# 289 "data/maps/CinnabarIsland/scripts.pory"
 	set_invisible
-# 292 "data/maps/CinnabarIsland/scripts.pory"
+# 290 "data/maps/CinnabarIsland/scripts.pory"
 	step_end
-# 293 "data/maps/CinnabarIsland/scripts.pory"
+# 291 "data/maps/CinnabarIsland/scripts.pory"
 
-# 294 "data/maps/CinnabarIsland/scripts.pory"
+# 292 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_PlayerBoardBoat::
+# 293 "data/maps/CinnabarIsland/scripts.pory"
+	walk_down
+# 294 "data/maps/CinnabarIsland/scripts.pory"
+	walk_right
 # 295 "data/maps/CinnabarIsland/scripts.pory"
 	walk_down
 # 296 "data/maps/CinnabarIsland/scripts.pory"
-	walk_right
+	walk_down
 # 297 "data/maps/CinnabarIsland/scripts.pory"
-	walk_down
-# 298 "data/maps/CinnabarIsland/scripts.pory"
-	walk_down
-# 299 "data/maps/CinnabarIsland/scripts.pory"
 	walk_in_place_faster_right
+# 298 "data/maps/CinnabarIsland/scripts.pory"
+	delay_4
+# 299 "data/maps/CinnabarIsland/scripts.pory"
+	walk_right
 # 300 "data/maps/CinnabarIsland/scripts.pory"
 	delay_4
 # 301 "data/maps/CinnabarIsland/scripts.pory"
-	walk_right
-# 302 "data/maps/CinnabarIsland/scripts.pory"
-	delay_4
-# 303 "data/maps/CinnabarIsland/scripts.pory"
 	set_invisible
-# 304 "data/maps/CinnabarIsland/scripts.pory"
+# 302 "data/maps/CinnabarIsland/scripts.pory"
 	step_end
-# 305 "data/maps/CinnabarIsland/scripts.pory"
+# 303 "data/maps/CinnabarIsland/scripts.pory"
 
-# 306 "data/maps/CinnabarIsland/scripts.pory"
+# 304 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_PlayerBoardBoatFromShore::
+# 305 "data/maps/CinnabarIsland/scripts.pory"
+	walk_right
+# 306 "data/maps/CinnabarIsland/scripts.pory"
+	delay_4
 # 307 "data/maps/CinnabarIsland/scripts.pory"
 	walk_right
 # 308 "data/maps/CinnabarIsland/scripts.pory"
 	delay_4
 # 309 "data/maps/CinnabarIsland/scripts.pory"
-	walk_right
-# 310 "data/maps/CinnabarIsland/scripts.pory"
-	delay_4
-# 311 "data/maps/CinnabarIsland/scripts.pory"
 	set_invisible
+# 310 "data/maps/CinnabarIsland/scripts.pory"
+	step_end
+# 311 "data/maps/CinnabarIsland/scripts.pory"
+
 # 312 "data/maps/CinnabarIsland/scripts.pory"
-	step_end
-# 313 "data/maps/CinnabarIsland/scripts.pory"
-
-# 314 "data/maps/CinnabarIsland/scripts.pory"
 @ Triggered when VAR_TEMP_1 is 0
-# 315 "data/maps/CinnabarIsland/scripts.pory"
+# 313 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_GymDoorLocked::
-# 316 "data/maps/CinnabarIsland/scripts.pory"
+# 314 "data/maps/CinnabarIsland/scripts.pory"
 	lockall
-# 317 "data/maps/CinnabarIsland/scripts.pory"
+# 315 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-# 318 "data/maps/CinnabarIsland/scripts.pory"
+# 316 "data/maps/CinnabarIsland/scripts.pory"
 	waitmovement 0
-# 319 "data/maps/CinnabarIsland/scripts.pory"
+# 317 "data/maps/CinnabarIsland/scripts.pory"
 	delay 20
-# 320 "data/maps/CinnabarIsland/scripts.pory"
+# 318 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_DoorIsLocked
-# 321 "data/maps/CinnabarIsland/scripts.pory"
+# 319 "data/maps/CinnabarIsland/scripts.pory"
 	closemessage
-# 322 "data/maps/CinnabarIsland/scripts.pory"
+# 320 "data/maps/CinnabarIsland/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, CinnabarIsland_Movement_ForcePlayerFromDoor
-# 323 "data/maps/CinnabarIsland/scripts.pory"
+# 321 "data/maps/CinnabarIsland/scripts.pory"
 	waitmovement 0
+# 322 "data/maps/CinnabarIsland/scripts.pory"
+	releaseall
+# 323 "data/maps/CinnabarIsland/scripts.pory"
+	end
 # 324 "data/maps/CinnabarIsland/scripts.pory"
-	releaseall
+
 # 325 "data/maps/CinnabarIsland/scripts.pory"
-	end
-# 326 "data/maps/CinnabarIsland/scripts.pory"
-
-# 327 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_Movement_ForcePlayerFromDoor::
-# 328 "data/maps/CinnabarIsland/scripts.pory"
+# 326 "data/maps/CinnabarIsland/scripts.pory"
 	walk_down
-# 329 "data/maps/CinnabarIsland/scripts.pory"
+# 327 "data/maps/CinnabarIsland/scripts.pory"
 	step_end
-# 330 "data/maps/CinnabarIsland/scripts.pory"
+# 328 "data/maps/CinnabarIsland/scripts.pory"
 
-# 331 "data/maps/CinnabarIsland/scripts.pory"
+# 329 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_Woman::
-# 332 "data/maps/CinnabarIsland/scripts.pory"
+# 330 "data/maps/CinnabarIsland/scripts.pory"
 	lock
-# 333 "data/maps/CinnabarIsland/scripts.pory"
+# 331 "data/maps/CinnabarIsland/scripts.pory"
 	faceplayer
-# 334 "data/maps/CinnabarIsland/scripts.pory"
+# 332 "data/maps/CinnabarIsland/scripts.pory"
 	famechecker FAMECHECKER_BLAINE, 3
-# 335 "data/maps/CinnabarIsland/scripts.pory"
+# 333 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_BlaineLivedHereSinceBeforeLab
-# 336 "data/maps/CinnabarIsland/scripts.pory"
+# 334 "data/maps/CinnabarIsland/scripts.pory"
 	release
+# 335 "data/maps/CinnabarIsland/scripts.pory"
+	end
+# 336 "data/maps/CinnabarIsland/scripts.pory"
+
 # 337 "data/maps/CinnabarIsland/scripts.pory"
-	end
-# 338 "data/maps/CinnabarIsland/scripts.pory"
-
-# 339 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_OldMan::
-# 340 "data/maps/CinnabarIsland/scripts.pory"
+# 338 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_ScientistsExperimentInMansion, MSGBOX_NPC
+# 339 "data/maps/CinnabarIsland/scripts.pory"
+	end
+# 340 "data/maps/CinnabarIsland/scripts.pory"
+
 # 341 "data/maps/CinnabarIsland/scripts.pory"
-	end
-# 342 "data/maps/CinnabarIsland/scripts.pory"
-
-# 343 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_IslandSign::
-# 344 "data/maps/CinnabarIsland/scripts.pory"
+# 342 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_IslandSign, MSGBOX_SIGN
+# 343 "data/maps/CinnabarIsland/scripts.pory"
+	end
+# 344 "data/maps/CinnabarIsland/scripts.pory"
+
 # 345 "data/maps/CinnabarIsland/scripts.pory"
-	end
-# 346 "data/maps/CinnabarIsland/scripts.pory"
-
-# 347 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_PokemonLabSign::
-# 348 "data/maps/CinnabarIsland/scripts.pory"
+# 346 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_PokemonLab, MSGBOX_SIGN
-# 349 "data/maps/CinnabarIsland/scripts.pory"
+# 347 "data/maps/CinnabarIsland/scripts.pory"
 	end
-# 350 "data/maps/CinnabarIsland/scripts.pory"
+# 348 "data/maps/CinnabarIsland/scripts.pory"
 
-# 351 "data/maps/CinnabarIsland/scripts.pory"
+# 349 "data/maps/CinnabarIsland/scripts.pory"
 CinnabarIsland_EventScript_GymSign::
-# 352 "data/maps/CinnabarIsland/scripts.pory"
+# 350 "data/maps/CinnabarIsland/scripts.pory"
 	lockall
-# 353 "data/maps/CinnabarIsland/scripts.pory"
+# 351 "data/maps/CinnabarIsland/scripts.pory"
 	famechecker FAMECHECKER_BLAINE, 0
-# 354 "data/maps/CinnabarIsland/scripts.pory"
+# 352 "data/maps/CinnabarIsland/scripts.pory"
 	msgbox CinnabarIsland_Text_GymSign
-# 355 "data/maps/CinnabarIsland/scripts.pory"
+# 353 "data/maps/CinnabarIsland/scripts.pory"
 	releaseall
-# 356 "data/maps/CinnabarIsland/scripts.pory"
+# 354 "data/maps/CinnabarIsland/scripts.pory"
 	end

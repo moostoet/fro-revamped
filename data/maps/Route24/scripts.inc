@@ -198,3 +198,176 @@ Route24_Movement_WalkDown::
 	walk_down
 # 100 "data/maps/Route24/scripts.pory"
 	step_end
+
+Route24_Give_Cyndaquil::
+# 104 "data/maps/Route24/scripts.pory"
+	lock
+# 105 "data/maps/Route24/scripts.pory"
+	faceplayer
+# 106 "data/maps/Route24/scripts.pory"
+	goto_if_set FLAG_RECEIVED_CYNDAQUIL, Route24_Give_Cyndaquil_2
+# 112 "data/maps/Route24/scripts.pory"
+	msgbox Route24_Text_WantCyndaquil, MSGBOX_YESNO
+# 113 "data/maps/Route24/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq Route24_Give_Cyndaquil_4
+# 118 "data/maps/Route24/scripts.pory"
+	msgbox Route24_Text_HereIsCyndaquil
+# 119 "data/maps/Route24/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_CYNDAQUIL
+# 120 "data/maps/Route24/scripts.pory"
+	givemon SPECIES_CYNDAQUIL, 15
+# 121 "data/maps/Route24/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Route24_Give_Cyndaquil_7
+# 123 "data/maps/Route24/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Route24_Give_Cyndaquil_8
+# 126 "data/maps/Route24/scripts.pory"
+	msgbox Route24_Text_NoRoomForCyndaquil
+# 127 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+Route24_Give_Cyndaquil_2:
+# 107 "data/maps/Route24/scripts.pory"
+	msgbox Route24_Text_AfterCyndaquil
+# 108 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+Route24_Give_Cyndaquil_4:
+# 114 "data/maps/Route24/scripts.pory"
+	msgbox Route24_Text_DeclinedCyndaquil
+# 115 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+Route24_Give_Cyndaquil_7:
+# 122 "data/maps/Route24/scripts.pory"
+	goto GiveCyndaquil_Party
+	return
+
+Route24_Give_Cyndaquil_8:
+# 124 "data/maps/Route24/scripts.pory"
+	goto GiveCyndaquil_PC
+	return
+
+
+GiveCyndaquil_PC::
+# 134 "data/maps/Route24/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 135 "data/maps/Route24/scripts.pory"
+	message Route24_Text_ReceivedCyndaquil
+# 136 "data/maps/Route24/scripts.pory"
+	waitmessage
+# 137 "data/maps/Route24/scripts.pory"
+	waitfanfare
+# 139 "data/maps/Route24/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_CYNDAQUIL
+# 140 "data/maps/Route24/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 141 "data/maps/Route24/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveCyndaquil_PC_1
+# 147 "data/maps/Route24/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 148 "data/maps/Route24/scripts.pory"
+	call EventScript_TransferredToPC
+# 149 "data/maps/Route24/scripts.pory"
+	setflag FLAG_RECEIVED_CYNDAQUIL
+# 150 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+GiveCyndaquil_PC_1:
+# 142 "data/maps/Route24/scripts.pory"
+	call EventScript_TransferredToPC
+# 143 "data/maps/Route24/scripts.pory"
+	setflag FLAG_RECEIVED_CYNDAQUIL
+# 144 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+
+GiveCyndaquil_Party::
+# 156 "data/maps/Route24/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 157 "data/maps/Route24/scripts.pory"
+	message Route24_Text_ReceivedCyndaquil
+# 158 "data/maps/Route24/scripts.pory"
+	waitmessage
+# 159 "data/maps/Route24/scripts.pory"
+	waitfanfare
+# 161 "data/maps/Route24/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_CYNDAQUIL
+# 162 "data/maps/Route24/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 163 "data/maps/Route24/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveCyndaquil_Party_1
+# 168 "data/maps/Route24/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 169 "data/maps/Route24/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 170 "data/maps/Route24/scripts.pory"
+	setflag FLAG_RECEIVED_CYNDAQUIL
+# 171 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+GiveCyndaquil_Party_1:
+# 164 "data/maps/Route24/scripts.pory"
+	setflag FLAG_RECEIVED_CYNDAQUIL
+# 165 "data/maps/Route24/scripts.pory"
+	release
+	end
+
+
+Route24_Text_WantCyndaquil::
+# 176 "data/maps/Route24/scripts.pory"
+	.string "Ah, a young TRAINER!\p"
+	.string "I recently returned from visiting\n"
+	.string "my dear friend, PROF. ELM in JOHTO.\p"
+	.string "He gave me this charming CYNDAQUIL\n"
+	.string "to deliver to a promising TRAINER.\p"
+	.string "Something about you tells me you\n"
+	.string "might be just who I'm looking for!\p"
+	.string "Would you like to take this\n"
+	.string "CYNDAQUIL with you?$"
+
+Route24_Text_HereIsCyndaquil::
+# 188 "data/maps/Route24/scripts.pory"
+	.string "Wonderful choice, my young friend!\p"
+	.string "CYNDAQUIL is a FIRE-type POKéMON\n"
+	.string "native to the JOHTO region.\p"
+	.string "When it's nervous, the flames on\n"
+	.string "its back burn more intensely.\p"
+	.string "Do take good care of it!$"
+
+Route24_Text_ReceivedCyndaquil::
+# 197 "data/maps/Route24/scripts.pory"
+	.string "{PLAYER} received CYNDAQUIL\n"
+	.string "from the gentleman!$"
+
+Route24_Text_NoRoomForCyndaquil::
+# 202 "data/maps/Route24/scripts.pory"
+	.string "Oh dear, it appears your party\n"
+	.string "is already full.\p"
+	.string "Please make some room and return\n"
+	.string "to receive this darling CYNDAQUIL.$"
+
+Route24_Text_DeclinedCyndaquil::
+# 209 "data/maps/Route24/scripts.pory"
+	.string "Oh my... How disappointing.\p"
+	.string "Should you change your mind,\n"
+	.string "I shall remain here for a while.$"
+
+Route24_Text_AfterCyndaquil::
+# 215 "data/maps/Route24/scripts.pory"
+	.string "Ah, seeing young TRAINERS and\n"
+	.string "POKéMON together...\p"
+	.string "It reminds me of my own youth\n"
+	.string "in JOHTO!\p"
+	.string "CYNDAQUIL will surely warm up\n"
+	.string "to you in no time at all!$"

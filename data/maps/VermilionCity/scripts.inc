@@ -536,3 +536,178 @@ VermilionCity_EventScript_HarborSign::
 	msgbox VermilionCity_Text_VermilionHarbor, MSGBOX_SIGN
 # 269 "data/maps/VermilionCity/scripts.pory"
 	end
+
+Vermilion_GiveSquirtle::
+# 272 "data/maps/VermilionCity/scripts.pory"
+	lock
+# 273 "data/maps/VermilionCity/scripts.pory"
+	faceplayer
+# 275 "data/maps/VermilionCity/scripts.pory"
+	goto_if_set FLAG_RECEIVED_SQUIRTLE, Vermilion_GiveSquirtle_2
+# 281 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_WantSquirtle, MSGBOX_YESNO
+# 282 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq Vermilion_GiveSquirtle_4
+# 287 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_HereIsSquirtle
+# 288 "data/maps/VermilionCity/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_SQUIRTLE
+# 289 "data/maps/VermilionCity/scripts.pory"
+	givemon SPECIES_SQUIRTLE, 15
+# 290 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Vermilion_GiveSquirtle_7
+# 292 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Vermilion_GiveSquirtle_8
+# 295 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_NoRoomForSquirtle
+	return
+
+Vermilion_GiveSquirtle_2:
+# 276 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_AfterSquirtle
+# 277 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+Vermilion_GiveSquirtle_4:
+# 283 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_DeclinedSquirtle
+# 284 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+Vermilion_GiveSquirtle_7:
+# 291 "data/maps/VermilionCity/scripts.pory"
+	goto GiveSquirtle_Party
+	return
+
+Vermilion_GiveSquirtle_8:
+# 293 "data/maps/VermilionCity/scripts.pory"
+	goto GiveSquirtle_PC
+	return
+
+
+GiveSquirtle_Party::
+# 301 "data/maps/VermilionCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 302 "data/maps/VermilionCity/scripts.pory"
+	message VermilionCity_Text_ReceivedSquirtle
+# 303 "data/maps/VermilionCity/scripts.pory"
+	waitmessage
+# 304 "data/maps/VermilionCity/scripts.pory"
+	waitfanfare
+# 306 "data/maps/VermilionCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_SQUIRTLE
+# 307 "data/maps/VermilionCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 308 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveSquirtle_Party_1
+# 313 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 314 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 315 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 316 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+GiveSquirtle_Party_1:
+# 309 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 310 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+
+GiveSquirtle_PC::
+# 322 "data/maps/VermilionCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 323 "data/maps/VermilionCity/scripts.pory"
+	message VermilionCity_Text_ReceivedSquirtle
+# 324 "data/maps/VermilionCity/scripts.pory"
+	waitmessage
+# 325 "data/maps/VermilionCity/scripts.pory"
+	waitfanfare
+# 327 "data/maps/VermilionCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, SPECIES_SQUIRTLE
+# 328 "data/maps/VermilionCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 329 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveSquirtle_PC_1
+# 335 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 336 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 337 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 338 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+GiveSquirtle_PC_1:
+# 330 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 331 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 332 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+
+Verm_ThunderStone::
+# 344 "data/maps/VermilionCity/scripts.pory"
+	finditem ITEM_THUNDER_STONE
+	end
+
+
+VermilionCity_Text_WantSquirtle::
+# 348 "data/maps/VermilionCity/scripts.pory"
+	.string "Ah, bonjour! I'm a chef waiting to\n"
+	.string "start my new job on the S.S. AQUA.\p"
+	.string "The S.S. ANNE was magnificent, but\n"
+	.string "it has already departed...\p"
+	.string "While I wait, I've been training this\n"
+	.string "SQUIRTLE to help in the kitchen.\p"
+	.string "But the ship won't arrive for quite\n"
+	.string "some time, and SQUIRTLE seems more\l"
+	.string "interested in battling than cooking!\p"
+	.string "Would you like to take this SQUIRTLE\n"
+	.string "with you on your journey instead?$"
+
+VermilionCity_Text_HereIsSquirtle::
+# 362 "data/maps/VermilionCity/scripts.pory"
+	.string "Magnifique! SQUIRTLE will make a\n"
+	.string "wonderful partner for you!\p"
+	.string "It may not have become a chef, but\n"
+	.string "I'm sure it will become strong!$"
+
+VermilionCity_Text_ReceivedSquirtle::
+# 369 "data/maps/VermilionCity/scripts.pory"
+	.string "{PLAYER} received SQUIRTLE\n"
+	.string "from the chef!$"
+
+VermilionCity_Text_NoRoomForSquirtle::
+# 374 "data/maps/VermilionCity/scripts.pory"
+	.string "Oh non! Your party appears to be\n"
+	.string "full at the moment.\p"
+	.string "Please make some room and return\n"
+	.string "for SQUIRTLE.$"
+
+VermilionCity_Text_DeclinedSquirtle::
+# 381 "data/maps/VermilionCity/scripts.pory"
+	.string "Non? That is too bad...\p"
+	.string "I will keep trying to teach it\n"
+	.string "the culinary arts then!$"
+
+VermilionCity_Text_AfterSquirtle::
+# 387 "data/maps/VermilionCity/scripts.pory"
+	.string "The S.S. AQUA will be magnificent\n"
+	.string "when it finally arrives!\p"
+	.string "But I'm happy SQUIRTLE found its\n"
+	.string "true calling as your POKéMON!$"

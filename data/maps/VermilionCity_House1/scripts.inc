@@ -13,7 +13,7 @@ VermilionCity_House1_EventScript_FishingGuru::
 # 7 "data/maps/VermilionCity_House1/scripts.pory"
 	faceplayer
 # 8 "data/maps/VermilionCity_House1/scripts.pory"
-	goto_if_set FLAG_GOT_OLD_ROD, VermilionCity_House1_EventScript_AlreadyGotOldRod
+	goto_if_set FLAG_GOT_GOOD_ROD, VermilionCity_House1_EventScript_AlreadyGotOldRod
 # 9 "data/maps/VermilionCity_House1/scripts.pory"
 	msgbox VermilionCity_House1_Text_ImFishingGuruDoYouLikeToFish, MSGBOX_YESNO
 # 10 "data/maps/VermilionCity_House1/scripts.pory"
@@ -39,17 +39,17 @@ VermilionCity_House1_EventScript_AlreadyGotOldRod::
 # 20 "data/maps/VermilionCity_House1/scripts.pory"
 VermilionCity_House1_EventScript_GiveOldRod::
 # 21 "data/maps/VermilionCity_House1/scripts.pory"
-	checkitemspace ITEM_OLD_ROD
+	checkitemspace ITEM_GOOD_ROD
 # 22 "data/maps/VermilionCity_House1/scripts.pory"
 	goto_if_eq VAR_RESULT, FALSE, VermilionCity_House1_EventScript_NoRoomForOldRod
 # 23 "data/maps/VermilionCity_House1/scripts.pory"
-	additem ITEM_OLD_ROD
+	additem ITEM_GOOD_ROD
 # 24 "data/maps/VermilionCity_House1/scripts.pory"
 	msgbox VermilionCity_House1_Text_TakeThisAndFish
 # 25 "data/maps/VermilionCity_House1/scripts.pory"
 	msgreceiveditem VermilionCity_House1_Text_ReceivedOldRodFromFishingGuru, ITEM_OLD_ROD
 # 26 "data/maps/VermilionCity_House1/scripts.pory"
-	setflag FLAG_GOT_OLD_ROD
+	setflag FLAG_GOT_GOOD_ROD
 # 27 "data/maps/VermilionCity_House1/scripts.pory"
 	msgbox VermilionCity_House1_Text_FishingIsAWayOfLife
 # 28 "data/maps/VermilionCity_House1/scripts.pory"
