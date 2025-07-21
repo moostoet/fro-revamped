@@ -8803,15 +8803,12 @@ static void Cmd_trysethelpinghand(void)
 static void Cmd_tryswapitems(void)
 {
     // opponent can't swap items with player in regular battles
-    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER
-        || (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT
-            && !(gBattleTypeFlags & (BATTLE_TYPE_LINK
-                                  | BATTLE_TYPE_BATTLE_TOWER
-                                  | BATTLE_TYPE_EREADER_TRAINER))
-                && gTrainerBattleOpponent_A != TRAINER_SECRET_BASE))
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
     {
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        return;
     }
+    
     else
     {
         u8 sideAttacker = GetBattlerSide(gBattlerAttacker);

@@ -489,9 +489,69 @@ ViridianCity_EventScript_DoTutorialBattle::
 # 245 "data/maps/ViridianCity/scripts.pory"
 	return
 
+Viridian_FisherMan_GiveOldRod::
+# 287 "data/maps/ViridianCity/scripts.pory"
+	lock
+# 288 "data/maps/ViridianCity/scripts.pory"
+	faceplayer
+# 289 "data/maps/ViridianCity/scripts.pory"
+	goto_if_set FLAG_GOT_OLD_ROD, Viridian_FisherMan_GiveOldRod_2
+# 295 "data/maps/ViridianCity/scripts.pory"
+	msgbox ViridianCity_Fisherman_Greeting
+# 296 "data/maps/ViridianCity/scripts.pory"
+	msgbox ViridianCity_Fisherman_GiveRod
+# 297 "data/maps/ViridianCity/scripts.pory"
+	giveitem ITEM_OLD_ROD
+# 298 "data/maps/ViridianCity/scripts.pory"
+	setflag FLAG_GOT_OLD_ROD
+# 299 "data/maps/ViridianCity/scripts.pory"
+	msgbox ViridianCity_Fisherman_Explain
+# 300 "data/maps/ViridianCity/scripts.pory"
+	release
+	end
+
+Viridian_FisherMan_GiveOldRod_2:
+# 290 "data/maps/ViridianCity/scripts.pory"
+	msgbox ViridianCity_Fisherman_After
+# 291 "data/maps/ViridianCity/scripts.pory"
+	release
+	end
+
+
 DreamEater_Tutor::
 # 247 "data/maps/ViridianCity/scripts.pory"
 	.string "Walking around in\n"
 	.string "TALL GRASS is relaxing!\p"
 	.string "As long as you spray a\n"
 	.string "REPEL...$"
+
+ViridianCity_Fisherman_Greeting::
+# 254 "data/maps/ViridianCity/scripts.pory"
+	.string "Ah, there's nothing quite like fishing!\p"
+	.string "I've been casting my line in these\n"
+	.string "waters for decades now.\p"
+	.string "Say... you look like someone who might\n"
+	.string "appreciate the art of fishing!$"
+
+ViridianCity_Fisherman_GiveRod::
+# 262 "data/maps/ViridianCity/scripts.pory"
+	.string "How about I share an extra rod I have?\p"
+	.string "It's not the fanciest one, but it'll\n"
+	.string "help you catch some POKéMON!$"
+
+ViridianCity_Fisherman_Explain::
+# 268 "data/maps/ViridianCity/scripts.pory"
+	.string "You can use that OLD ROD to fish\n"
+	.string "in any body of water.\p"
+	.string "Just face the water and use the rod.\n"
+	.string "If something bites, reel it in quick!\p"
+	.string "You might only catch MAGIKARP at first,\n"
+	.string "but don't give up! Every master angler\l"
+	.string "started somewhere!$"
+
+ViridianCity_Fisherman_After::
+# 278 "data/maps/ViridianCity/scripts.pory"
+	.string "Patience is the key to fishing.\n"
+	.string "Just like training POKéMON!\p"
+	.string "Keep at it, and you'll reel in\n"
+	.string "something special eventually!$"

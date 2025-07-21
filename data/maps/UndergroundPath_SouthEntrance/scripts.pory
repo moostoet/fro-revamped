@@ -80,6 +80,179 @@ script GiveChikorita_PC {
 	}
 }
 
+script UndergroundPath_SouthEntrance_GiveRandomJohtoStarter {
+    lock
+    faceplayer
+    if (flag(FLAG_RECEIVED_CHIKORITA)) {
+        msgbox(UndergroundPath_South_Text_AfterRandomStarter)
+        release
+        end
+    }
+
+    msgbox(UndergroundPath_South_Text_WantRandomStarter, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(UndergroundPath_South_Text_ChoosingStarter, MSGBOX_DEFAULT)
+        random(3)
+        
+        if (var(VAR_RESULT) == 0) {
+            msgbox(UndergroundPath_South_Text_ChoseChikorita, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_CHIKORITA)
+            givemon(SPECIES_CHIKORITA, 15)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomJohtoStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomJohtoStarter_PC)
+            } else {
+                msgbox(UndergroundPath_South_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        } elif (var(VAR_RESULT) == 1) {
+            msgbox(UndergroundPath_South_Text_ChoseCyndaquil, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_CYNDAQUIL)
+            givemon(SPECIES_CYNDAQUIL, 15)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomJohtoStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomJohtoStarter_PC)
+            } else {
+                msgbox(UndergroundPath_South_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        } else {
+            msgbox(UndergroundPath_South_Text_ChoseTotodile, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_TOTODILE)
+            givemon(SPECIES_TOTODILE, 15)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomJohtoStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomJohtoStarter_PC)
+            } else {
+                msgbox(UndergroundPath_South_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        }
+    } else {
+        msgbox(UndergroundPath_South_Text_DeclinedRandomStarter, MSGBOX_DEFAULT)
+    }
+    release
+    end
+}
+
+script GiveRandomJohtoStarter_Party {
+    playfanfare(MUS_LEVEL_UP)
+    message(UndergroundPath_South_Text_ReceivedRandomStarter)
+    waitmessage
+    waitfanfare
+
+    copyvar(VAR_0x8004, VAR_TEMP_1)
+    bufferspeciesname(STR_VAR_1, VAR_0x8004)
+    msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        setflag(FLAG_RECEIVED_CHIKORITA)
+        release
+        end
+    } else {
+        call(EventScript_GetGiftMonPartySlot)
+        call(EventScript_ChangePokemonNickname)
+        setflag(FLAG_RECEIVED_CHIKORITA)
+        release
+        end
+    }
+}
+
+script GiveRandomJohtoStarter_PC {
+    playfanfare(MUS_LEVEL_UP)
+    message(UndergroundPath_South_Text_ReceivedRandomStarter)
+    waitmessage
+    waitfanfare
+
+    copyvar(VAR_0x8004, VAR_TEMP_1)
+    bufferspeciesname(STR_VAR_1, VAR_0x8004)
+    msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        call(EventScript_TransferredToPC)
+        setflag(FLAG_RECEIVED_CHIKORITA)
+        release
+        end
+    } else {
+        call(EventScript_NameReceivedBoxMon)
+        call(EventScript_TransferredToPC)
+        setflag(FLAG_RECEIVED_CHIKORITA)
+        release
+        end
+    }
+}
+
+text UndergroundPath_South_Text_WantRandomStarter {
+    "Hey there, young TRAINER!\n"
+    "I just got back from an amazing\l"
+    "trek through the JOHTO region.\p"
+    "While I was there, PROF. ELM gave\n"
+    "me three POKéBALLS with starters!\p"
+    "But honestly? I'm more of a\n"
+    "ROCK-type TRAINER myself.\p"
+    "How about I reach into my pack\n"
+    "and give you whichever POKéBALL\l"
+    "I grab first?"
+}
+
+text UndergroundPath_South_Text_ChoosingStarter {
+    "Alright! Let me dig through\n"
+    "my hiking pack here...\p"
+    "Got so much gear in here...\n"
+    "Ah! Here's a POKéBALL!"
+}
+
+text UndergroundPath_South_Text_ChoseChikorita {
+    "Look at that! It's CHIKORITA!\p"
+    "The LEAF POKéMON! This GRASS-type\n"
+    "has the sweetest nature.\p"
+    "That leaf on its head? It can\n"
+    "sense humidity and temperature!"
+}
+
+text UndergroundPath_South_Text_ChoseCyndaquil {
+    "Whoa! It's CYNDAQUIL!\p"
+    "The FIRE MOUSE POKéMON! This little\n"
+    "FIRE-type is perfect for camping.\p"
+    "Its back flares up when it's angry\n"
+    "or surprised. Pretty cool, huh?"
+}
+
+text UndergroundPath_South_Text_ChoseTotodile {
+    "Ha! It's TOTODILE!\p"
+    "The BIG JAW POKéMON! This WATER-type\n"
+    "loves to playfully bite everything.\p"
+    "Don't worry though - it's just\n"
+    "being affectionate!"
+}
+
+text UndergroundPath_South_Text_ReceivedRandomStarter {
+    "{PLAYER} received the POKéMON\n"
+    "from the HIKER!"
+}
+
+text UndergroundPath_South_Text_NoRoomForStarter {
+    "Whoa there! Your team's packed\n"
+    "tighter than my hiking bag!\p"
+    "Make some room in your party and\n"
+    "come back for this POKéMON."
+}
+
+text UndergroundPath_South_Text_DeclinedRandomStarter {
+    "No? Well, that's okay.\p"
+    "Sometimes the best discoveries\n"
+    "come when you least expect them.\p"
+    "I'll be resting here if you\n"
+    "change your mind!"
+}
+
+text UndergroundPath_South_Text_AfterRandomStarter {
+    "How's that POKéMON treating you?\p"
+    "You know, sometimes the best\n"
+    "hiking partners are the ones\l"
+    "you don't plan for!\p"
+    "Just like the best trails are\n"
+    "the ones you discover by accident!"
+}
+
 text UndergroundPath_South_Text_WantChikorita {
     "Hey there, young TRAINER!\n"
     "I just got back from hiking in\l"

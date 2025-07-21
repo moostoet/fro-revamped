@@ -345,6 +345,179 @@ script Verm_ThunderStone {
 	end
 }
 
+script Vermilion_GiveRandomKantoStarter {
+    lock
+    faceplayer
+    if (flag(FLAG_RECEIVED_SQUIRTLE)) {
+        msgbox(VermilionCity_Text_AfterRandomStarter)
+        release
+        end
+    }
+
+    msgbox(VermilionCity_Text_WantRandomStarter, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(VermilionCity_Text_ChoosingStarter, MSGBOX_DEFAULT)
+        random(3)
+        
+        if (var(VAR_RESULT) == 0) {
+            msgbox(VermilionCity_Text_ChoseSquirtle, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_SQUIRTLE)
+            givemon(SPECIES_SQUIRTLE, 15)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomKantoStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomKantoStarter_PC)
+            } else {
+                msgbox(VermilionCity_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        } elif (var(VAR_RESULT) == 1) {
+            msgbox(VermilionCity_Text_ChoseBulbasaur, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_BULBASAUR)
+            givemon(SPECIES_BULBASAUR, 15)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomKantoStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomKantoStarter_PC)
+            } else {
+                msgbox(VermilionCity_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        } else {
+            msgbox(VermilionCity_Text_ChoseCharmander, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_CHARMANDER)
+            givemon(SPECIES_CHARMANDER, 15)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomKantoStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomKantoStarter_PC)
+            } else {
+                msgbox(VermilionCity_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        }
+    } else {
+        msgbox(VermilionCity_Text_DeclinedRandomStarter, MSGBOX_DEFAULT)
+    }
+    release
+    end
+}
+
+script GiveRandomKantoStarter_Party {
+    playfanfare(MUS_LEVEL_UP)
+    message(VermilionCity_Text_ReceivedRandomStarter)
+    waitmessage
+    waitfanfare
+
+    copyvar(VAR_0x8004, VAR_TEMP_1)
+    bufferspeciesname(STR_VAR_1, VAR_0x8004)
+    msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        setflag(FLAG_RECEIVED_SQUIRTLE)
+        release
+        end
+    } else {
+        call(EventScript_GetGiftMonPartySlot)
+        call(EventScript_ChangePokemonNickname)
+        setflag(FLAG_RECEIVED_SQUIRTLE)
+        release
+        end
+    }
+}
+
+script GiveRandomKantoStarter_PC {
+    playfanfare(MUS_LEVEL_UP)
+    message(VermilionCity_Text_ReceivedRandomStarter)
+    waitmessage
+    waitfanfare
+
+    copyvar(VAR_0x8004, VAR_TEMP_1)
+    bufferspeciesname(STR_VAR_1, VAR_0x8004)
+    msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        call(EventScript_TransferredToPC)
+        setflag(FLAG_RECEIVED_SQUIRTLE)
+        release
+        end
+    } else {
+        call(EventScript_NameReceivedBoxMon)
+        call(EventScript_TransferredToPC)
+        setflag(FLAG_RECEIVED_SQUIRTLE)
+        release
+        end
+    }
+}
+
+text VermilionCity_Text_WantRandomStarter {
+    "Ah, bonjour! I'm a chef waiting to\n"
+    "start my new job on the S.S. AQUA.\p"
+    "The S.S. ANNE was magnificent, but\n"
+    "it has already departed...\p"
+    "While waiting, I've been trying to\n"
+    "train three POKéMON as kitchen help.\p"
+    "But they all seem more interested\n"
+    "in battling than cooking!\p"
+    "Would you like me to give you one?\n"
+    "I'll let fate decide which one!"
+}
+
+text VermilionCity_Text_ChoosingStarter {
+    "Très bien! Let me close my eyes\n"
+    "and reach for a POKéBALL...\p"
+    "Like selecting the perfect ingredient\n"
+    "by instinct alone!"
+}
+
+text VermilionCity_Text_ChoseSquirtle {
+    "Ah! C'est SQUIRTLE!\p"
+    "The TINY TURTLE POKéMON! This\n"
+    "WATER-type is my personal favorite.\p"
+    "I tried to teach it to wash dishes,\n"
+    "but it prefers using WATER GUN!"
+}
+
+text VermilionCity_Text_ChoseBulbasaur {
+    "Oh! C'est BULBASAUR!\p"
+    "The SEED POKéMON! This GRASS and\n"
+    "POISON-type has excellent taste.\p"
+    "I hoped it would help with herbs,\n"
+    "but it's more of a battler!"
+}
+
+text VermilionCity_Text_ChoseCharmander {
+    "Voilà! C'est CHARMANDER!\p"
+    "The LIZARD POKéMON! This FIRE-type\n"
+    "would have been perfect for cooking!\p"
+    "But its flame is meant for battle,\n"
+    "not flambé!"
+}
+
+text VermilionCity_Text_ReceivedRandomStarter {
+    "{PLAYER} received the POKéMON\n"
+    "from the chef!"
+}
+
+text VermilionCity_Text_NoRoomForStarter {
+    "Oh non! Your party is as full as\n"
+    "a satisfied restaurant guest!\p"
+    "Please make some room and return\n"
+    "for this POKéMON."
+}
+
+text VermilionCity_Text_DeclinedRandomStarter {
+    "Non? Perhaps another time then.\p"
+    "I'll keep trying to train them\n"
+    "in the culinary arts...\p"
+    "Though I suspect they'll never\n"
+    "master even a simple soufflé!"
+}
+
+text VermilionCity_Text_AfterRandomStarter {
+    "How is your POKéMON doing?\n"
+    "Growing strong, I hope!\p"
+    "Sometimes the best recipes come\n"
+    "from unexpected combinations...\p"
+    "Just like the best partnerships\n"
+    "come from chance encounters!"
+}
+
 text VermilionCity_Text_WantSquirtle {
     "Ah, bonjour! I'm a chef waiting to\n"
     "start my new job on the S.S. AQUA.\p"

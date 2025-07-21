@@ -67,9 +67,9 @@ Fuchsia_GiveThiefItems::
 # 39 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
 	compare VAR_RESULT, YES
 	goto_if_eq Fuchsia_GiveThiefItems_5
-# 45 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
-	msgbox PokemonCenter_Text_DeclinedItems
 # 46 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_DeclinedItems
+# 47 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
 	release
 	end
 
@@ -81,9 +81,9 @@ Fuchsia_GiveThiefItems_2:
 	end
 
 Fuchsia_GiveThiefItems_4:
-# 49 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
-	msgbox PokemonCenter_Text_AfterDelivery
 # 50 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
+	msgbox PokemonCenter_Text_AfterDelivery
+# 51 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
 	release
 	end
 
@@ -96,5 +96,7 @@ Fuchsia_GiveThiefItems_5:
 	giveitem ITEM_DRAGON_FANG, 99
 # 43 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
 	giveitem ITEM_MAGNET, 99
+# 44 "data/maps/FuchsiaCity_PokemonCenter_1F/scripts.pory"
+	giveitem ITEM_THICK_CLUB, 99
 	goto Fuchsia_GiveThiefItems_4
 

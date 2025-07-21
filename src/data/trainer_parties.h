@@ -4075,9 +4075,9 @@ static const struct TrainerMonItemCustomMoves sParty_RivalCeruleanSquirtle[] = {
     {
         .iv = 50,
         .lvl = 19,
-        .species = SPECIES_GASTLY,
+        .species = SPECIES_ABRA,
         .heldItem = ITEM_NONE,
-        .moves = {MOVE_LICK, MOVE_SPITE, MOVE_CURSE, MOVE_NIGHT_SHADE},
+        .moves = {MOVE_TELEPORT, MOVE_NONE, MOVE_NONE, MOVE_NONE},
     },
     {
         .iv = 50,
@@ -4089,9 +4089,9 @@ static const struct TrainerMonItemCustomMoves sParty_RivalCeruleanSquirtle[] = {
     {
         .iv = 247,
         .lvl = 21,
-        .species = SPECIES_MAGBY,
+        .species = SPECIES_SMOOCHUM,
         .heldItem = ITEM_SITRUS_BERRY,
-        .moves = {MOVE_EMBER, MOVE_KARATE_CHOP, MOVE_SUNNY_DAY, MOVE_FIRE_PUNCH},
+        .moves = {MOVE_POWDER_SNOW, MOVE_CONFUSION, MOVE_LICK, MOVE_ICE_PUNCH},
     },
 };
 

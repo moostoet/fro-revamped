@@ -49,9 +49,10 @@ VermilionCity_Gym_Text_TuckerDefeat::
     .string "You're very good!$"
 
 VermilionCity_Gym_Text_TuckerPostBattle::
-    .string "It's not easy opening that door.\p"
-    .string "LT. SURGE was always famous for\n"
-    .string "his cautious nature in the Army.$"
+    .string "LT. SURGE is tough!\p"
+    .string "He was a pilot in the Army and\n"
+    .string "saved his POKéMON's life in the war.\p"
+    .string "They've been partners ever since!$"
 
 VermilionCity_Gym_Text_BailyIntro::
     .string "I'm a lightweight, but I'm good\n"
@@ -63,8 +64,10 @@ VermilionCity_Gym_Text_BailyDefeat::
 
 VermilionCity_Gym_Text_BailyPostBattle::
     .string "Okay, I'll talk!\p"
-    .string "LT. SURGE said he hid door\n"
-    .string "switches inside something.$"
+    .string "LT. SURGE's POKéMON know\n"
+    .string "THUNDERBOLT and THUNDER WAVE!\p"
+    .string "You better have some\n"
+    .string "PARALYZE HEAL ready!$"
 
 VermilionCity_Gym_Text_DwayneIntro::
     .string "This is no place for kids!\n"
@@ -75,12 +78,12 @@ VermilionCity_Gym_Text_DwayneDefeat::
     .string "Surprised me!$"
 
 VermilionCity_Gym_Text_DwaynePostBattle::
-    .string "LT. SURGE installed the traps in\n"
-    .string "the GYM himself.\p"
-    .string "He set up double locks everywhere.\n"
-    .string "Let me give you a hint.\p"
-    .string "When you open the first lock, the\n"
-    .string "second lock is right next to it.$"
+    .string "LT. SURGE used to have all these\n"
+    .string "locks and traps in the GYM.\p"
+    .string "But he got rid of them recently.\n"
+    .string "Said real trainers don't need gimmicks!\p"
+    .string "Though he kept the trash cans\n"
+    .string "for some reason...$"
 
 VermilionCity_Gym_Text_GymGuyAdvice::
     .string "Yo!\n"
@@ -93,9 +96,8 @@ VermilionCity_Gym_Text_GymGuyAdvice::
     .string "BIRD/WATER-type POKéMON match\n"
     .string "poorly against the ELECTRIC type.\p"
     .string "Beware of paralysis, too.\p"
-    .string "LT. SURGE is very cautious.\p"
-    .string "He's locked himself in, so it won't\n"
-    .string "be easy getting to him.$"
+    .string "LT. SURGE is ready and waiting!\n"
+    .string "Give him a real shock!$"
 
 VermilionCity_Gym_Text_GymGuyPostVictory::
     .string "Whew!\n"
@@ -114,8 +116,9 @@ VermilionCity_Gym_Text_GymStatuePlayerWon::
     .string "{RIVAL}, {PLAYER}$"
 
 VermilionCity_Gym_Text_NopeOnlyTrashHere::
-    .string "Nope!\n"
-    .string "There's only trash here.$"
+    .string "It's just trash!\n"
+    .string "Why does Lt. Surge keep garbage\l"
+    .string "cans in his Gym anyway?$"
 
 VermilionCity_Gym_Text_SwitchUnderTrashFirstLockOpened::
     .string "Hey! There's a switch under the\n"

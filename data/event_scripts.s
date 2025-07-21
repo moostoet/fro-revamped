@@ -1068,6 +1068,7 @@ EventScript_ResetAllMapFlags::
 	.include "data/scripts/obtain_item.inc"
 	.include "data/scripts/pc.inc"
 	.include "data/scripts/status.inc"
+	.include "data/scripts/relearner.inc"
 
 Common_ShowEasyChatScreen::
 	fadescreen FADE_TO_BLACK

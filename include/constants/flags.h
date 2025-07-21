@@ -560,7 +560,7 @@
 #define FLAG_RECEIVED_ITEMS_FUCHSIA 0x21A
 #define FLAG_RECEIVED_ITEMS_CINNABAR 0x21B
 #define FLAG_RECEIVED_ITEMS_INDIGO 0x21C
-#define FLAG_0x21D               0x21D
+#define FLAG_SYS_RECEIVED_MOVE_RELEARNER_ITEM 0x21D
 #define FLAG_0x21E               0x21E
 #define FLAG_0x21F               0x21F
 #define FLAG_0x220               0x220

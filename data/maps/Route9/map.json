@@ -193,20 +193,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route9_EventScript_ItemBurnHeal",
       "flag": "FLAG_HIDE_ROUTE9_BURN_HEAL"
-    },
-    {
-      "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_F",
-      "x": 10,
-      "y": 3,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route9_Give_Bulbasaur",
-      "flag": "0"
     }
   ],
   "warp_events": [

@@ -1,0 +1,17 @@
+script EventScript_UseRelearnerItem {
+    lockall
+
+    special(ChooseMonForMoveRelearner)
+    waitstate
+
+    compare(VAR_0x8004, 6)
+    goto_if_eq(EventScript_UseRelearnerItem_End)
+
+    special(TeachMoveRelearnerMove)
+    waitstate
+}
+
+script EventScript_UseRelearnerItem_End {
+    releaseall
+    end
+}

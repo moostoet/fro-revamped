@@ -21,7 +21,6 @@ PokemonLeague_HallOfFame_OnFrame::
 PokemonLeague_HallOfFame_EventScript_EnterRoom::
 	lockall
 	clearflag FLAG_BOX_LINK_DISABLED
-	clearflag FLAG_MED_KIT_DISABLED
 	clearflag FLAG_SYRINGE_DISABLED
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement OBJ_EVENT_ID_PLAYER, PokemonLeague_HallOfFame_Movement_EnterRoom

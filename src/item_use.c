@@ -55,6 +55,7 @@ static void ItemUseOnFieldCB_Rod(u8 taskId);
 static void Task_AccessPokemonBoxLink(u8 taskId);
 static void Task_UseSyringe(u8 taskId);
 static void Task_UseMedKit(u8 taskId);
+static void Task_RunRelearnerItemScript(u8 taskId);
 static void Task_PlayPokeFlute(u8 taskId);
 static void Task_DisplayPokeFluteMessage(u8 taskId);
 static void InitTMCaseFromBag(void);
@@ -690,6 +691,19 @@ void FieldUseFunc_Syringe(u8 taskId)
 static void Task_UseSyringe(u8 taskId)
 {
     ScriptContext_SetupScript(EventScript_InflictStatusMenu);
+    DestroyTask(taskId);
+}
+
+void FieldUseFunc_Relearner(u8 taskId)
+{
+    sItemUseOnFieldCB = Task_RunRelearnerItemScript;
+
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+static void Task_RunRelearnerItemScript(u8 taskId)
+{
+    ScriptContext_SetupScript(EventScript_UseRelearnerItem);
     DestroyTask(taskId);
 }
 

@@ -265,8 +265,259 @@ GiveTreecko_PC_1:
 	end
 
 
+Route2_Worker_GiveRandomHoennStarter::
+# 155 "data/maps/Route2/scripts.pory"
+	lock
+# 156 "data/maps/Route2/scripts.pory"
+	faceplayer
+# 157 "data/maps/Route2/scripts.pory"
+	goto_if_set FLAG_RECEIVED_TREECKO, Route2_Worker_GiveRandomHoennStarter_2
+# 163 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_WantRandomStarter, MSGBOX_YESNO
+# 164 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, YES
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_5
+# 203 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_DeclinedRandomStarter, MSGBOX_DEFAULT
+Route2_Worker_GiveRandomHoennStarter_4:
+# 205 "data/maps/Route2/scripts.pory"
+	release
+	end
+
+Route2_Worker_GiveRandomHoennStarter_2:
+# 158 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_AfterRandomStarter
+# 159 "data/maps/Route2/scripts.pory"
+	release
+	end
+
+Route2_Worker_GiveRandomHoennStarter_5:
+# 165 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_ChoosingStarter, MSGBOX_DEFAULT
+# 166 "data/maps/Route2/scripts.pory"
+	random 3
+# 168 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_8
+# 179 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_9
+# 191 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_ChoseMudkip, MSGBOX_DEFAULT
+# 192 "data/maps/Route2/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_MUDKIP
+# 193 "data/maps/Route2/scripts.pory"
+	givemon SPECIES_MUDKIP, 5
+# 194 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_23
+# 196 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_24
+# 199 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_NoRoomForStarter, MSGBOX_DEFAULT
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_8:
+# 169 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_ChoseTreecko, MSGBOX_DEFAULT
+# 170 "data/maps/Route2/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_TREECKO
+# 171 "data/maps/Route2/scripts.pory"
+	givemon SPECIES_TREECKO, 5
+# 172 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_13
+# 174 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_14
+# 177 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_NoRoomForStarter, MSGBOX_DEFAULT
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_9:
+# 180 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_ChoseTorchic, MSGBOX_DEFAULT
+# 181 "data/maps/Route2/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_TORCHIC
+# 182 "data/maps/Route2/scripts.pory"
+	givemon SPECIES_TORCHIC, 5
+# 183 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_18
+# 185 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Route2_Worker_GiveRandomHoennStarter_19
+# 188 "data/maps/Route2/scripts.pory"
+	msgbox Route2_Text_NoRoomForStarter, MSGBOX_DEFAULT
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_13:
+# 173 "data/maps/Route2/scripts.pory"
+	goto GiveRandomStarter_Party
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_14:
+# 175 "data/maps/Route2/scripts.pory"
+	goto GiveRandomStarter_PC
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_18:
+# 184 "data/maps/Route2/scripts.pory"
+	goto GiveRandomStarter_Party
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_19:
+# 186 "data/maps/Route2/scripts.pory"
+	goto GiveRandomStarter_PC
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_23:
+# 195 "data/maps/Route2/scripts.pory"
+	goto GiveRandomStarter_Party
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+Route2_Worker_GiveRandomHoennStarter_24:
+# 197 "data/maps/Route2/scripts.pory"
+	goto GiveRandomStarter_PC
+	goto Route2_Worker_GiveRandomHoennStarter_4
+
+
+GiveRandomStarter_Party::
+# 210 "data/maps/Route2/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 211 "data/maps/Route2/scripts.pory"
+	message Route2_Text_ReceivedRandomStarter
+# 212 "data/maps/Route2/scripts.pory"
+	waitmessage
+# 213 "data/maps/Route2/scripts.pory"
+	waitfanfare
+# 215 "data/maps/Route2/scripts.pory"
+	copyvar VAR_0x8004, VAR_TEMP_1
+# 216 "data/maps/Route2/scripts.pory"
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+# 217 "data/maps/Route2/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 218 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveRandomStarter_Party_1
+# 223 "data/maps/Route2/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 224 "data/maps/Route2/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 225 "data/maps/Route2/scripts.pory"
+	setflag FLAG_RECEIVED_TREECKO
+# 226 "data/maps/Route2/scripts.pory"
+	release
+	end
+
+GiveRandomStarter_Party_1:
+# 219 "data/maps/Route2/scripts.pory"
+	setflag FLAG_RECEIVED_TREECKO
+# 220 "data/maps/Route2/scripts.pory"
+	release
+	end
+
+
+GiveRandomStarter_PC::
+# 232 "data/maps/Route2/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 233 "data/maps/Route2/scripts.pory"
+	message Route2_Text_ReceivedRandomStarter
+# 234 "data/maps/Route2/scripts.pory"
+	waitmessage
+# 235 "data/maps/Route2/scripts.pory"
+	waitfanfare
+# 237 "data/maps/Route2/scripts.pory"
+	copyvar VAR_0x8004, VAR_TEMP_1
+# 238 "data/maps/Route2/scripts.pory"
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+# 239 "data/maps/Route2/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 240 "data/maps/Route2/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveRandomStarter_PC_1
+# 245 "data/maps/Route2/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 246 "data/maps/Route2/scripts.pory"
+	call EventScript_TransferredToPC
+# 247 "data/maps/Route2/scripts.pory"
+	setflag FLAG_RECEIVED_TREECKO
+# 248 "data/maps/Route2/scripts.pory"
+	release
+	end
+
+GiveRandomStarter_PC_1:
+# 241 "data/maps/Route2/scripts.pory"
+	setflag FLAG_RECEIVED_TREECKO
+# 242 "data/maps/Route2/scripts.pory"
+	release
+	end
+
+
+Route2_Text_WantRandomStarter::
+# 253 "data/maps/Route2/scripts.pory"
+	.string "Greetings, young TRAINER!\p"
+	.string "I'm a POKéMON PROFESSOR visiting\n"
+	.string "from the HOENN region.\p"
+	.string "I have three rare starter POKéMON\n"
+	.string "with me, but I can only give you one.\p"
+	.string "Would you like me to randomly choose\n"
+	.string "one of these special POKéMON for you?$"
+
+Route2_Text_ChoosingStarter::
+# 263 "data/maps/Route2/scripts.pory"
+	.string "Wonderful! Let me see...\p"
+	.string "I'll close my eyes and pick one\n"
+	.string "at random for you!$"
+
+Route2_Text_ChoseTreecko::
+# 269 "data/maps/Route2/scripts.pory"
+	.string "Ah! The POKéBALL chose TREECKO!\p"
+	.string "TREECKO is the WOOD GECKO POKéMON.\n"
+	.string "It's a GRASS-type starter!$"
+
+Route2_Text_ChoseTorchic::
+# 275 "data/maps/Route2/scripts.pory"
+	.string "Oh! The POKéBALL chose TORCHIC!\p"
+	.string "TORCHIC is the CHICK POKéMON.\n"
+	.string "It's a FIRE-type starter!$"
+
+Route2_Text_ChoseMudkip::
+# 281 "data/maps/Route2/scripts.pory"
+	.string "My! The POKéBALL chose MUDKIP!\p"
+	.string "MUDKIP is the MUD FISH POKéMON.\n"
+	.string "It's a WATER-type starter!$"
+
+Route2_Text_ReceivedRandomStarter::
+# 287 "data/maps/Route2/scripts.pory"
+	.string "{PLAYER} received the POKéMON\n"
+	.string "from the PROFESSOR!$"
+
+Route2_Text_NoRoomForStarter::
+# 292 "data/maps/Route2/scripts.pory"
+	.string "Oh dear! You don't have room in\n"
+	.string "your party for this POKéMON.\p"
+	.string "Please come back after making\n"
+	.string "some space.$"
+
+Route2_Text_DeclinedRandomStarter::
+# 299 "data/maps/Route2/scripts.pory"
+	.string "I understand. Choosing a partner\n"
+	.string "is an important decision.\p"
+	.string "Take your time. I'll be here if\n"
+	.string "you change your mind.$"
+
+Route2_Text_AfterRandomStarter::
+# 306 "data/maps/Route2/scripts.pory"
+	.string "How is your POKéMON doing?\p"
+	.string "The bond between TRAINER and\n"
+	.string "POKéMON is truly special.\p"
+	.string "Sometimes the best partnerships\n"
+	.string "are formed by chance!$"
+
 Route2_Text_WantTreecko::
-# 154 "data/maps/Route2/scripts.pory"
+# 314 "data/maps/Route2/scripts.pory"
 	.string "Hi there! I'm a POKéMON researcher\n"
 	.string "from the HOENN region.\p"
 	.string "I brought along this TREECKO, but\n"
@@ -275,37 +526,37 @@ Route2_Text_WantTreecko::
 	.string "this TREECKO?$"
 
 Route2_Text_HereIsTreecko::
-# 163 "data/maps/Route2/scripts.pory"
+# 323 "data/maps/Route2/scripts.pory"
 	.string "Wonderful! TREECKO is a GRASS-type\n"
 	.string "POKéMON from HOENN.\p"
 	.string "Please take good care of it!$"
 
 Route2_Text_ReceivedTreecko::
-# 169 "data/maps/Route2/scripts.pory"
+# 329 "data/maps/Route2/scripts.pory"
 	.string "{PLAYER} received TREECKO\n"
 	.string "from the POKéMON researcher!$"
 
 Route2_Text_NoRoomForTreecko::
-# 174 "data/maps/Route2/scripts.pory"
+# 334 "data/maps/Route2/scripts.pory"
 	.string "Oh! You don't have any room in\n"
 	.string "your party for TREECKO.\p"
 	.string "Please come back when you have\n"
 	.string "made room in your party.$"
 
 Route2_Text_DeclinedTreecko::
-# 181 "data/maps/Route2/scripts.pory"
+# 341 "data/maps/Route2/scripts.pory"
 	.string "Oh, that's too bad.\p"
 	.string "If you change your mind, I'll be\n"
 	.string "here waiting.$"
 
 Route2_Text_AfterTreecko::
-# 187 "data/maps/Route2/scripts.pory"
+# 347 "data/maps/Route2/scripts.pory"
 	.string "TREECKO is a very loyal POKéMON.\n"
 	.string "I'm sure you two will be great\l"
 	.string "partners!$"
 
 Route2_Text_WantTorchic::
-# 193 "data/maps/Route2/scripts.pory"
+# 353 "data/maps/Route2/scripts.pory"
 	.string "Hello! I'm another researcher\n"
 	.string "visiting from HOENN.\p"
 	.string "This TORCHIC here needs a TRAINER\n"
@@ -314,30 +565,30 @@ Route2_Text_WantTorchic::
 	.string "with you on your journey?$"
 
 Route2_Text_HereIsTorchic::
-# 202 "data/maps/Route2/scripts.pory"
+# 362 "data/maps/Route2/scripts.pory"
 	.string "Excellent choice! TORCHIC is a\n"
 	.string "FIRE-type POKéMON from HOENN.\p"
 	.string "It will surely become a powerful\n"
 	.string "ally!$"
 
 Route2_Text_ReceivedTorchic::
-# 209 "data/maps/Route2/scripts.pory"
+# 369 "data/maps/Route2/scripts.pory"
 	.string "{PLAYER} received TORCHIC\n"
 	.string "from the POKéMON researcher!$"
 
 Route2_Text_NoRoomForTorchic::
-# 214 "data/maps/Route2/scripts.pory"
+# 374 "data/maps/Route2/scripts.pory"
 	.string "Oh my! Your party seems to be full.\p"
 	.string "Please make some room and come back\n"
 	.string "for TORCHIC.$"
 
 Route2_Text_DeclinedTorchic::
-# 220 "data/maps/Route2/scripts.pory"
+# 380 "data/maps/Route2/scripts.pory"
 	.string "I see... Well, if you change your\n"
 	.string "mind, you know where to find me.$"
 
 Route2_Text_AfterTorchic::
-# 225 "data/maps/Route2/scripts.pory"
+# 385 "data/maps/Route2/scripts.pory"
 	.string "TORCHIC may be small, but it has\n"
 	.string "a burning fighting spirit!\p"
 	.string "Raise it well!$"

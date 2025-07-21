@@ -1,8 +1,48 @@
 raw `
+.equ CHECKED_MUSHROOMS,  FLAG_TEMP_1
+.equ HAS_BIG_MUSHROOM,   FLAG_TEMP_2
+.equ HAS_TINY_MUSHROOMS, FLAG_TEMP_3
+.equ HAS_BOTH_MUSHROOMS, FLAG_TEMP_4
+
 CeladonCity_Condominiums_2F_MapScripts::
 	.byte 0
 
 CeladonCity_Condominiums_2F_EventScript_MeetingRoomSign::
 	msgbox CeladonCity_Condominiums_2F_Text_GameFreakMeetingRoom, MSGBOX_SIGN
 	end
+
+TwoIsland_House_EventScript_MoveManiac::
+    goto_if_questlog EventScript_ReleaseEnd 
+    special QuestLog_CutRecording
+    lock
+    faceplayer
+
+    goto_if_set FLAG_SYS_RECEIVED_MOVE_RELEARNER_ITEM, TwoIsland_House_EventScript_AlreadyGotRelearner
+
+    msgbox TwoIsland_House_Text_TiredOfMushroomsIntro, MSGBOX_YESNO
+    goto_if_eq VAR_RESULT,NO,TwoIsland_House_EventScript_PlayerDeclinesRelearner
+
+    giveitem ITEM_RELEARNER
+    
+    goto_if_eq VAR_RESULT,FALSE,TwoIsland_House_EventScript_BagFullRelearner
+
+    setflag FLAG_SYS_RECEIVED_MOVE_RELEARNER_ITEM
+    msgbox TwoIsland_House_Text_PlayerReceivesRelearnerExplanation
+    release
+    end
+
+TwoIsland_House_EventScript_BagFullRelearner::
+    msgbox TwoIsland_House_Text_BagFullRelearner
+    release
+    end
+
+TwoIsland_House_EventScript_PlayerDeclinesRelearner::
+    msgbox TwoIsland_House_Text_PlayerDeclinesRelearner
+    release
+    end
+
+TwoIsland_House_EventScript_AlreadyGotRelearner::
+    msgbox TwoIsland_House_Text_AfterReceivingRelearner
+    release
+    end
 `

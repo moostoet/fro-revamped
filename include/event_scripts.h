@@ -1241,6 +1241,7 @@ extern const u8 EventScript_DoFallWarp[];
 
 extern const u8 EventScript_AccessPokemonBoxLink[];
 extern const u8 EventScript_InflictStatusMenu[];
+extern const u8 EventScript_UseRelearnerItem[];
 
 // overworld
 

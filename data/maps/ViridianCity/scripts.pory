@@ -250,3 +250,53 @@ text DreamEater_Tutor {
 	"As long as you spray a\n"
 	"REPEL..."
 }
+
+text ViridianCity_Fisherman_Greeting {
+    "Ah, there's nothing quite like fishing!\p"
+    "I've been casting my line in these\n"
+    "waters for decades now.\p"
+    "Say... you look like someone who might\n"
+    "appreciate the art of fishing!"
+}
+
+text ViridianCity_Fisherman_GiveRod {
+    "How about I share an extra rod I have?\p"
+    "It's not the fanciest one, but it'll\n"
+    "help you catch some POKéMON!"
+}
+
+text ViridianCity_Fisherman_Explain {
+    "You can use that OLD ROD to fish\n"
+    "in any body of water.\p"
+    "Just face the water and use the rod.\n"
+    "If something bites, reel it in quick!\p"
+    "You might only catch MAGIKARP at first,\n"
+    "but don't give up! Every master angler\l"
+    "started somewhere!"
+}
+
+text ViridianCity_Fisherman_After {
+    "Patience is the key to fishing.\n"
+    "Just like training POKéMON!\p"
+    "Keep at it, and you'll reel in\n"
+    "something special eventually!"
+}
+
+
+script Viridian_FisherMan_GiveOldRod {
+	lock
+	faceplayer
+	if (flag(FLAG_GOT_OLD_ROD)) {
+		msgbox(ViridianCity_Fisherman_After)
+		release
+		end
+	}
+
+	msgbox(ViridianCity_Fisherman_Greeting)
+	msgbox(ViridianCity_Fisherman_GiveRod)
+	giveitem(ITEM_OLD_ROD)
+	setflag(FLAG_GOT_OLD_ROD)
+	msgbox(ViridianCity_Fisherman_Explain)
+	release
+	end
+}

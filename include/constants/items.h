@@ -448,8 +448,9 @@
 #define ITEM_BOX_LINK 376
 #define ITEM_MED_KIT 377
 #define ITEM_SYRINGE 378
+#define ITEM_RELEARNER 379
 
-#define ITEMS_COUNT 379
+#define ITEMS_COUNT 380
 
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 #define MAIL_NONE 0xFF

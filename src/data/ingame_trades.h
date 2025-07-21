@@ -83,7 +83,7 @@ static const struct InGameTrade sInGameTrades[] = {
     {
 #if defined(FIRERED)
         .nickname = _("TINA"),
-        .species = SPECIES_DRATINI,
+        .species = SPECIES_LARVITAR,
         .ivs = {22, 31, 18, 31, 22, 15},
         .abilityNum = 0,
         .otId = 13637,

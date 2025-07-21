@@ -17,7 +17,6 @@ PokemonLeague_LoreleisRoom_OnLoad::
 	call_if_eq VAR_MAP_SCENE_POKEMON_LEAGUE, 1, PokemonLeague_LoreleisRoom_EventScript_CloseEntry
 	setflag FLAG_BOX_LINK_DISABLED
 	setflag FLAG_SYRINGE_DISABLED
-	setflag FLAG_MED_KIT_DISABLED
 	end
 
 PokemonLeague_LoreleisRoom_EventScript_CloseEntry::

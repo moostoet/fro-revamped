@@ -41,6 +41,7 @@ script Fuchsia_GiveThiefItems {
 		giveitem(ITEM_SPELL_TAG, 99)
 		giveitem(ITEM_DRAGON_FANG, 99)
 		giveitem(ITEM_MAGNET, 99)
+		giveitem(ITEM_THICK_CLUB, 99)
 	} else {
 		msgbox(PokemonCenter_Text_DeclinedItems)
 		release

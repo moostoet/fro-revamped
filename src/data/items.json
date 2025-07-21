@@ -6075,7 +6075,7 @@
       "secondaryId": 0
     },
     {
-      "english": "{PKMN} BOX LINk",
+      "english": "{PKMN} BOX LINK",
       "itemId": "ITEM_BOX_LINK",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
@@ -6118,6 +6118,22 @@
       "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_FIELD",
       "fieldUseFunc": "FieldUseFunc_Syringe",
+      "battleUsage": 0,
+      "battleUseFunc": "NULL",
+      "secondaryId": 0
+    },
+    {
+      "english": "{PKMN} RELEARNER",
+      "itemId": "ITEM_RELEARNER",
+      "price": 0,
+      "holdEffect": "HOLD_EFFECT_NONE",
+      "holdEffectParam": 0,
+      "description_english": "Used to relearn moves to\\n POKéMON.",
+      "importance": 1,
+      "registrability": 1,
+      "pocket": "POCKET_KEY_ITEMS",
+      "type": "ITEM_TYPE_FIELD",
+      "fieldUseFunc": "FieldUseFunc_Relearner",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0

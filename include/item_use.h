@@ -26,6 +26,7 @@ void FieldUseFunc_Repel(u8 taskId);
 void FieldUseFunc_BoxLink(u8 taskId);
 void FieldUseFunc_MedKit(u8 taskId);
 void FieldUseFunc_Syringe(u8 taskId);
+void FieldUseFunc_Relearner(u8 taskId);
 void FieldUseFunc_ForeverRepel(u8 taskId);
 void FieldUseFunc_BlackWhiteFlute(u8 taskId);
 void FieldUseFunc_TownMap(u8 taskId);

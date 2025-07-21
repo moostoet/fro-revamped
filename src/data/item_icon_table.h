@@ -402,6 +402,7 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_BOX_LINK]       = {gItemIcon_BoxLink, gItemIconPalette_BoxLink},
     [ITEM_MED_KIT]        = {gItemIcon_MedKit, gItemIconPalette_MedKit},
     [ITEM_SYRINGE]        = {gItemIcon_PowderJar, gItemIconPalette_PowderJar},
+    [ITEM_RELEARNER]      = {gItemIcon_TMCase, gItemIconPalette_TMCase},
     // Return to field arrow
     [ITEMS_COUNT]         = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };

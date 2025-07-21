@@ -151,6 +151,166 @@ script GiveTreecko_PC {
 	}
 }
 
+script Route2_Worker_GiveRandomHoennStarter {
+    lock
+    faceplayer
+    if (flag(FLAG_RECEIVED_TREECKO)) {
+        msgbox(Route2_Text_AfterRandomStarter)
+        release
+        end
+    }
+
+    msgbox(Route2_Text_WantRandomStarter, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(Route2_Text_ChoosingStarter, MSGBOX_DEFAULT)
+        random(3)
+        
+        if (var(VAR_RESULT) == 0) {
+            msgbox(Route2_Text_ChoseTreecko, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_TREECKO)
+            givemon(SPECIES_TREECKO, 5)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomStarter_PC)
+            } else {
+                msgbox(Route2_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        } elif (var(VAR_RESULT) == 1) {
+            msgbox(Route2_Text_ChoseTorchic, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_TORCHIC)
+            givemon(SPECIES_TORCHIC, 5)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomStarter_PC)
+            } else {
+                msgbox(Route2_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        } else {
+            msgbox(Route2_Text_ChoseMudkip, MSGBOX_DEFAULT)
+            setvar(VAR_TEMP_1, SPECIES_MUDKIP)
+            givemon(SPECIES_MUDKIP, 5)
+            if (var(VAR_RESULT) == 0) {
+                goto(GiveRandomStarter_Party)
+            } elif (var(VAR_RESULT) == 1) {
+                goto(GiveRandomStarter_PC)
+            } else {
+                msgbox(Route2_Text_NoRoomForStarter, MSGBOX_DEFAULT)
+            }
+        }
+    } else {
+        msgbox(Route2_Text_DeclinedRandomStarter, MSGBOX_DEFAULT)
+    }
+    release
+    end
+}
+
+script GiveRandomStarter_Party {
+    playfanfare(MUS_LEVEL_UP)
+    message(Route2_Text_ReceivedRandomStarter)
+    waitmessage
+    waitfanfare
+
+    copyvar(VAR_0x8004, VAR_TEMP_1)
+    bufferspeciesname(STR_VAR_1, VAR_0x8004)
+    msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        setflag(FLAG_RECEIVED_TREECKO)
+        release
+        end
+    } else {
+        call(EventScript_GetGiftMonPartySlot)
+        call(EventScript_ChangePokemonNickname)
+        setflag(FLAG_RECEIVED_TREECKO)
+        release
+        end
+    }
+}
+
+script GiveRandomStarter_PC {
+    playfanfare(MUS_LEVEL_UP)
+    message(Route2_Text_ReceivedRandomStarter)
+    waitmessage
+    waitfanfare
+
+    copyvar(VAR_0x8004, VAR_TEMP_1)
+    bufferspeciesname(STR_VAR_1, VAR_0x8004)
+    msgbox(Text_GiveNickNameToThisMon, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        setflag(FLAG_RECEIVED_TREECKO)
+        release
+        end
+    } else {
+        call(EventScript_NameReceivedBoxMon)
+        call(EventScript_TransferredToPC)
+        setflag(FLAG_RECEIVED_TREECKO)
+        release
+        end
+    }
+}
+
+text Route2_Text_WantRandomStarter {
+    "Greetings, young TRAINER!\p"
+    "I'm a POKéMON PROFESSOR visiting\n"
+    "from the HOENN region.\p"
+    "I have three rare starter POKéMON\n"
+    "with me, but I can only give you one.\p"
+    "Would you like me to randomly choose\n"
+    "one of these special POKéMON for you?"
+}
+
+text Route2_Text_ChoosingStarter {
+    "Wonderful! Let me see...\p"
+    "I'll close my eyes and pick one\n"
+    "at random for you!"
+}
+
+text Route2_Text_ChoseTreecko {
+    "Ah! The POKéBALL chose TREECKO!\p"
+    "TREECKO is the WOOD GECKO POKéMON.\n"
+    "It's a GRASS-type starter!"
+}
+
+text Route2_Text_ChoseTorchic {
+    "Oh! The POKéBALL chose TORCHIC!\p"
+    "TORCHIC is the CHICK POKéMON.\n"
+    "It's a FIRE-type starter!"
+}
+
+text Route2_Text_ChoseMudkip {
+    "My! The POKéBALL chose MUDKIP!\p"
+    "MUDKIP is the MUD FISH POKéMON.\n"
+    "It's a WATER-type starter!"
+}
+
+text Route2_Text_ReceivedRandomStarter {
+    "{PLAYER} received the POKéMON\n"
+    "from the PROFESSOR!"
+}
+
+text Route2_Text_NoRoomForStarter {
+    "Oh dear! You don't have room in\n"
+    "your party for this POKéMON.\p"
+    "Please come back after making\n"
+    "some space."
+}
+
+text Route2_Text_DeclinedRandomStarter {
+    "I understand. Choosing a partner\n"
+    "is an important decision.\p"
+    "Take your time. I'll be here if\n"
+    "you change your mind."
+}
+
+text Route2_Text_AfterRandomStarter {
+    "How is your POKéMON doing?\p"
+    "The bond between TRAINER and\n"
+    "POKéMON is truly special.\p"
+    "Sometimes the best partnerships\n"
+    "are formed by chance!"
+}
+
 text Route2_Text_WantTreecko {
     "Hi there! I'm a POKéMON researcher\n"
     "from the HOENN region.\p"

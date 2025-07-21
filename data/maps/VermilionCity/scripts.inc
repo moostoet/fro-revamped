@@ -666,8 +666,273 @@ Verm_ThunderStone::
 	end
 
 
+Vermilion_GiveRandomKantoStarter::
+# 349 "data/maps/VermilionCity/scripts.pory"
+	lock
+# 350 "data/maps/VermilionCity/scripts.pory"
+	faceplayer
+# 351 "data/maps/VermilionCity/scripts.pory"
+	goto_if_set FLAG_RECEIVED_SQUIRTLE, Vermilion_GiveRandomKantoStarter_2
+# 357 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_WantRandomStarter, MSGBOX_YESNO
+# 358 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, YES
+	goto_if_eq Vermilion_GiveRandomKantoStarter_5
+# 397 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_DeclinedRandomStarter, MSGBOX_DEFAULT
+Vermilion_GiveRandomKantoStarter_4:
+# 399 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+Vermilion_GiveRandomKantoStarter_2:
+# 352 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_AfterRandomStarter
+# 353 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+Vermilion_GiveRandomKantoStarter_5:
+# 359 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_ChoosingStarter, MSGBOX_DEFAULT
+# 360 "data/maps/VermilionCity/scripts.pory"
+	random 3
+# 362 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Vermilion_GiveRandomKantoStarter_8
+# 373 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Vermilion_GiveRandomKantoStarter_9
+# 385 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_ChoseCharmander, MSGBOX_DEFAULT
+# 386 "data/maps/VermilionCity/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_CHARMANDER
+# 387 "data/maps/VermilionCity/scripts.pory"
+	givemon SPECIES_CHARMANDER, 15
+# 388 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Vermilion_GiveRandomKantoStarter_23
+# 390 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Vermilion_GiveRandomKantoStarter_24
+# 393 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_NoRoomForStarter, MSGBOX_DEFAULT
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_8:
+# 363 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_ChoseSquirtle, MSGBOX_DEFAULT
+# 364 "data/maps/VermilionCity/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_SQUIRTLE
+# 365 "data/maps/VermilionCity/scripts.pory"
+	givemon SPECIES_SQUIRTLE, 15
+# 366 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Vermilion_GiveRandomKantoStarter_13
+# 368 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Vermilion_GiveRandomKantoStarter_14
+# 371 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_NoRoomForStarter, MSGBOX_DEFAULT
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_9:
+# 374 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_ChoseBulbasaur, MSGBOX_DEFAULT
+# 375 "data/maps/VermilionCity/scripts.pory"
+	setvar VAR_TEMP_1, SPECIES_BULBASAUR
+# 376 "data/maps/VermilionCity/scripts.pory"
+	givemon SPECIES_BULBASAUR, 15
+# 377 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq Vermilion_GiveRandomKantoStarter_18
+# 379 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq Vermilion_GiveRandomKantoStarter_19
+# 382 "data/maps/VermilionCity/scripts.pory"
+	msgbox VermilionCity_Text_NoRoomForStarter, MSGBOX_DEFAULT
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_13:
+# 367 "data/maps/VermilionCity/scripts.pory"
+	goto GiveRandomKantoStarter_Party
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_14:
+# 369 "data/maps/VermilionCity/scripts.pory"
+	goto GiveRandomKantoStarter_PC
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_18:
+# 378 "data/maps/VermilionCity/scripts.pory"
+	goto GiveRandomKantoStarter_Party
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_19:
+# 380 "data/maps/VermilionCity/scripts.pory"
+	goto GiveRandomKantoStarter_PC
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_23:
+# 389 "data/maps/VermilionCity/scripts.pory"
+	goto GiveRandomKantoStarter_Party
+	goto Vermilion_GiveRandomKantoStarter_4
+
+Vermilion_GiveRandomKantoStarter_24:
+# 391 "data/maps/VermilionCity/scripts.pory"
+	goto GiveRandomKantoStarter_PC
+	goto Vermilion_GiveRandomKantoStarter_4
+
+
+GiveRandomKantoStarter_Party::
+# 404 "data/maps/VermilionCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 405 "data/maps/VermilionCity/scripts.pory"
+	message VermilionCity_Text_ReceivedRandomStarter
+# 406 "data/maps/VermilionCity/scripts.pory"
+	waitmessage
+# 407 "data/maps/VermilionCity/scripts.pory"
+	waitfanfare
+# 409 "data/maps/VermilionCity/scripts.pory"
+	copyvar VAR_0x8004, VAR_TEMP_1
+# 410 "data/maps/VermilionCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+# 411 "data/maps/VermilionCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 412 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveRandomKantoStarter_Party_1
+# 417 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_GetGiftMonPartySlot
+# 418 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_ChangePokemonNickname
+# 419 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 420 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+GiveRandomKantoStarter_Party_1:
+# 413 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 414 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+
+GiveRandomKantoStarter_PC::
+# 426 "data/maps/VermilionCity/scripts.pory"
+	playfanfare MUS_LEVEL_UP
+# 427 "data/maps/VermilionCity/scripts.pory"
+	message VermilionCity_Text_ReceivedRandomStarter
+# 428 "data/maps/VermilionCity/scripts.pory"
+	waitmessage
+# 429 "data/maps/VermilionCity/scripts.pory"
+	waitfanfare
+# 431 "data/maps/VermilionCity/scripts.pory"
+	copyvar VAR_0x8004, VAR_TEMP_1
+# 432 "data/maps/VermilionCity/scripts.pory"
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+# 433 "data/maps/VermilionCity/scripts.pory"
+	msgbox Text_GiveNickNameToThisMon, MSGBOX_YESNO
+# 434 "data/maps/VermilionCity/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq GiveRandomKantoStarter_PC_1
+# 440 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_NameReceivedBoxMon
+# 441 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 442 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 443 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+GiveRandomKantoStarter_PC_1:
+# 435 "data/maps/VermilionCity/scripts.pory"
+	call EventScript_TransferredToPC
+# 436 "data/maps/VermilionCity/scripts.pory"
+	setflag FLAG_RECEIVED_SQUIRTLE
+# 437 "data/maps/VermilionCity/scripts.pory"
+	release
+	end
+
+
+VermilionCity_Text_WantRandomStarter::
+# 448 "data/maps/VermilionCity/scripts.pory"
+	.string "Ah, bonjour! I'm a chef waiting to\n"
+	.string "start my new job on the S.S. AQUA.\p"
+	.string "The S.S. ANNE was magnificent, but\n"
+	.string "it has already departed...\p"
+	.string "While waiting, I've been trying to\n"
+	.string "train three POKéMON as kitchen help.\p"
+	.string "But they all seem more interested\n"
+	.string "in battling than cooking!\p"
+	.string "Would you like me to give you one?\n"
+	.string "I'll let fate decide which one!$"
+
+VermilionCity_Text_ChoosingStarter::
+# 461 "data/maps/VermilionCity/scripts.pory"
+	.string "Très bien! Let me close my eyes\n"
+	.string "and reach for a POKéBALL...\p"
+	.string "Like selecting the perfect ingredient\n"
+	.string "by instinct alone!$"
+
+VermilionCity_Text_ChoseSquirtle::
+# 468 "data/maps/VermilionCity/scripts.pory"
+	.string "Ah! C'est SQUIRTLE!\p"
+	.string "The TINY TURTLE POKéMON! This\n"
+	.string "WATER-type is my personal favorite.\p"
+	.string "I tried to teach it to wash dishes,\n"
+	.string "but it prefers using WATER GUN!$"
+
+VermilionCity_Text_ChoseBulbasaur::
+# 476 "data/maps/VermilionCity/scripts.pory"
+	.string "Oh! C'est BULBASAUR!\p"
+	.string "The SEED POKéMON! This GRASS and\n"
+	.string "POISON-type has excellent taste.\p"
+	.string "I hoped it would help with herbs,\n"
+	.string "but it's more of a battler!$"
+
+VermilionCity_Text_ChoseCharmander::
+# 484 "data/maps/VermilionCity/scripts.pory"
+	.string "Voilà! C'est CHARMANDER!\p"
+	.string "The LIZARD POKéMON! This FIRE-type\n"
+	.string "would have been perfect for cooking!\p"
+	.string "But its flame is meant for battle,\n"
+	.string "not flambé!$"
+
+VermilionCity_Text_ReceivedRandomStarter::
+# 492 "data/maps/VermilionCity/scripts.pory"
+	.string "{PLAYER} received the POKéMON\n"
+	.string "from the chef!$"
+
+VermilionCity_Text_NoRoomForStarter::
+# 497 "data/maps/VermilionCity/scripts.pory"
+	.string "Oh non! Your party is as full as\n"
+	.string "a satisfied restaurant guest!\p"
+	.string "Please make some room and return\n"
+	.string "for this POKéMON.$"
+
+VermilionCity_Text_DeclinedRandomStarter::
+# 504 "data/maps/VermilionCity/scripts.pory"
+	.string "Non? Perhaps another time then.\p"
+	.string "I'll keep trying to train them\n"
+	.string "in the culinary arts...\p"
+	.string "Though I suspect they'll never\n"
+	.string "master even a simple soufflé!$"
+
+VermilionCity_Text_AfterRandomStarter::
+# 512 "data/maps/VermilionCity/scripts.pory"
+	.string "How is your POKéMON doing?\n"
+	.string "Growing strong, I hope!\p"
+	.string "Sometimes the best recipes come\n"
+	.string "from unexpected combinations...\p"
+	.string "Just like the best partnerships\n"
+	.string "come from chance encounters!$"
+
 VermilionCity_Text_WantSquirtle::
-# 348 "data/maps/VermilionCity/scripts.pory"
+# 521 "data/maps/VermilionCity/scripts.pory"
 	.string "Ah, bonjour! I'm a chef waiting to\n"
 	.string "start my new job on the S.S. AQUA.\p"
 	.string "The S.S. ANNE was magnificent, but\n"
@@ -681,32 +946,32 @@ VermilionCity_Text_WantSquirtle::
 	.string "with you on your journey instead?$"
 
 VermilionCity_Text_HereIsSquirtle::
-# 362 "data/maps/VermilionCity/scripts.pory"
+# 535 "data/maps/VermilionCity/scripts.pory"
 	.string "Magnifique! SQUIRTLE will make a\n"
 	.string "wonderful partner for you!\p"
 	.string "It may not have become a chef, but\n"
 	.string "I'm sure it will become strong!$"
 
 VermilionCity_Text_ReceivedSquirtle::
-# 369 "data/maps/VermilionCity/scripts.pory"
+# 542 "data/maps/VermilionCity/scripts.pory"
 	.string "{PLAYER} received SQUIRTLE\n"
 	.string "from the chef!$"
 
 VermilionCity_Text_NoRoomForSquirtle::
-# 374 "data/maps/VermilionCity/scripts.pory"
+# 547 "data/maps/VermilionCity/scripts.pory"
 	.string "Oh non! Your party appears to be\n"
 	.string "full at the moment.\p"
 	.string "Please make some room and return\n"
 	.string "for SQUIRTLE.$"
 
 VermilionCity_Text_DeclinedSquirtle::
-# 381 "data/maps/VermilionCity/scripts.pory"
+# 554 "data/maps/VermilionCity/scripts.pory"
 	.string "Non? That is too bad...\p"
 	.string "I will keep trying to teach it\n"
 	.string "the culinary arts then!$"
 
 VermilionCity_Text_AfterSquirtle::
-# 387 "data/maps/VermilionCity/scripts.pory"
+# 560 "data/maps/VermilionCity/scripts.pory"
 	.string "The S.S. AQUA will be magnificent\n"
 	.string "when it finally arrives!\p"
 	.string "But I'm happy SQUIRTLE found its\n"
